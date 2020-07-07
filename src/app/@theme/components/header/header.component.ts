@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
-
-import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { RippleService } from '../../../@core/utils/ripple.service';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../store';
 
 @Component({
   selector: 'ngx-header',
@@ -13,11 +13,12 @@ import { RippleService } from '../../../@core/utils/ripple.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-
   private destroy$: Subject<void> = new Subject<void>();
   public readonly materialTheme$: Observable<boolean>;
   userPictureOnly: boolean = false;
-  user: any;
+
+  tenant$: Observable<string>;
+  username$: Observable<string>;
 
   themes = [
     {
@@ -48,40 +49,45 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+  userMenu = [
+    { title: 'Settings', icon: 'settings' },
+    { title: 'Log out', icon: 'log-out' },
+  ];
 
   public constructor(
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
-    private userService: UserData,
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
+    private store: Store<fromRoot.State>,
   ) {
-    this.materialTheme$ = this.themeService.onThemeChange()
-      .pipe(map(theme => {
+    this.materialTheme$ = this.themeService.onThemeChange().pipe(
+      map(theme => {
         const themeName: string = theme?.name || '';
         return themeName.startsWith('material');
-      }));
+      }),
+    );
   }
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
 
-    this.userService.getUsers()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => this.user = users.nick);
+    this.tenant$ = this.store.select(fromRoot.getTenant);
+    this.username$ = this.store.select(fromRoot.getUsername);
 
     const { xl } = this.breakpointService.getBreakpointsMap();
-    this.themeService.onMediaQueryChange()
+    this.themeService
+      .onMediaQueryChange()
       .pipe(
         map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
         takeUntil(this.destroy$),
       )
-      .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
+      .subscribe((isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl));
 
-    this.themeService.onThemeChange()
+    this.themeService
+      .onThemeChange()
       .pipe(
         map(({ name }) => name),
         takeUntil(this.destroy$),

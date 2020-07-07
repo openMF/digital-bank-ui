@@ -9,10 +9,10 @@
   align-items: center;
 
   .socials {
-    font-size: 2rem;
+    font-size: 1rem;
 
     a {
-      padding: 0.4rem;
+      padding: 0.3rem;
       color: nb-theme(text-hint-color);
       transition: color ease-out 0.1s;
 
@@ -24,7 +24,7 @@
 
   @include media-breakpoint-down(is) {
     .socials {
-      font-size: 1.5rem;
+      font-size: 1rem;
     }
   }
 }

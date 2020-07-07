@@ -13,5 +13,10 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+platformBrowserDynamic([
+  { provide: 'tokenExpiryBuffer', useValue: 1000 * 60 },
+  { provide: 'cacheExpiry', useValue: 10000 },
+  { provide: 'identityBaseUrl', useValue: '/identity/v1' },
+])
+  .bootstrapModule(AppModule)
   .catch(err => console.error(err));
