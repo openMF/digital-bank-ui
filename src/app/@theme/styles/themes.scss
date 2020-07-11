@@ -7,7 +7,15 @@
 @import './material/material-light';
 
 $nb-themes: nb-register-theme((
-  layout-padding-top: 2.25rem,
+  layout-padding-top: 2rem,
+  layout-background-color: white,
+  layout-text-font-size: 0.7rem,
+  layout-window-mode-padding-top: 3.75rem,
+  layout-scrollbar-width: 0.3rem,
+
+  header-height: 3.75rem,
+  header-padding: 1rem,
+  header-text-font-size: 0.7rem,
 
   menu-item-icon-margin: 0 0.5rem 0 0,
 

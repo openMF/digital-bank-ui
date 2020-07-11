@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationEvent, NotificationService, NotificationType } from '../services/notification/notification.service';
 import { HttpClientService } from '../services/http/http.service';
-import { TdDialogService } from '@covalent/core/dialogs';
 import { Subscription } from 'rxjs';
-import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef } from '@angular/material/snack-bar';
+import { NbToastrService, NbComponentStatus } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-notification',
@@ -16,16 +15,12 @@ export class NotificationComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private notificationService: NotificationService,
     private httpClient: HttpClientService,
-    private snackBar: MatSnackBar,
-    private viewContainerRef: ViewContainerRef,
-    private dialogService: TdDialogService,
+    private toastrService: NbToastrService,
   ) {}
 
   ngOnInit(): void {
-    const config: MatSnackBarConfig = new MatSnackBarConfig();
-    config.viewContainerRef = this.viewContainerRef;
     this.notificationSubscription = this.notificationService.notifications$.subscribe((notification: NotificationEvent) =>
-      this.showNotification(notification, config),
+      this.showNotification(notification),
     );
   }
 
@@ -38,10 +33,10 @@ export class NotificationComponent implements OnInit, OnDestroy, AfterViewInit {
     this.errorSubscription = this.httpClient.error.subscribe((error: any) => this.showError(error));
   }
 
-  private showNotification(notification: NotificationEvent, config: MatSnackBarConfig): void {
+  private showNotification(notification: NotificationEvent): void {
     switch (notification.type) {
       case NotificationType.MESSAGE:
-        this.showMessage(notification.message, config);
+        this.showMessage('Message', notification.message);
         break;
       case NotificationType.ALERT:
         this.showAlert(notification.title, notification.message);
@@ -74,18 +69,13 @@ export class NotificationComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  private showMessage(message: string, config: MatSnackBarConfig): void {
-    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(message, '', config);
-    setTimeout(() => snackBarRef.dismiss(), 3000);
+  private showMessage(title: string = '', message: string): void {
+    this.toastrService.show(message, title);
   }
 
   private showAlert(title: string = '', message: string): void {
-    const closeText = 'OK';
-    this.dialogService.openAlert({
-      message: message,
-      viewContainerRef: this.viewContainerRef,
-      title: title,
-      closeButton: closeText,
-    });
+    const status: NbComponentStatus = 'warning';
+    const duration: number = 0;
+    this.toastrService.show(message, title, { status, duration });
   }
 }

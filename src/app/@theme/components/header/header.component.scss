@@ -38,13 +38,13 @@
       text-decoration: none;
       color: nb-theme(text-hint-color);
       nb-icon {
-        font-size: 1.5rem;
+        font-size: 1rem;
       }
     }
 
     .logo {
       padding: 0 1rem;
-      font-size: 1.5rem;
+      font-size: 1rem;
       @include nb-ltr(border-left, 1px solid nb-theme(divider-color));
       @include nb-rtl(border-right, 1px solid nb-theme(divider-color));
       white-space: nowrap;
