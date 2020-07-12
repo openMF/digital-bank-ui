@@ -10,10 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CovalentDialogsModule } from '@covalent/core/dialogs';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [MainRoutingModule, ThemeModule, NbMenuModule, MatButtonModule, MatIconModule, MatSnackBarModule, CovalentDialogsModule],
-  declarations: [MainComponent, AccessDeniedComponent, NotificationComponent],
+  declarations: [MainComponent, AccessDeniedComponent, NotificationComponent, DashboardComponent],
   providers: [mainRoutingProviders],
 })
 export class MainModule {}

@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentTheme = 'default';
 
   userMenu = [
-    { title: 'Settings', icon: 'settings' },
+    { title: 'Settings', icon: 'settings-outline' },
     { title: 'Log out', icon: 'log-out' },
   ];
 

@@ -19,9 +19,10 @@ import { SecurityRouteEffects } from './store/security/effects/route.effects';
 import { SecurityApiEffects } from './store/security/effects/service.effects';
 import { SecurityNotificationEffects } from './store/security/effects/notification.effects';
 import { NbDatepickerModule, NbDialogModule, NbMenuModule, NbSidebarModule, NbToastrModule, NbWindowModule } from '@nebular/theme';
+import { RolesComponent } from './roles/roles.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, RolesComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
