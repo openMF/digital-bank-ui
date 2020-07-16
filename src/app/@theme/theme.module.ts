@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { MatRippleModule } from '@angular/material/core';
 import {
   NbActionsModule,
@@ -76,7 +77,7 @@ const PIPES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, MatRippleModule, ...NB_MODULES],
+  imports: [RouterModule, CommonModule, MatRippleModule, ...NB_MODULES],
   exports: [CommonModule, MatRippleModule, ...PIPES, ...COMPONENTS],
   declarations: [...COMPONENTS, ...PIPES],
 })

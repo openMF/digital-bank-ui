@@ -1,38 +1,61 @@
 <nb-layout>
-  <nb-layout-column>
-    <div class="row">
-      <div class="col-md-6">
-        <nb-card>
-          <nb-card-header>Login</nb-card-header>
-          <nb-card-body>
-            <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="login()">
-              <div class="form-group row">
-                <label for="tenant" class="label col-sm-3 form-control-label">Tenant</label>
-                <div class="col-sm-9">
-                  <input nbInput fullWidth id="tenant" placeholder="Tenant" formControlName="tenant">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="username" class="label col-sm-3 form-control-label">Username</label>
-                <div class="col-sm-9">
-                  <input nbInput fullWidth id="username" placeholder="Username" formControlName="username">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="password" class="label col-sm-3 form-control-label">Password</label>
-                <div class="col-sm-9">
-                  <input type="password" nbInput fullWidth id="password" placeholder="Password" formControlName="password">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                  <button type="submit" nbButton status="warning">Sign in</button>
-                </div>
-              </div>
-            </form>
-          </nb-card-body>
-        </nb-card>
-      </div>
-    </div>
+
+  <nb-layout-column class="cover">
+    <div class="cover-content"></div>
   </nb-layout-column>
+
+  <nb-layout-column class="login-container">
+    <div class="row img-container">
+      <img src="../../assets/images/mifos-logo.png">
+      <img src="../../assets/images/apache-logo.png">
+      <img src="../../assets/images/apache-fineract-logo.png">
+    </div>
+
+    <nb-card class="login-form">
+      <nb-card-header>Sign in to your account</nb-card-header>
+      <nb-card-body>
+        <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="form-group row">
+            <label for="tenant" class="label col-sm-3 form-control-label">Tenant</label>
+            <div class="col-sm-9">
+              <input nbInput fullWidth id="tenant" placeholder="Tenant" formControlName="tenant">
+              <div *ngIf="tenant.invalid && (tenant.dirty || tenant.touched)">
+                <p *ngIf="loginForm.get('tenant').hasError('required')"
+                  class="caption status-danger ng-star-inserted"> Required</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="username" class="label col-sm-3 form-control-label">Username</label>
+            <div class="col-sm-9">
+              <input nbInput fullWidth id="username" placeholder="Username" formControlName="username">
+              <div *ngIf="username.invalid && (username.dirty || username.touched)">
+                <p *ngIf="loginForm.get('username').hasError('required')"
+                  class="caption status-danger ng-star-inserted"> Required</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="password" class="label col-sm-3 form-control-label">Password</label>
+            <div class="col-sm-9">
+              <input type="password" nbInput fullWidth id="password" placeholder="Password" formControlName="password">
+              <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                <p *ngIf="loginForm.get('password').hasError('required')"
+                  class="caption status-danger ng-star-inserted"> Required</p>
+              </div>
+            </div>
+          </div>
+          <span class="row" *ngIf="error$ | async as error">
+            <p class="caption status-danger ng-star-inserted">{{error}}</p>
+          </span>
+          <div class="form-group row">
+            <div class="offset-sm-3 col-sm-9">
+              <button type="submit" nbButton [disabled]="!loginForm.valid">Sign in</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+
 </nb-layout>
