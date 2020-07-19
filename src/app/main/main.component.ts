@@ -89,6 +89,6 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   goToSettings(): void {
-    this.router.navigate(['/user']);
+    this.router.navigate(['/settings']);
   }
 }

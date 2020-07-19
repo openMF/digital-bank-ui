@@ -1,8 +1,10 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { NotificationEvent, NotificationService, NotificationType } from '../services/notification/notification.service';
-import { HttpClientService } from '../services/http/http.service';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NbToastrService, NbComponentStatus } from '@nebular/theme';
+import { NbToastrService } from '@nebular/theme';
+import { TdDialogService } from '@covalent/core/dialogs';
+
+import { NotificationEvent, NotificationService, NotificationType } from '../../services/notification/notification.service';
+import { HttpClientService } from '../../services/http/http.service';
 
 @Component({
   selector: 'ngx-notification',
@@ -16,6 +18,8 @@ export class NotificationComponent implements OnInit, OnDestroy, AfterViewInit {
     private notificationService: NotificationService,
     private httpClient: HttpClientService,
     private toastrService: NbToastrService,
+    private dialogService: TdDialogService,
+    private viewContainerRef: ViewContainerRef,
   ) {}
 
   ngOnInit(): void {
@@ -74,8 +78,11 @@ export class NotificationComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private showAlert(title: string = '', message: string): void {
-    const status: NbComponentStatus = 'warning';
-    const duration: number = 0;
-    this.toastrService.show(message, title, { status, duration });
+    this.dialogService.openAlert({
+      message: message,
+      viewContainerRef: this.viewContainerRef,
+      title: title,
+      closeButton: 'OK',
+    });
   }
 }

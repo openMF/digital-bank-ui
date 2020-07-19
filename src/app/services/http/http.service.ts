@@ -1,7 +1,7 @@
 import { throwError as observableThrowError, Observable, Subject } from 'rxjs';
 import { finalize, catchError, mergeMap, map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store';
 import { LOGOUT } from '../../store/security/security.actions';
@@ -55,19 +55,20 @@ export class HttpClientService {
       'User': username,
       'Authorization': accessToken,
     });
-
     if (!(body instanceof FormData)) {
       headers = headers.set('Accept', 'application/json').set('Content-Type', 'application/json');
     }
 
-    const requestOptions: any = {
-      method: method,
-      url: url,
+    const optionsObject = {
       body: body,
       headers: headers,
       ...options,
     };
-
+    const requestOptions: any = {
+      method: method,
+      url: url,
+      options: optionsObject,
+    };
     return requestOptions;
   }
 
@@ -78,30 +79,28 @@ export class HttpClientService {
       mergeMap(requestOptions => {
         this.process.next(Action.QueryStart);
 
-        const request: Observable<any> = this.http
-          .request(new HttpRequest(requestOptions.method, requestOptions.url, requestOptions.body, { headers: requestOptions.headers }))
-          .pipe(
-            catchError((err: any) => {
-              const error = err.json();
-              if (silent) {
-                return observableThrowError(error);
-              }
+        const request: Observable<any> = this.http.request(requestOptions.method, requestOptions.url, requestOptions.options).pipe(
+          catchError((err: any) => {
+            const error = err.json();
+            if (silent) {
+              return observableThrowError(error);
+            }
 
-              switch (error.status) {
-                case 409:
-                  return observableThrowError(error);
-                case 401:
-                case 403:
-                  this.store.dispatch({ type: LOGOUT });
-                  return observableThrowError('User is not authenticated');
-                default:
-                  console.error('Error', error);
-                  this.error.next(error);
-                  return observableThrowError(error);
-              }
-            }),
-            finalize(() => this.process.next(Action.QueryStop)),
-          );
+            switch (error.status) {
+              case 409:
+                return observableThrowError(error);
+              case 401:
+              case 403:
+                this.store.dispatch({ type: LOGOUT });
+                return observableThrowError('User is not authenticated');
+              default:
+                console.error('Error', error);
+                this.error.next(error);
+                return observableThrowError(error);
+            }
+          }),
+          finalize(() => this.process.next(Action.QueryStop)),
+        );
         return request;
       }),
     );

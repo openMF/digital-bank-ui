@@ -1,19 +1,36 @@
+/** ngrx Imports */
 import { ActionReducer, combineReducers, createSelector } from '@ngrx/store';
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { compose } from '@ngrx/store';
 
+/** Custom Reducers */
 import * as fromAuthentication from './security/authentication.reducer';
 import * as fromAuthorization from './security/authorization.reducer';
-import * as authenticationActions from './security/security.actions';
-import { compose } from '@ngrx/store';
-import { localStorageSync } from 'ngrx-store-localstorage';
+import {
+  createSearchReducer,
+  getSearchEntities,
+  getSearchLoading,
+  getSearchTotalElements,
+  getSearchTotalPages,
+  SearchState,
+} from '../common/store/search.reducer';
 
+/** Custom Actions */
+import * as authenticationActions from './security/security.actions';
+
+/**
+ * Root State
+ */
 export interface State {
   authentication: fromAuthentication.State;
   authorization: fromAuthorization.State;
+  roleSearch: SearchState;
 }
 
 export const reducers = {
   authentication: fromAuthentication.reducer,
   authorization: fromAuthorization.reducer,
+  roleSearch: createSearchReducer('Role'),
 };
 
 export function createReducer(asyncReducers = {}): ActionReducer<any> {
@@ -34,13 +51,39 @@ export function createReducer(asyncReducers = {}): ActionReducer<any> {
   };
 }
 
-export const productionReducer: ActionReducer<State> = createReducer();
+export const productionReducer: ActionReducer<any> = createReducer();
 
 export function reducer(state: any, action: any) {
   return productionReducer(state, action);
 }
 
-export const getAuthenticationState = state => state.state.authentication;
+/**
+ * Role Search Selectors
+ */
+export const getRoleSearchState = (state: any) => state.root.roleSearch;
+
+export const getSearchRoles = createSelector(getRoleSearchState, getSearchEntities);
+export const getRoleSearchTotalElements = createSelector(getRoleSearchState, getSearchTotalElements);
+export const getRoleSearchTotalPages = createSelector(getRoleSearchState, getSearchTotalPages);
+export const getRoleSearchLoading = createSelector(getRoleSearchState, getSearchLoading);
+
+export const getRoleSearchResults = createSelector(
+  getSearchRoles,
+  getRoleSearchTotalPages,
+  getRoleSearchTotalElements,
+  (roles, totalPages, totalElements) => {
+    return {
+      roles: roles,
+      totalPages: totalPages,
+      totalElements: totalElements,
+    };
+  },
+);
+
+/**
+ * Authentication Selectors
+ */
+export const getAuthenticationState = (state: any) => state.root.authentication;
 
 export const getAuthentication = createSelector(getAuthenticationState, fromAuthentication.getAuthentication);
 export const getAuthenticationError = createSelector(getAuthenticationState, fromAuthentication.getError);
@@ -49,7 +92,10 @@ export const getUsername = createSelector(getAuthenticationState, fromAuthentica
 export const getTenant = createSelector(getAuthenticationState, fromAuthentication.getTenant);
 export const getPasswordError = createSelector(getAuthenticationState, fromAuthentication.getPasswordError);
 
-export const getAuthorizationState = state => state.authorization;
+/**
+ * Authorization Selectors
+ */
+export const getAuthorizationState = (state: any) => state.root.authorization;
 
 export const getPermissions = createSelector(getAuthorizationState, fromAuthorization.getPermissions);
 
