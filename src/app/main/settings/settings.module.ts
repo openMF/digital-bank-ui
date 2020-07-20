@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PasswordComponent } from './password.component';
-import { UserRoutingModule } from './user-routing.module';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { SettingsRoutingModule } from './settings-routing.module';
 import { NbButtonModule, NbCardModule, NbLayoutModule, NbInputModule } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [PasswordComponent],
+  declarations: [ChangePasswordComponent],
   imports: [
-    UserRoutingModule,
+    SettingsRoutingModule,
     CommonModule,
     NbCardModule,
     FormsModule,
@@ -19,4 +19,4 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
 })
-export class UserModule {}
+export class SettingsModule {}

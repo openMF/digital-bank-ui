@@ -1,19 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FimsValidators } from '../common/validator/validators';
 import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import * as fromRoot from '../store';
-import { CHANGE_PASSWORD } from '../store/security/security.actions';
 import { filter } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../../store';
+import { FimsValidators } from '../../../common/validator/validators';
+import { CHANGE_PASSWORD } from '../../../store/security/security.actions';
 
 @Component({
   selector: 'ngx-password',
-  templateUrl: './password.component.html',
-  styleUrls: ['./password.component.scss'],
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.scss'],
 })
-export class PasswordComponent implements OnInit, OnDestroy {
+export class ChangePasswordComponent implements OnInit, OnDestroy {
   private usernameSubscription: Subscription;
 
   private passwordErrorSubscription: Subscription;

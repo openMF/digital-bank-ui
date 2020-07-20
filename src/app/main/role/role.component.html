@@ -1,0 +1,7 @@
+<ng2-smart-table *ngIf="!loading" [settings]="settings" [source]="source" (delete)="onRoleDelete($event)"
+  (edit)="onRoleEdit($event)" (create)="onRoleCreate($event)" (userRowSelect)="onRoleRowSelect($event)">
+</ng2-smart-table>
+
+<div style="padding: 20%;text-align:center;" *ngIf="loading">
+  <p>Fetching results...</p>
+</div>

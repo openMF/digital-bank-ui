@@ -1,0 +1,139 @@
+/** Angular Imports */
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LocalDataSource } from 'ng2-smart-table';
+
+/** rxjs Imports */
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+/** ngrx Store Imports */
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../store';
+import { SEARCH } from '../../store/role/role.actions';
+
+/** Covalent Dialog Service */
+import { TdDialogService } from '@covalent/core/dialogs';
+
+/** Custom imports */
+import { Role } from '../../services/identity/domain/role.model';
+// import { DELETE, SelectAction } from './store/role.actions';
+
+/**
+ * Roles component.
+ */
+@Component({
+  selector: 'ngx-roles',
+  templateUrl: './role.component.html',
+  styleUrls: ['./role.component.scss'],
+})
+export class RoleComponent implements OnInit {
+  /** Data source for table */
+  source: LocalDataSource = new LocalDataSource();
+
+  /** Roles data */
+  rolesData: {
+    roles: any;
+    totalPages: number;
+    totalElements: number;
+  };
+
+  /** Loading property  */
+  loading: any;
+
+  /** Settings for smart-table */
+  settings = {
+    add: {
+      addButtonContent: '<i class="nb-plus"></i>',
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+    },
+    columns: {
+      identifier: {
+        title: 'ID',
+      },
+    },
+    mode: 'external',
+    pager: {
+      display: false,
+    },
+  };
+
+  constructor(
+    // private router: Router,
+    // private route: ActivatedRoute,
+    private store: Store<fromRoot.State>,
+    private dialogService: TdDialogService,
+  ) {}
+
+  /**
+   * Dispatch search action.
+   * Gets roles search data.
+   */
+  ngOnInit(): void {
+    this.store.dispatch({ type: SEARCH });
+    this.store.select(fromRoot.getRoleSearchLoading).subscribe(loading => (this.loading = loading));
+    this.store.select(fromRoot.getRoleSearchResults).subscribe(rolesData => this.setRolesData(rolesData));
+  }
+
+  setRolesData(rolesData: any) {
+    this.rolesData = rolesData;
+    this.source.load(rolesData.roles);
+  }
+
+  onRoleRowSelect(event: any): void {
+    this.rowSelect(event.data);
+  }
+
+  rowSelect(role: Role): void {
+    // console.log('rowselect');
+    // this.router.navigate(['detail', role.identifier], { relativeTo: this.route });
+  }
+
+  onRoleCreate(event: any): void {
+    // console.log(event);
+    // console.log('edit confirm');
+  }
+
+  onRoleEdit(event: any): void {
+    // console.log(event);
+    // console.log('edit confirm');
+  }
+
+  onRoleDelete(event: any): void {
+    this.deleteRole(event.data);
+  }
+
+  deleteRole(role: Role): void {
+    this.confirmDeletion()
+      .pipe(filter(accept => accept))
+      .subscribe(() => {
+        // console.log('deleted');
+        // this.store.dispatch({
+        //   type: DELETE,
+        //   payload: {
+        //     role,
+        //     activatedRoute: this.route,
+        //   },
+        // });
+      });
+  }
+
+  confirmDeletion(): Observable<boolean> {
+    return this.dialogService
+      .openConfirm({
+        message: 'Do you want to delete this role?',
+        title: 'Confirm deletion',
+        acceptButton: 'DELETE ROLE',
+      })
+      .afterClosed();
+  }
+
+  get hasData(): boolean {
+    return this.rolesData && this.rolesData.roles && this.rolesData.roles.length > 0;
+  }
+}

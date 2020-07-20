@@ -1,8 +1,9 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MainComponent } from './main.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChangePasswordGuard } from '../services/security/change.password.service';
-import { AccessDeniedComponent } from './access.denied.component';
+import { AccessDeniedComponent } from './access-denied/access.denied.component';
 import { PermissionGuard } from '../services/security/authz/permission.guard';
 
 const routes: Routes = [
@@ -10,15 +11,19 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     canActivateChild: [ChangePasswordGuard, PermissionGuard],
-    data: { title: 'Dashboard' },
     children: [
-      { path: 'user', loadChildren: () => import('./../user/user.module').then(m => m.UserModule) },
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
+      { path: 'users', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+      { path: 'offices', loadChildren: () => import('./office/office.module').then(m => m.OfficeModule) },
+      { path: 'roles', loadChildren: () => import('./role/role.module').then(m => m.RoleModule) },
       { path: 'denied', component: AccessDeniedComponent, data: { title: 'Not allowed' } },
     ],
   },
   {
     path: 'changePassword',
-    loadChildren: () => import('./../user/user.module').then(m => m.UserModule),
+    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
     data: { title: 'Change password' },
   },
 ];
