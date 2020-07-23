@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-sm-8">
+    <p>
+      <nb-icon icon="lock-outline">
+      </nb-icon> {{formPermission.label}}
+    </p>
+  </div>
+  <div class="col-sm-4 checkbox-align">
+    <nb-checkbox [(ngModel)]="formPermission.read">Read</nb-checkbox>
+    <nb-checkbox [(ngModel)]="formPermission.change">Change</nb-checkbox>
+    <nb-checkbox [(ngModel)]="formPermission.remove">Delete</nb-checkbox>
+  </div>
+</div>

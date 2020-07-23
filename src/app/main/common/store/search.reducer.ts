@@ -1,6 +1,5 @@
-import { Action, ActionReducer } from '@ngrx/store';
-import { FetchRequest } from '../../services/domain/paging/fetch-request.model';
-import { createSelector } from 'reselect';
+import { Action, ActionReducer, createSelector } from '@ngrx/store';
+import { FetchRequest } from '../../../services/domain/paging/fetch-request.model';
 
 export function emptySearchResult(): SearchResult {
   return {

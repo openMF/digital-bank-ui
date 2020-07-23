@@ -1,5 +1,5 @@
 import { Action, ActionReducer } from '@ngrx/store';
-import { Error } from '../../services/domain/error.model';
+import { Error } from '../../../services/domain/error.model';
 
 export interface FormState {
   error?: Error;

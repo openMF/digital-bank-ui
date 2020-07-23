@@ -5,11 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 /** Nebular Theme Imports */
-import { NbMenuModule } from '@nebular/theme';
+import { NbMenuModule, NbDialogModule } from '@nebular/theme';
 import { ThemeModule } from '../@theme/theme.module';
-
-/** Covalent Imports */
-import { CovalentDialogsModule } from '@covalent/core/dialogs';
 
 /** Custom Modules */
 import { MainRoutingModule } from './main-routing.module';
@@ -35,7 +32,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
-    CovalentDialogsModule,
+    NbDialogModule.forChild(),
   ],
   providers: [mainRoutingProviders],
 })

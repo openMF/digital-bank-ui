@@ -1,1 +1,52 @@
-<p>detail works!</p>
+<nb-card>
+  <nb-card-body>
+
+    <div class="search-action">
+      <label class="search-label" for="search">Search: &nbsp;</label>
+      <input nbInput [nbFilterInput]="dataSource" id="search" class="search-input">
+    </div>
+
+    <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
+
+      <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+      <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+
+      <ng-container [nbTreeGridColumnDef]="customColumn">
+        <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>
+          {{customColumn}}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+          <ngx-fs-icon [kind]="row.data.kind" [expanded]="row.expanded"></ngx-fs-icon>
+          {{row.data[customColumn]}}
+        </td>
+      </ng-container>
+
+      <ng-container *ngFor="let column of defaultColumns; let index = index" [nbTreeGridColumnDef]="column"
+        [showOn]="getShowOn(index)">
+        <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+          {{column}}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+          <div *ngIf="row.data[column]; else empty">
+            <ngx-fs-icon [cellData]="row.data[column]" [isCell]="true"></ngx-fs-icon>
+          </div>
+          <ng-template #empty>
+            -
+          </ng-template>
+        </td>
+      </ng-container>
+
+    </table>
+
+  </nb-card-body>
+</nb-card>
+
+<div class="row button-container">
+  <span (click)="deleteRole()">
+    <ngx-fab-button title="Delete role" icon="trash-2-outline" status="danger"
+      [permission]="{ id: 'identity_roles', accessLevel: 'DELETE'}"></ngx-fab-button>
+  </span>
+
+  <ngx-fab-button title="Edit role" icon="edit-outline" [link]="['edit']" status="basic"
+    [permission]="{ id: 'identity_roles', accessLevel: 'CHANGE'}"></ngx-fab-button>
+</div>

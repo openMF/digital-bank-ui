@@ -1,16 +1,28 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NbToastrService } from '@nebular/theme';
-import { TdDialogService } from '@covalent/core/dialogs';
-
+import { NbDialogService } from '@nebular/theme';
 import { NotificationEvent, NotificationService, NotificationType } from '../../services/notification/notification.service';
 import { HttpClientService } from '../../services/http/http.service';
 
 @Component({
   selector: 'ngx-notification',
-  template: '',
+  template: `
+    <ng-template #dialog let-data let-ref="dialogRef">
+      <nb-card>
+        <nb-card-header>{{ data.title }}</nb-card-header>
+        <nb-card-body>{{ data.body }}</nb-card-body>
+        <nb-card-footer>
+          <button nbButton matRipple (click)="ref.close()">OK</button>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
+  `,
 })
 export class NotificationComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('dialog')
+  private dialogTmp: TemplateRef<any>;
+
   private notificationSubscription: Subscription;
   private errorSubscription: Subscription;
 
@@ -18,8 +30,7 @@ export class NotificationComponent implements OnInit, OnDestroy, AfterViewInit {
     private notificationService: NotificationService,
     private httpClient: HttpClientService,
     private toastrService: NbToastrService,
-    private dialogService: TdDialogService,
-    private viewContainerRef: ViewContainerRef,
+    private dialogService: NbDialogService,
   ) {}
 
   ngOnInit(): void {
@@ -78,11 +89,11 @@ export class NotificationComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private showAlert(title: string = '', message: string): void {
-    this.dialogService.openAlert({
-      message: message,
-      viewContainerRef: this.viewContainerRef,
-      title: title,
-      closeButton: 'OK',
+    this.dialogService.open(this.dialogTmp, {
+      context: {
+        title: title,
+        body: message,
+      },
     });
   }
 }

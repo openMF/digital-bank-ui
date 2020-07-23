@@ -23,6 +23,10 @@ export class IdentityService {
     return this.http.put(this.baseUrl + '/users/' + id + '/password', password).pipe(catchError(Error.handleError));
   }
 
+  listUsers(): Observable<any> {
+    return this.http.get(this.baseUrl + '/users').pipe(catchError(Error.handleError));
+  }
+
   createUser(user: UserWithPassword): Observable<any> {
     user.password = IdentityService.encodePassword(user.password);
     return this.http.post(this.baseUrl + '/users', user).pipe(catchError(Error.handleError));

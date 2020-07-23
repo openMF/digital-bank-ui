@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { IdentityService } from '../../services/identity/identity.service';
 import { LoadAction } from './store/role.actions';
-import { ExistsGuardService } from '../../common/guards/exists-guard';
+import { ExistsGuardService } from '../common/guards/exists-guard';
 
 @Injectable()
 export class RoleExistsGuard implements CanActivate {

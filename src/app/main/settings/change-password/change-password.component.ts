@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store';
-import { FimsValidators } from '../../../common/validator/validators';
+import { FimsValidators } from '../../common/validator/validators';
 import { CHANGE_PASSWORD } from '../../../store/security/security.actions';
 
 @Component({

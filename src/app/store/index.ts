@@ -6,17 +6,11 @@ import { compose } from '@ngrx/store';
 /** Custom Reducers */
 import * as fromAuthentication from './security/authentication.reducer';
 import * as fromAuthorization from './security/authorization.reducer';
-import {
-  createSearchReducer,
-  getSearchEntities,
-  getSearchLoading,
-  getSearchTotalElements,
-  getSearchTotalPages,
-  SearchState,
-} from '../common/store/search.reducer';
 
 /** Custom Actions */
 import * as authenticationActions from './security/security.actions';
+
+export const rootFeatureKey = 'Root';
 
 /**
  * Root State
@@ -24,13 +18,14 @@ import * as authenticationActions from './security/security.actions';
 export interface State {
   authentication: fromAuthentication.State;
   authorization: fromAuthorization.State;
-  roleSearch: SearchState;
 }
 
+/**
+ * Root Reducers
+ */
 export const reducers = {
   authentication: fromAuthentication.reducer,
   authorization: fromAuthorization.reducer,
-  roleSearch: createSearchReducer('Role'),
 };
 
 export function createReducer(asyncReducers = {}): ActionReducer<any> {
@@ -58,32 +53,9 @@ export function reducer(state: any, action: any) {
 }
 
 /**
- * Role Search Selectors
- */
-export const getRoleSearchState = (state: any) => state.root.roleSearch;
-
-export const getSearchRoles = createSelector(getRoleSearchState, getSearchEntities);
-export const getRoleSearchTotalElements = createSelector(getRoleSearchState, getSearchTotalElements);
-export const getRoleSearchTotalPages = createSelector(getRoleSearchState, getSearchTotalPages);
-export const getRoleSearchLoading = createSelector(getRoleSearchState, getSearchLoading);
-
-export const getRoleSearchResults = createSelector(
-  getSearchRoles,
-  getRoleSearchTotalPages,
-  getRoleSearchTotalElements,
-  (roles, totalPages, totalElements) => {
-    return {
-      roles: roles,
-      totalPages: totalPages,
-      totalElements: totalElements,
-    };
-  },
-);
-
-/**
  * Authentication Selectors
  */
-export const getAuthenticationState = (state: any) => state.root.authentication;
+export const getAuthenticationState = (state: any) => state[rootFeatureKey].authentication;
 
 export const getAuthentication = createSelector(getAuthenticationState, fromAuthentication.getAuthentication);
 export const getAuthenticationError = createSelector(getAuthenticationState, fromAuthentication.getError);
@@ -95,7 +67,7 @@ export const getPasswordError = createSelector(getAuthenticationState, fromAuthe
 /**
  * Authorization Selectors
  */
-export const getAuthorizationState = (state: any) => state.root.authorization;
+export const getAuthorizationState = (state: any) => state[rootFeatureKey].authorization;
 
 export const getPermissions = createSelector(getAuthorizationState, fromAuthorization.getPermissions);
 

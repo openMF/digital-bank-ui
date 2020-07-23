@@ -20,7 +20,7 @@
             <div class="col-sm-9">
               <input nbInput fullWidth id="tenant" placeholder="Tenant" formControlName="tenant">
               <div *ngIf="tenant.invalid && (tenant.dirty || tenant.touched)">
-                <p *ngIf="loginForm.get('tenant').hasError('required')"
+                <p *ngIf="tenant.hasError('required')"
                   class="caption status-danger ng-star-inserted"> Required</p>
               </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="col-sm-9">
               <input nbInput fullWidth id="username" placeholder="Username" formControlName="username">
               <div *ngIf="username.invalid && (username.dirty || username.touched)">
-                <p *ngIf="loginForm.get('username').hasError('required')"
+                <p *ngIf="username.hasError('required')"
                   class="caption status-danger ng-star-inserted"> Required</p>
               </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="col-sm-9">
               <input type="password" nbInput fullWidth id="password" placeholder="Password" formControlName="password">
               <div *ngIf="password.invalid && (password.dirty || password.touched)">
-                <p *ngIf="loginForm.get('password').hasError('required')"
+                <p *ngIf="password.hasError('required')"
                   class="caption status-danger ng-star-inserted"> Required</p>
               </div>
             </div>
