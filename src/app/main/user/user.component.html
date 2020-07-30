@@ -1,1 +1,6 @@
-<p>users works!</p>
+<ng2-smart-table *ngIf="!loading" [settings]="settings" [source]="source">
+</ng2-smart-table>
+
+<div style="padding: 20%;text-align:center;" *ngIf="loading">
+  <p>Fetching results...</p>
+</div>

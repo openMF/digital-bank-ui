@@ -1,4 +1,4 @@
-import { type } from '../../../store/util';
+import { type } from '../../../../store/util';
 import {
   LoadAction,
   LoadActionPayload,

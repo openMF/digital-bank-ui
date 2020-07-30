@@ -1,0 +1,31 @@
+<nb-card>
+  <nb-card-header>{{title}}</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="detailForm">
+      <ngx-id-input [form]="detailForm" controlName="identifier" [readonly]="editMode"></ngx-id-input>
+    </form>
+    <br>
+
+    <div class="row">
+      <div class="col-sm-8"></div>
+      <div class="col-sm-4 checkbox-align">
+        <nb-checkbox [(ngModel)]="allRead">Read</nb-checkbox>
+        <nb-checkbox [(ngModel)]="allChange">Change</nb-checkbox>
+        <nb-checkbox [(ngModel)]="allRemove">Delete</nb-checkbox>
+      </div>
+    </div>
+
+    <ng-container *ngFor="let group of permissionGroups">
+      <p>{{group.groupId}}</p>
+      <ngx-permission-list-item *ngFor="let permission of group.formPermissions" [formPermission]="permission">
+      </ngx-permission-list-item>
+      <br>
+    </ng-container>
+
+    <div class="row button-align">
+      <button type="submit" nbButton [disabled]="!detailForm.valid" (click)="save()" status="primary">SAVE
+        ROLE</button>
+      <button (click)="cancel()" nbButton>CANCEL</button>
+    </div>
+  </nb-card-body>
+</nb-card>

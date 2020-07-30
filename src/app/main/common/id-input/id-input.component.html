@@ -1,0 +1,21 @@
+<div [formGroup]="form">
+  <input nbInput [id]="controlName" [placeholder]="placeholder" [formControlName]="controlName" [readonly]="readonly" />
+  <div
+    *ngIf="form.controls[controlName].invalid && (form.controls[controlName].dirty || form.controls[controlName].touched)">
+    <p *ngIf="form.controls[controlName].hasError('required')" class="caption status-danger ng-star-inserted">
+      Unique, Required
+    </p>
+    <p *ngIf="form.controls[controlName].hasError('minlength')" class="caption status-danger ng-star-inserted">
+      Must have at least {{form.controls[controlName].getError('minlength')['requiredLength']}} characters
+    </p>
+    <p *ngIf="form.controls[controlName].hasError('maxlength')" class="caption status-danger ng-star-inserted">
+      Only {{form.controls[controlName].getError('maxlength')['requiredLength']}} characters allowed.
+    </p>
+    <p *ngIf="form.controls[controlName].hasError('unique')" class="caption status-danger ng-star-inserted">
+      Please enter a different identifier.
+    </p>
+    <p *ngIf="form.controls[controlName].hasError('urlSafe')" class="caption status-danger ng-star-inserted">
+      Only alphabetic, decimal digits, - _ . * characters allowed
+    </p>
+  </div>
+</div>

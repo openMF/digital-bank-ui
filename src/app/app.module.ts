@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 /** Nebular Theme Imports */
-import { NbDatepickerModule, NbDialogModule, NbMenuModule, NbSidebarModule, NbToastrModule, NbWindowModule } from '@nebular/theme';
+import { NbDatepickerModule, NbMenuModule, NbSidebarModule, NbToastrModule, NbWindowModule } from '@nebular/theme';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -30,12 +30,12 @@ import { HttpClientService } from './services/http/http.service';
 import { IdentityService } from './services/identity/identity.service';
 import { AuthenticationService } from './services/security/authn/authentication.service';
 import { NotificationService } from './services/notification/notification.service';
+import { ExistsGuardService } from './main/common/guards/exists-guard';
 
 /** Custom Effects */
 import { SecurityRouteEffects } from './store/security/effects/route.effects';
 import { SecurityApiEffects } from './store/security/effects/service.effects';
 import { SecurityNotificationEffects } from './store/security/effects/notification.effects';
-import { RoleSearchApiEffects } from './store/role/effects/service.effects';
 
 /** App Routing Module */
 import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
@@ -55,16 +55,21 @@ import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
     NbDatepickerModule.forRoot(),
-    NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     NbEvaIconsModule,
 
     /** ngrx root modules */
-    StoreModule.forRoot({ root: reducer }),
-    EffectsModule.forRoot([SecurityApiEffects, SecurityRouteEffects, SecurityNotificationEffects, RoleSearchApiEffects]),
+    StoreModule.forRoot(
+      { Root: reducer },
+      {
+        runtimeChecks: {
+          strictActionImmutability: false,
+        },
+      },
+    ),
+    EffectsModule.forRoot([SecurityApiEffects, SecurityRouteEffects, SecurityNotificationEffects]),
 
-    // In a production build, disable the Store Devtools
     StoreDevtoolsModule.instrument({
       name: 'Digital bank',
     }),
@@ -75,6 +80,7 @@ import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
     PermittableGroupIdMapper,
     IdentityService,
     NotificationService,
+    ExistsGuardService,
     ...appRoutingProviders,
   ],
   bootstrap: [AppComponent],

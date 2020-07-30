@@ -6,7 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     component: UserComponent,
-    data: { title: 'Manage Employees', hasPermission: { id: 'office_employees', accessLevel: 'READ' } },
+    data: { title: 'Users', hasPermission: { id: 'identity_roles', accessLevel: 'READ' } },
   },
 ];
 

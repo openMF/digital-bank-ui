@@ -80,8 +80,7 @@ export class HttpClientService {
         this.process.next(Action.QueryStart);
 
         const request: Observable<any> = this.http.request(requestOptions.method, requestOptions.url, requestOptions.options).pipe(
-          catchError((err: any) => {
-            const error = err.json();
+          catchError((error: any) => {
             if (silent) {
               return observableThrowError(error);
             }

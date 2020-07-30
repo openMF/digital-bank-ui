@@ -1,5 +1,4 @@
-import { Action, ActionReducer } from '@ngrx/store';
-import { createSelector } from 'reselect';
+import { Action, ActionReducer, createSelector } from '@ngrx/store';
 import { RoutePayload } from './route-payload';
 
 export interface Resource {
