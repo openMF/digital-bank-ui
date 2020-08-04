@@ -23,7 +23,8 @@ export class IdentityService {
     return this.http.put(this.baseUrl + '/users/' + id + '/password', password).pipe(catchError(Error.handleError));
   }
 
-  listUsers(): Observable<any> {
+  // For Users.
+  listUsers(): Observable<User[]> {
     return this.http.get(this.baseUrl + '/users').pipe(catchError(Error.handleError));
   }
 
@@ -40,6 +41,7 @@ export class IdentityService {
     return this.http.put(this.baseUrl + '/users/' + user + '/roleIdentifier', roleIdentifier).pipe(catchError(Error.handleError));
   }
 
+  // For Roles.
   listRoles(): Observable<Role[]> {
     return this.http.get(this.baseUrl + '/roles').pipe(catchError(Error.handleError));
   }

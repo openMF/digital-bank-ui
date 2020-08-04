@@ -1,0 +1,46 @@
+<nb-card>
+  <nb-card-header>{{title}}</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="detailForm">
+
+      <div class="form-group row">
+        <label for="identifier" class="label col-sm-3 form-control-label">Username</label>
+        <ngx-id-input class="col-sm-9" [form]="detailForm" placeholder="Username" controlName="identifier" [readonly]="editMode">
+        </ngx-id-input>
+      </div>
+
+      <div class="form-group row">
+        <label for="password" class="label col-sm-3 form-control-label">Password</label>
+        <div class="col-sm-9">
+          <input nbInput id="password" placeholder="Password" type="password" formControlName="password"
+            autocomplete="user-password">
+          <div *ngIf="password.invalid && (password.dirty || password.touched)">
+            <p *ngIf="password.hasError('required')" class="caption status-danger ng-star-inserted"> Required</p>
+            <p *ngIf="password.hasError('minlength')" class="caption status-danger ng-star-inserted"> Must have at least
+              {{password.getError('minlength')['requiredLength']}} characters.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="role" class="label col-sm-3 form-control-label">Role</label>
+        <div class="col-sm-9 selector">
+          <nb-select id="role" formControlName="role" placeholder="Role">
+            <nb-option *ngFor="let role of roles | async" [value]="role.identifier">
+              {{ role.identifier }}
+            </nb-option>
+          </nb-select>
+          <div *ngIf="role.invalid && (role.dirty || role.touched)">
+            <p *ngIf="role.hasError('required')" class="caption status-danger ng-star-inserted"> Required</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row button-align">
+        <button type="submit" nbButton [disabled]="!detailForm.valid" (click)="save()" status="primary">save
+          user</button>
+        <button (click)="cancel()" nbButton>cancel</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

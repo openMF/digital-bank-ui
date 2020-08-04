@@ -6,7 +6,6 @@ import {
   NbCardModule,
   NbLayoutModule,
   NbInputModule,
-  NbDialogModule,
   NbTreeGridModule,
   NbIconModule,
   NbCheckboxModule,
@@ -21,8 +20,6 @@ import * as fromRoles from './store/index';
 import { RoleDetailComponent } from './role-detail/role-detail.component';
 import { RoleComponent } from './role.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { CovalentDialogsModule } from '@covalent/core/dialogs';
-import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { RoleFormComponent } from './role-form/role-form.component';
 import { RoleExistsGuard } from './role-exists.guard';
 import { FormPermissionService } from './helper/form-permission.service';
@@ -47,9 +44,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NbListModule,
     Ng2SmartTableModule,
     NbIconModule,
-    CovalentDialogsModule,
     SharedModule,
-    NbDialogModule.forChild(),
     NbEvaIconsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -63,7 +58,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     RoleDetailComponent,
     RoleComponent,
-    DeleteDialogComponent,
     RoleFormComponent,
     FsIconComponent,
     RoleCreateComponent,
@@ -71,6 +65,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PermissionListItemComponent,
   ],
   providers: [RoleExistsGuard, FormPermissionService],
-  entryComponents: [DeleteDialogComponent],
+  entryComponents: [],
 })
 export class RoleModule {}

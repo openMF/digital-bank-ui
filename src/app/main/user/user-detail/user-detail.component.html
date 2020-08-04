@@ -1,0 +1,18 @@
+<nb-card>
+  <nb-card-header>{{user.identifier}}</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-3">
+        <nb-icon icon="lock-outline" status="basic"></nb-icon> Assigned Role
+      </div>
+      <div class="col-sm-9">
+        <span class="role-link" (click)="onRoleClick()">{{user.role}} </span>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<div class="row button-container">
+  <ngx-fab-button title="Edit user" icon="edit-outline" [link]="['edit']" status="basic"
+    [permission]="{ id: 'identity_identities', accessLevel: 'CHANGE'}"></ngx-fab-button>
+</div>

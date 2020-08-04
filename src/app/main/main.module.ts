@@ -1,11 +1,8 @@
 /** Angular Imports */
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 /** Nebular Theme Imports */
-import { NbMenuModule, NbDialogModule } from '@nebular/theme';
+import { NbMenuModule, NbDialogModule, NbCardModule, NbButtonModule } from '@nebular/theme';
 import { ThemeModule } from '../@theme/theme.module';
 
 /** Custom Modules */
@@ -28,10 +25,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     MainRoutingModule,
     ThemeModule,
+    NbCardModule,
+    NbButtonModule,
     NbMenuModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSnackBarModule,
     NbDialogModule.forChild(),
   ],
   providers: [mainRoutingProviders],

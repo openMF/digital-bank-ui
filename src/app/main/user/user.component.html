@@ -1,6 +1,11 @@
-<ng2-smart-table *ngIf="!loading" [settings]="settings" [source]="source">
+<ng2-smart-table *ngIf="!loading" [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)">
 </ng2-smart-table>
 
 <div style="padding: 20%;text-align:center;" *ngIf="loading">
   <p>Fetching results...</p>
+</div>
+
+<div class="button-container">
+  <ngx-fab-button title="Create new user" icon="plus-outline" [link]="['create']" status="primary"
+    [permission]="{ id: 'identity_identities', accessLevel: 'CHANGE'}"></ngx-fab-button>
 </div>

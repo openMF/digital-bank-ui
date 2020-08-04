@@ -19,7 +19,7 @@ import { DELETE, SelectAction } from '../store/role.actions';
 import { IdentityService } from '../../../services/identity/identity.service';
 import { PermittableGroup } from '../../../services/anubis/permittable-group.model';
 import { FormPermissionService } from '../helper/form-permission.service';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from '../../common/delete-dialog/delete-dialog.component';
 
 interface PermissionObject<T> {
   data: T;
@@ -87,9 +87,7 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
     private formPermissionService: FormPermissionService,
     private dialogService: NbDialogService,
     private dataSourceBuilder: NbTreeGridDataSourceBuilder<PermissionValues>,
-  ) {
-    // will need a loading like ng2 table
-  }
+  ) {}
 
   ngOnInit(): void {
     this.actionsSubscription = this.route.params.pipe(map(params => new SelectAction(params['id']))).subscribe(this.store);
@@ -136,17 +134,23 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
 
   deleteRole() {
     const role = this.role;
-    this.dialogService.open(DeleteDialogComponent).onClose.subscribe(value => {
-      if (value) {
-        this.store.dispatch({
-          type: DELETE,
-          payload: {
-            role,
-            activatedRoute: this.route,
-          },
-        });
-      }
-    });
+    this.dialogService
+      .open(DeleteDialogComponent, {
+        context: {
+          title: 'role',
+        },
+      })
+      .onClose.subscribe(value => {
+        if (value) {
+          this.store.dispatch({
+            type: DELETE,
+            payload: {
+              role,
+              activatedRoute: this.route,
+            },
+          });
+        }
+      });
   }
 
   ngOnDestroy(): void {

@@ -1,55 +1,55 @@
 import { Store } from '@ngrx/store';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import * as fromRoles from './store';
+import * as fromUsers from './store';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { IdentityService } from '../../services/identity/identity.service';
-import { LoadAction } from './store/role.actions';
+import { LoadAction } from './store/user.actions';
 import { ExistsGuardService } from '../common/guards/exists-guard';
 
 @Injectable()
-export class RoleExistsGuard implements CanActivate {
+export class UserExistsGuard implements CanActivate {
   constructor(
-    private store: Store<fromRoles.State>,
+    private store: Store<fromUsers.State>,
     private identityService: IdentityService,
     private existsGuardService: ExistsGuardService,
   ) {}
 
-  hasRoleInStore(id: string): Observable<boolean> {
-    const timestamp$ = this.store.select(fromRoles.getRolesLoadedAt).pipe(map(loadedAt => loadedAt[id]));
+  hasUserInStore(id: string): Observable<boolean> {
+    const timestamp$ = this.store.select(fromUsers.getUsersLoadedAt).pipe(map(loadedAt => loadedAt[id]));
 
     return this.existsGuardService.isWithinExpiry(timestamp$);
   }
 
-  hasRoleInApi(id: string): Observable<boolean> {
-    const getRole$ = this.identityService.getRole(id).pipe(
+  hasUserInApi(id: string): Observable<boolean> {
+    const getUser$ = this.identityService.getUser(id).pipe(
       map(
-        roleEntity =>
+        userEntity =>
           new LoadAction({
-            resource: roleEntity,
+            resource: userEntity,
           }),
       ),
       tap((action: LoadAction) => this.store.dispatch(action)),
-      map(role => !!role),
+      map(user => !!user),
     );
 
-    return this.existsGuardService.routeTo404OnError(getRole$);
+    return this.existsGuardService.routeTo404OnError(getUser$);
   }
 
-  hasRole(id: string): Observable<boolean> {
-    return this.hasRoleInStore(id).pipe(
+  hasUser(id: string): Observable<boolean> {
+    return this.hasUserInStore(id).pipe(
       switchMap(inStore => {
         if (inStore) {
           return of(inStore);
         }
 
-        return this.hasRoleInApi(id);
+        return this.hasUserInApi(id);
       }),
     );
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.hasRole(route.params['id']);
+    return this.hasUser(route.params['id']);
   }
 }

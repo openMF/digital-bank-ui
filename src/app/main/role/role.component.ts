@@ -5,8 +5,8 @@ import { LocalDataSource } from 'ng2-smart-table';
 
 /** ngrx Store Imports */
 import { Store } from '@ngrx/store';
-import * as fromRoles from './store/index';
-import { SEARCH } from './store/role.actions';
+import * as fromRoot from '../../store/index';
+import { SEARCH } from '../../store/role/role.actions';
 
 /**
  * Roles component.
@@ -44,7 +44,7 @@ export class RoleComponent implements OnInit {
     },
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromRoles.State>) {}
+  constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromRoot.State>) {}
 
   /**
    * Dispatch search action.
@@ -52,8 +52,8 @@ export class RoleComponent implements OnInit {
    */
   ngOnInit(): void {
     this.store.dispatch({ type: SEARCH });
-    this.store.select(fromRoles.getRoleSearchLoading).subscribe(loading => (this.loading = loading));
-    this.store.select(fromRoles.getRoleSearchResults).subscribe(rolesData => this.setRolesData(rolesData));
+    this.store.select(fromRoot.getRoleSearchLoading).subscribe(loading => (this.loading = loading));
+    this.store.select(fromRoot.getRoleSearchResults).subscribe(rolesData => this.setRolesData(rolesData));
   }
 
   /**

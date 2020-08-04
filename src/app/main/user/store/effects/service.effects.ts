@@ -1,33 +1,55 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin } from 'rxjs';
 import { Action } from '@ngrx/store';
 import * as userActions from '../user.actions';
 import { IdentityService } from '../../../../services/identity/identity.service';
-import { catchError, map, takeUntil, skip, switchMap, debounceTime } from 'rxjs/operators';
-import { emptySearchResult } from '../../../common/store/search.reducer';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { RoleIdentifier } from '../../../../services/identity/domain/role-identifier.model';
+import { Password } from '../../../../services/identity/domain/password.model';
+import { User } from '../../../../services/identity/domain/user.model';
 
 @Injectable()
 export class UserApiEffects {
-
   @Effect()
-  search$: Observable<Action> = this.actions$.pipe(
-    ofType(userActions.SEARCH),
-    debounceTime(300),
-    switchMap(() => {
-      const nextSearch$ = this.actions$.pipe(ofType(userActions.SEARCH), skip(1));
-
-      return this.identityService.listUsers().pipe(
-        takeUntil(nextSearch$),
+  createUser$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.CREATE),
+    map((action: userActions.CreateUserAction) => action.payload),
+    mergeMap(payload =>
+      this.identityService.createUser(payload.user).pipe(
         map(
-          users =>
-            new userActions.SearchCompleteAction({
-              elements: users,
-              totalPages: 1,
-              totalElements: users.length,
+          () =>
+            new userActions.CreateUserSuccessAction({
+              resource: { identifier: payload.user.identifier, role: payload.user.role },
+              activatedRoute: payload.activatedRoute,
             }),
         ),
-        catchError(() => of(new userActions.SearchCompleteAction(emptySearchResult()))),
+        catchError(error => of(new userActions.CreateUserFailAction(error))),
+      ),
+    ),
+  );
+
+  @Effect()
+  updateUser$: Observable<Action> = this.actions$.pipe(
+    ofType(userActions.UPDATE),
+    map((action: userActions.UpdateUserAction) => action.payload),
+    mergeMap(payload => {
+      const user: User = { identifier: payload.identifier, role: payload.role };
+      const httpCalls: Observable<any>[] = [];
+      httpCalls.push(this.identityService.changeUserRole(payload.identifier, new RoleIdentifier(payload.role)));
+      if (payload.password) {
+        httpCalls.push(this.identityService.changePassword(payload.identifier, new Password(payload.password)));
+      }
+
+      return forkJoin(httpCalls).pipe(
+        map(
+          () =>
+            new userActions.UpdateUserSuccessAction({
+              resource: user,
+              activatedRoute: payload.activatedRoute,
+            }),
+        ),
+        catchError(error => of(new userActions.UpdateUserFailAction(error))),
       );
     }),
   );

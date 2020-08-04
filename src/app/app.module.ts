@@ -36,6 +36,8 @@ import { ExistsGuardService } from './main/common/guards/exists-guard';
 import { SecurityRouteEffects } from './store/security/effects/route.effects';
 import { SecurityApiEffects } from './store/security/effects/service.effects';
 import { SecurityNotificationEffects } from './store/security/effects/notification.effects';
+import { RoleSearchApiEffects } from './store/role/effects/service.effects';
+import { UserSearchApiEffects } from './store/user/effects/service.effects';
 
 /** App Routing Module */
 import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
@@ -68,7 +70,13 @@ import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
         },
       },
     ),
-    EffectsModule.forRoot([SecurityApiEffects, SecurityRouteEffects, SecurityNotificationEffects]),
+    EffectsModule.forRoot([
+      SecurityApiEffects,
+      SecurityRouteEffects,
+      SecurityNotificationEffects,
+      RoleSearchApiEffects,
+      UserSearchApiEffects,
+    ]),
 
     StoreDevtoolsModule.instrument({
       name: 'Digital bank',

@@ -5,8 +5,8 @@ import { LocalDataSource } from 'ng2-smart-table';
 
 /** ngrx Store Imports */
 import { Store } from '@ngrx/store';
-import * as fromUsers from './store/index';
-import { SEARCH } from './store/user.actions';
+import * as fromRoot from '../../store/index';
+import { SEARCH } from '../../store/user/user.actions';
 
 /**
  * Users component.
@@ -47,7 +47,7 @@ export class UserComponent implements OnInit {
     },
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromUsers.State>) {}
+  constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromRoot.State>) {}
 
   /**
    * Dispatch search action.
@@ -55,8 +55,8 @@ export class UserComponent implements OnInit {
    */
   ngOnInit(): void {
     this.store.dispatch({ type: SEARCH });
-    this.store.select(fromUsers.getUserSearchLoading).subscribe(loading => (this.loading = loading));
-    this.store.select(fromUsers.getUserSearchResults).subscribe(usersData => this.setUsersData(usersData));
+    this.store.select(fromRoot.getUserSearchLoading).subscribe(loading => (this.loading = loading));
+    this.store.select(fromRoot.getUserSearchResults).subscribe(usersData => this.setUsersData(usersData));
   }
 
   /**
