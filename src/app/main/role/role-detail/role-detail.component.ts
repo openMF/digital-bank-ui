@@ -128,7 +128,6 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
       groupData.children = childrenData;
       this.data.push(groupData);
     }
-
     this.dataSource = this.dataSourceBuilder.create(this.data);
   }
 
