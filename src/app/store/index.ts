@@ -10,6 +10,17 @@ import * as fromAuthorization from './security/authorization.reducer';
 /** Custom Actions */
 import * as authenticationActions from './security/security.actions';
 
+import {
+  createSearchReducer,
+  getSearchEntities,
+  getSearchLoading,
+  getSearchTotalElements,
+  getSearchTotalPages,
+  SearchState,
+} from '../main/common/store/search.reducer';
+import { roleFeatureKey } from '../main/role/store/index';
+import { userFeatureKey } from '../main/user/store/index';
+
 export const rootFeatureKey = 'Root';
 
 /**
@@ -18,6 +29,8 @@ export const rootFeatureKey = 'Root';
 export interface State {
   authentication: fromAuthentication.State;
   authorization: fromAuthorization.State;
+  roleSearch: SearchState;
+  userSearch: SearchState;
 }
 
 /**
@@ -26,6 +39,8 @@ export interface State {
 export const reducers = {
   authentication: fromAuthentication.reducer,
   authorization: fromAuthorization.reducer,
+  roleSearch: createSearchReducer(roleFeatureKey),
+  userSearch: createSearchReducer(userFeatureKey),
 };
 
 export function createReducer(asyncReducers = {}): ActionReducer<any> {
@@ -72,3 +87,47 @@ export const getAuthorizationState = (state: any) => state[rootFeatureKey].autho
 export const getPermissions = createSelector(getAuthorizationState, fromAuthorization.getPermissions);
 
 export const getPermissionsLoading = createSelector(getAuthorizationState, fromAuthorization.getLoading);
+
+/**
+ * Role Search Selectors
+ */
+export const getRoleSearchState = (state: any) => state[rootFeatureKey].roleSearch;
+export const getSearchRoles = createSelector(getRoleSearchState, getSearchEntities);
+export const getRoleSearchTotalElements = createSelector(getRoleSearchState, getSearchTotalElements);
+export const getRoleSearchTotalPages = createSelector(getRoleSearchState, getSearchTotalPages);
+export const getRoleSearchLoading = createSelector(getRoleSearchState, getSearchLoading);
+
+export const getRoleSearchResults = createSelector(
+  getSearchRoles,
+  getRoleSearchTotalPages,
+  getRoleSearchTotalElements,
+  (roles, totalPages, totalElements) => {
+    return {
+      roles: roles,
+      totalPages: totalPages,
+      totalElements: totalElements,
+    };
+  },
+);
+
+/**
+ * User Search Selectors
+ */
+export const getUserSearchState = (state: any) => state[rootFeatureKey].userSearch;
+export const getSearchUsers = createSelector(getUserSearchState, getSearchEntities);
+export const getUserSearchTotalElements = createSelector(getUserSearchState, getSearchTotalElements);
+export const getUserSearchTotalPages = createSelector(getUserSearchState, getSearchTotalPages);
+export const getUserSearchLoading = createSelector(getUserSearchState, getSearchLoading);
+
+export const getUserSearchResults = createSelector(
+  getSearchUsers,
+  getUserSearchTotalPages,
+  getUserSearchTotalElements,
+  (users, totalPages, totalElements) => {
+    return {
+      users: users,
+      totalPages: totalPages,
+      totalElements: totalElements,
+    };
+  },
+);

@@ -38,7 +38,7 @@
           <div class="form-group row">
             <label for="password" class="label col-sm-3 form-control-label">Password</label>
             <div class="col-sm-9">
-              <input type="password" nbInput fullWidth id="password" placeholder="Password" formControlName="password">
+              <input type="password" nbInput fullWidth id="password" placeholder="Password" formControlName="password" autocomplete="login-password">
               <div *ngIf="password.invalid && (password.dirty || password.touched)">
                 <p *ngIf="password.hasError('required')"
                   class="caption status-danger ng-star-inserted"> Required</p>

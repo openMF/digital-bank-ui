@@ -1,12 +1,33 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { UserComponent } from './user.component';
+import { UserCreateComponent } from './user-form/user-create/user-create.component';
+import { UserEditComponent } from './user-form/user-edit/user-edit.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UserExistsGuard } from './user-exists.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: UserComponent,
-    data: { title: 'Users', hasPermission: { id: 'identity_roles', accessLevel: 'READ' } },
+    data: { title: 'Users', hasPermission: { id: 'identity_identities', accessLevel: 'READ' } },
+  },
+  {
+    path: 'create',
+    component: UserCreateComponent,
+    data: { title: 'Create new role', hasPermission: { id: 'identity_identities', accessLevel: 'CHANGE' } },
+  },
+  {
+    path: 'detail/:id',
+    component: UserDetailComponent,
+    canActivate: [UserExistsGuard],
+    data: { title: 'View role', hasPermission: { id: 'identity_identities', accessLevel: 'READ' } },
+  },
+  {
+    path: 'detail/:id/edit',
+    component: UserEditComponent,
+    canActivate: [UserExistsGuard],
+    data: { title: 'Edit role', hasPermission: { id: 'identity_identities', accessLevel: 'CHANGE' } },
   },
 ];
 

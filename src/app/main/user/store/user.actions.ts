@@ -1,17 +1,14 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../../store/util';
-import { User } from '../../../services/identity/domain/user.model';
+import { UserWithPassword } from '../../../services/identity/domain/user-with-password.model';
 import { Error } from '../../../services/domain/error.model';
 import {
   CreateResourceSuccessPayload,
-  DeleteResourceSuccessPayload,
   LoadResourcePayload,
   SelectResourcePayload,
   UpdateResourceSuccessPayload,
 } from '../../common/store/resource.reducer';
 import { RoutePayload } from '../../common/store/route-payload';
-import { SearchResult } from '../../common/store/search.reducer';
-import { FetchRequest } from '../../../services/domain/paging/fetch-request.model';
 
 export const LOAD = type('[User] Load');
 export const SELECT = type('[User] Select');
@@ -30,23 +27,14 @@ export const DELETE_FAIL = type('[User] Delete Fail');
 
 export const RESET_FORM = type('[User] Reset Form');
 
-export const SEARCH = type('[User] Search');
-export const SEARCH_COMPLETE = type('[User] Search Complete');
-
-export interface UserRoutePayload extends RoutePayload {
-  user: User;
+export interface UserCreatePayload extends RoutePayload {
+  user: UserWithPassword;
 }
 
-export class SearchAction implements Action {
-  readonly type = SEARCH;
-
-  constructor(public payload: FetchRequest) {}
-}
-
-export class SearchCompleteAction implements Action {
-  readonly type = SEARCH_COMPLETE;
-
-  constructor(public payload: SearchResult) {}
+export interface UserUpdatePayload extends RoutePayload {
+  identifier: string;
+  password?: string;
+  role?: string;
 }
 
 export class LoadAction implements Action {
@@ -64,7 +52,7 @@ export class SelectAction implements Action {
 export class CreateUserAction implements Action {
   readonly type = CREATE;
 
-  constructor(public payload: UserRoutePayload) {}
+  constructor(public payload: UserCreatePayload) {}
 }
 
 export class CreateUserSuccessAction implements Action {
@@ -82,7 +70,7 @@ export class CreateUserFailAction implements Action {
 export class UpdateUserAction implements Action {
   readonly type = UPDATE;
 
-  constructor(public payload: UserRoutePayload) {}
+  constructor(public payload: UserUpdatePayload) {}
 }
 
 export class UpdateUserSuccessAction implements Action {
@@ -93,24 +81,6 @@ export class UpdateUserSuccessAction implements Action {
 
 export class UpdateUserFailAction implements Action {
   readonly type = UPDATE_FAIL;
-
-  constructor(public payload: Error) {}
-}
-
-export class DeleteUserAction implements Action {
-  readonly type = DELETE;
-
-  constructor(public payload: UserRoutePayload) {}
-}
-
-export class DeleteUserSuccessAction implements Action {
-  readonly type = DELETE_SUCCESS;
-
-  constructor(public payload: DeleteResourceSuccessPayload) {}
-}
-
-export class DeleteUserFailAction implements Action {
-  readonly type = DELETE_FAIL;
 
   constructor(public payload: Error) {}
 }
@@ -130,9 +100,4 @@ export type Actions =
   | UpdateUserAction
   | UpdateUserSuccessAction
   | UpdateUserFailAction
-  | DeleteUserAction
-  | DeleteUserSuccessAction
-  | DeleteUserFailAction
-  | ResetUserFormAction
-  | SearchAction
-  | SearchCompleteAction;
+  | ResetUserFormAction;

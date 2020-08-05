@@ -10,18 +10,27 @@ import {
   NbDialogModule,
   NbTreeGridModule,
   NbIconModule,
+  NbSelectModule,
 } from '@nebular/theme';
 import { EffectsModule } from '@ngrx/effects';
 import { UserApiEffects } from './store/effects/service.effects';
-import { RoleRouteEffects } from './store/effects/route.effects';
-import { RoleNotificationEffects } from './store/effects/notification.effects';
+import { UserRouteEffects } from './store/effects/route.effects';
+import { UserNotificationEffects } from './store/effects/notification.effects';
 import { StoreModule } from '@ngrx/store';
 import * as fromUsers from './store/index';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { CovalentDialogsModule } from '@covalent/core/dialogs';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UserFormComponent } from './user-form/user-form.component';
+import { UserCreateComponent } from './user-form/user-create/user-create.component';
+import { UserEditComponent } from './user-form/user-edit/user-edit.component';
+import { SharedModule } from '../common/common.module';
+import { UserExistsGuard } from './user-exists.guard';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { DeleteDialogComponent } from '../common/delete-dialog/delete-dialog.component';
 
 @NgModule({
-  declarations: [UserComponent],
+  declarations: [UserComponent, UserDetailComponent, UserFormComponent, UserCreateComponent, UserEditComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -32,16 +41,20 @@ import { CovalentDialogsModule } from '@covalent/core/dialogs';
     NbTreeGridModule,
     Ng2SmartTableModule,
     NbIconModule,
-    CovalentDialogsModule,
+    NbSelectModule,
+    SharedModule,
     NbDialogModule.forChild(),
+    NbEvaIconsModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     /**
      * Define feature state
      */
     StoreModule.forFeature(fromUsers.userFeatureKey, fromUsers.reducers),
-    EffectsModule.forFeature([UserApiEffects, RoleRouteEffects, RoleNotificationEffects]),
+    EffectsModule.forFeature([UserApiEffects, UserRouteEffects, UserNotificationEffects]),
   ],
-  providers: [],
-  entryComponents: [],
+  providers: [UserExistsGuard],
+  entryComponents: [DeleteDialogComponent],
 })
 export class UserModule {}

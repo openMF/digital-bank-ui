@@ -10,8 +10,6 @@ import {
   UpdateResourceSuccessPayload,
 } from '../../common/store/resource.reducer';
 import { RoutePayload } from '../../common/store/route-payload';
-import { SearchResult } from '../../common/store/search.reducer';
-import { FetchRequest } from '../../../services/domain/paging/fetch-request.model';
 
 export const LOAD = type('[Role] Load');
 export const SELECT = type('[Role] Select');
@@ -30,23 +28,8 @@ export const DELETE_FAIL = type('[Role] Delete Fail');
 
 export const RESET_FORM = type('[Role] Reset Form');
 
-export const SEARCH = type('[Role] Search');
-export const SEARCH_COMPLETE = type('[Role] Search Complete');
-
 export interface RoleRoutePayload extends RoutePayload {
   role: Role;
-}
-
-export class SearchAction implements Action {
-  readonly type = SEARCH;
-
-  constructor(public payload: FetchRequest) {}
-}
-
-export class SearchCompleteAction implements Action {
-  readonly type = SEARCH_COMPLETE;
-
-  constructor(public payload: SearchResult) {}
 }
 
 export class LoadAction implements Action {
@@ -133,6 +116,4 @@ export type Actions =
   | DeleteRoleAction
   | DeleteRoleSuccessAction
   | DeleteRoleFailAction
-  | ResetRoleFormAction
-  | SearchAction
-  | SearchCompleteAction;
+  | ResetRoleFormAction;

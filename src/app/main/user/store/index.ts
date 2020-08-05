@@ -1,18 +1,13 @@
 import * as fromRoot from '../../../store';
 import { createSelector, createFeatureSelector, combineReducers, Action } from '@ngrx/store';
-import {
-  createSearchReducer,
-  getSearchEntities,
-  getSearchLoading,
-  getSearchTotalElements,
-  getSearchTotalPages,
-  SearchState,
-} from '../../common/store/search.reducer';
+import { createResourceReducer, getResourceLoadedAt, getResourceSelected, ResourceState } from '../../common/store/resource.reducer';
+import { createFormReducer, FormState, getFormError } from '../../common/store/form.reducer';
 
 export const userFeatureKey = 'User';
 
 export interface UserState {
-  userSearch: SearchState;
+  users: ResourceState;
+  userForm: FormState;
 }
 
 export interface State extends fromRoot.State {
@@ -21,7 +16,8 @@ export interface State extends fromRoot.State {
 
 export function reducers(state: UserState | undefined, action: Action) {
   return combineReducers({
-    userSearch: createSearchReducer(userFeatureKey),
+    users: createResourceReducer(userFeatureKey),
+    userForm: createFormReducer(userFeatureKey),
   })(state, action);
 }
 
@@ -30,24 +26,9 @@ export function reducers(state: UserState | undefined, action: Action) {
  */
 export const selectUserState = createFeatureSelector<State, UserState>(userFeatureKey);
 
-/**
- * User Search Selectors
- */
-export const getUserSearchState = createSelector(selectUserState, state => state.userSearch);
-export const getSearchUsers = createSelector(getUserSearchState, getSearchEntities);
-export const getUserSearchTotalElements = createSelector(getUserSearchState, getSearchTotalElements);
-export const getUserSearchTotalPages = createSelector(getUserSearchState, getSearchTotalPages);
-export const getUserSearchLoading = createSelector(getUserSearchState, getSearchLoading);
+export const getUserFormState = createSelector(selectUserState, state => state.userForm);
+export const getUserFormError = createSelector(getUserFormState, getFormError);
 
-export const getUserSearchResults = createSelector(
-  getSearchUsers,
-  getUserSearchTotalPages,
-  getUserSearchTotalElements,
-  (users, totalPages, totalElements) => {
-    return {
-      users: users,
-      totalPages: totalPages,
-      totalElements: totalElements,
-    };
-  },
-);
+export const getUsersState = createSelector(selectUserState, state => state.users);
+export const getUsersLoadedAt = createSelector(getUsersState, getResourceLoadedAt);
+export const getSelectedUser = createSelector(getUsersState, getResourceSelected);
