@@ -14,7 +14,7 @@
     "conventional-changelog": "conventional-changelog",
     "start": "ng serve",
     "build": "ng build",
-    "dev": "ng serve --watch --verbose --proxy-config proxy.conf.json",
+    "dev": "node --max-http-header-size=100000 ./node_modules/@angular/cli/bin/ng serve --watch --verbose --proxy-config proxy.conf.json",
     "build:prod": "npm run build -- --prod --aot",
     "test": "ng test",
     "test:coverage": "rimraf coverage && npm run test -- --code-coverage",

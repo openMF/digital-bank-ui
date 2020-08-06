@@ -1,86 +1,110 @@
 {
   "/identity": {
-    "target": "http://localhost:2021",
+    "target": "http://buffalo.mifos.io:2021",
     "secure": false,
     "pathRewrite": {
       "/identity": "/identity"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/office": {
-    "target": "http://localhost:2023",
+    "target": "http://buffalo.mifos.io:2023",
     "secure": false,
     "pathRewrite": {
       "^/api/office": "/office"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/customer": {
-    "target": "http://localhost:2024",
+    "target": "http://buffalo.mifos.io:2024",
     "secure": false,
     "pathRewrite": {
       "^/api/customer": "/customer"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/accounting": {
-    "target": "http://localhost:2025",
+    "target": "http://buffalo.mifos.io:2025",
     "secure": false,
     "pathRewrite": {
       "^/api/accounting": "/accounting"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/portfolio": {
-    "target": "http://localhost:2026",
+    "target": "http://buffalo.mifos.io:2026",
     "secure": false,
     "pathRewrite": {
       "^/api/portfolio": "/portfolio"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/deposit": {
-    "target": "http://localhost:2027",
+    "target": "http://buffalo.mifos.io:2027",
     "secure": false,
     "pathRewrite": {
       "^/api/deposit": "/deposit"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/teller": {
-    "target": "http://localhost:2028",
+    "target": "http://buffalo.mifos.io:2028",
     "secure": false,
     "pathRewrite": {
       "^/api/teller": "/teller"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/reporting": {
-    "target": "http://localhost:2029",
+    "target": "http://buffalo.mifos.io:2029",
     "secure": false,
     "pathRewrite": {
       "^/api/reporting": "/reporting"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/cheques": {
-    "target": "http://localhost:2030",
+    "target": "http://buffalo.mifos.io:2030",
     "secure": false,
     "pathRewrite": {
       "^/api/cheques": "/cheques"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/payroll": {
-    "target": "http://localhost:2031",
+    "target": "http://buffalo.mifos.io:2031",
     "secure": false,
     "pathRewrite": {
       "^/api/payroll": "/payroll"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/group": {
-    "target": "http://localhost:2032",
+    "target": "http://buffalo.mifos.io:2032",
     "secure": false,
     "pathRewrite": {
       "^/api/group": "/group"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/api/notification": {
-    "target": "http://localhost:2033",
+    "target": "http://buffalo.mifos.io:2033",
     "secure": false,
     "pathRewrite": {
       "^/api/notification": "/notification"
-    }
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }
