@@ -21,6 +21,8 @@ export class FabButtonComponent implements OnInit {
 
   @Input() tooltip: string;
 
+  @Input() queryParams: string;
+
   constructor() {}
 
   ngOnInit() {}

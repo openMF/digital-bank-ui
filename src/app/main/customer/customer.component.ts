@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FetchRequest } from '../../services/domain/paging/fetch-request.model';
-import { Customer } from '../../services/customer/domain/customer.model';
 import * as fromRoot from '../../store';
 import { SEARCH } from '../../store/customer/customer.actions';
 import { Store } from '@ngrx/store';
@@ -10,6 +9,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { Page } from '../../services/domain/paging/page.model';
 import { Sort } from '../../services/domain/paging/sort.model';
 import { CustomSelectorFilterComponent } from './helper/custom-filter.component';
+import { CustomRenderComponent } from './helper/custom-render.component';
 
 export interface TableFetchRequest {
   page: Page;
@@ -69,6 +69,8 @@ export class CustomerComponent implements OnInit {
           type: 'custom',
           component: CustomSelectorFilterComponent,
         },
+        type: 'custom',
+        renderComponent: CustomRenderComponent,
       },
     },
     // pager: {
@@ -160,7 +162,8 @@ export class CustomerComponent implements OnInit {
   }
 
   /** Customer row select event  */
-  onCustomerRowSelect(customer: Customer): void {
+  onCustomerRowSelect(event: any): void {
+    const customer = event.data;
     this.router.navigate(['detail', customer.identifier], { relativeTo: this.route });
   }
 }

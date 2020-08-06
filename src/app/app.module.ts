@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 /** Nebular Theme Imports */
 import { NbDatepickerModule, NbMenuModule, NbSidebarModule, NbToastrModule, NbWindowModule } from '@nebular/theme';
@@ -38,6 +39,9 @@ import { ImageService } from './services/image/image.service';
 import { PayrollService } from './services/payroll/payroll.service';
 import { CustomerService } from './services/customer/customer.service';
 import { CatalogService } from './services/catalog/catalog.service';
+import { OfficeService } from './services/office/office.service';
+import { TellerService } from './services/teller/teller-service';
+import { CountryService } from './services/country/country.service';
 
 /** Custom Effects */
 import { SecurityRouteEffects } from './store/security/effects/route.effects';
@@ -46,6 +50,7 @@ import { SecurityNotificationEffects } from './store/security/effects/notificati
 import { RoleSearchApiEffects } from './store/role/effects/service.effects';
 import { UserSearchApiEffects } from './store/user/effects/service.effects';
 import { CustomerSearchApiEffects } from './store/customer/effects/service.effects';
+import { OfficeSearchApiEffects } from './store/office/effects/service.effects';
 
 /** App Routing Module */
 import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
@@ -53,6 +58,7 @@ import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    RouterModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -85,6 +91,7 @@ import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
       RoleSearchApiEffects,
       UserSearchApiEffects,
       CustomerSearchApiEffects,
+      OfficeSearchApiEffects,
     ]),
 
     StoreDevtoolsModule.instrument({
@@ -105,6 +112,9 @@ import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
     PayrollService,
     CustomerService,
     CatalogService,
+    OfficeService,
+    CountryService,
+    TellerService,
     ...appRoutingProviders,
   ],
   bootstrap: [AppComponent],
