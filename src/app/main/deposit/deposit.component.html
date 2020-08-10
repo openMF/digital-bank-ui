@@ -1,0 +1,7 @@
+<ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onProductRowSelect($event)">
+</ng2-smart-table>
+
+<div class="button-container">
+  <ngx-fab-button tooltip="Create new product" title="Create new product" icon="plus-outline" [link]="['create']" status="primary"
+    [permission]="{ id: 'deposit_definitions', accessLevel: 'CHANGE'}"></ngx-fab-button>
+</div>

@@ -18,6 +18,7 @@ const routes: Routes = [
       { path: 'users', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
       { path: 'offices', loadChildren: () => import('./office/office.module').then(m => m.OfficeModule) },
       { path: 'roles', loadChildren: () => import('./role/role.module').then(m => m.RoleModule) },
+      { path: 'deposits', loadChildren: () => import('./deposit/deposit.module').then(m => m.DepositModule) },
       { path: 'denied', component: AccessDeniedComponent, data: { title: 'Not allowed' } },
     ],
   },

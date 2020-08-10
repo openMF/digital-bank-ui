@@ -65,6 +65,7 @@
     "intl": "1.2.5",
     "ionicons": "2.0.1",
     "leaflet": "1.2.0",
+    "moment": "^2.27.0",
     "nebular-icons": "1.1.0",
     "ng2-smart-table": "^1.6.0",
     "ng2-tree": "^2.0.0-rc.11",

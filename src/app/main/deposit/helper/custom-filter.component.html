@@ -1,0 +1,6 @@
+<nb-select [ngClass]="inputClass" [formControl]="inputControl" [placeholder]="column.title">
+  <nb-option *ngFor="let type of accountType" [value]="type">
+    {{ type }}
+  </nb-option>
+  <nb-option><span style="color:gainsboro"> Clear </span></nb-option>
+</nb-select>

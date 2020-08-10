@@ -44,10 +44,10 @@
 
 <div class="row button-container">
   <span (click)="deleteRole()">
-    <ngx-fab-button title="Delete role" icon="trash-2-outline" status="danger"
+    <ngx-fab-button tooltip="Delete role" title="Delete role" icon="trash-2-outline" status="danger"
       [permission]="{ id: 'identity_roles', accessLevel: 'DELETE'}"></ngx-fab-button>
   </span>
 
-  <ngx-fab-button title="Edit role" icon="edit-outline" [link]="['edit']" status="basic"
+  <ngx-fab-button tooltip="Edit role" title="Edit role" icon="edit-outline" [link]="['edit']" status="basic"
     [permission]="{ id: 'identity_roles', accessLevel: 'CHANGE'}"></ngx-fab-button>
 </div>

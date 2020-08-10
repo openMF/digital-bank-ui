@@ -8,16 +8,24 @@
 
 $nb-themes: nb-register-theme(
   (
-    layout-padding-top: 2rem,
-    layout-background-color: white,
+    //Font sizes
+      header-text-font-size: 0.85rem,
+    card-text-font-size: 0.85rem,
     layout-text-font-size: 0.85rem,
+    user-text-font-size: 0.85rem,
+    tree-grid-row-text-font-size: 0.85rem,
+    //Line heights
+      card-text-line-height: 2.25rem,
+    //Layout styles
+      layout-padding-top: 2rem,
+    layout-background-color: white,
     layout-window-mode-padding-top: 3.75rem,
     layout-scrollbar-width: 0.3rem,
     header-height: 3.75rem,
     header-padding: 1rem,
-    header-text-font-size: 0.7rem,
     menu-item-icon-margin: 0 0.5rem 0 0,
-    card-height-tiny: 13.5rem,
+    // Card styles
+      card-height-tiny: 13.5rem,
     card-height-small: 21.1875rem,
     card-height-medium: 28.875rem,
     card-height-large: 36.5625rem,
@@ -28,7 +36,7 @@ $nb-themes: nb-register-theme(
     select-min-width: 6rem,
     slide-out-background: #f7f9fc,
     slide-out-shadow-color: 0 4px 14px 0 #8f9bb3,
-    slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3,
+    slide-out-shadow-color-rtl: 0 4px 14px 0 #8f9bb3
   ),
   default,
   default

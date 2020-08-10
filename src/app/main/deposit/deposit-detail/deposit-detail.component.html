@@ -1,0 +1,108 @@
+<nb-card>
+  <nb-card-header>{{definition.name}}</nb-card-header>
+  <nb-card-body>
+
+    <nb-alert *ngIf="!definition.active" accent="danger">
+      <div class="row">
+        <div class="col-sm-9">
+          <nb-icon icon="close-outline" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+          Product not enabled <br>
+          <small>To assign this product to a member it needs to be enabled first</small>
+        </div>
+        <div class="col-sm-3">
+          <button nbButton (click)="enableProduct()" status="basic"
+            *hasPermission="{ id: 'deposit_definitions', accessLevel: 'CHANGE'}" translate>ENABLE PRODUCT</button>
+        </div>
+      </div>
+    </nb-alert>
+
+    <nb-alert *ngIf="definition.active" accent="info">
+      <div class="row">
+        <div class="col-sm-9">
+          <nb-icon icon="checkmark-outline" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+          Product enabled <br>
+          <small>This product can be assigned to a member</small>
+        </div>
+        <div class="col-sm-3">
+          <button nbButton (click)="disableProduct()" status="basic"
+            *hasPermission="{ id: 'deposit_definitions', accessLevel: 'CHANGE'}">DISABLE PRODUCT</button>
+        </div>
+      </div>
+    </nb-alert>
+
+    <ng-container>
+      <div class="row">
+        <div class="col-sm-3">Type</div>
+        <div class="col-sm-9">{{definition.type}}</div>
+      </div>
+
+      <div class="row" *ngIf="hasTerm(definition)">
+        <div class="col-sm-3">Term</div>
+        <div class="col-sm-9">{{definition.term?.period + ' ' + definition.term?.timeUnit}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">Interest payable</div>
+        <div class="col-sm-9">{{definition.term?.interestPayable}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">Minimum balance</div>
+        <div class="col-sm-9">{{definition.minimumBalance | number:numberFormat}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">Interest</div>
+        <div class="col-sm-9">{{definition.interest | number:numberFormat}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">Currency</div>
+        <div class="col-sm-9">{{definition.currency.code}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">Cash account</div>
+        <div class="col-sm-9">{{definition.cashAccountIdentifier}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">Expense account</div>
+        <div class="col-sm-9">{{definition.expenseAccountIdentifier}}</div>
+      </div>
+
+
+      <div class="row" *ngIf="definition.accrueAccountIdentifier">
+        <div class="col-sm-3">Accrue account</div>
+        <div class="col-sm-9">{{definition.accrueAccountIdentifier}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">Equity ledger</div>
+        <div class="col-sm-9">{{definition.equityLedgerIdentifier}}</div>
+      </div>
+
+      <br>
+
+      <div class="fee-header">Fees</div>
+      <ng2-smart-table [settings]="settings" [source]="source">
+      </ng2-smart-table>
+
+    </ng-container>
+  </nb-card-body>
+</nb-card>
+
+<div class="row button-container">
+  <span *ngIf="canDistributeDividends$ | async">
+    <ngx-fab-button tooltip="Manage dividends" title="Manage dividends" icon="pie-chart-outline" [link]="['dividends']"
+      status="primary" [permission]="{ id: 'deposit_definitions', accessLevel: 'READ'}"></ngx-fab-button>
+  </span>
+
+  <span (click)="deleteProduct()">
+    <ngx-fab-button tooltip="Delete product" title="Delete product" icon="trash-2-outline" status="danger"
+      [permission]="{ id: 'deposit_definitions', accessLevel: 'DELETE'}"></ngx-fab-button>
+  </span>
+
+  <ngx-fab-button tooltip="Edit product" title="Edit product" icon="edit-outline" [link]="['edit']" status="basic"
+    [permission]="{ id: 'deposit_definitions', accessLevel: 'CHANGE'}"></ngx-fab-button>
+</div>

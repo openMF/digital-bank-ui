@@ -4,20 +4,22 @@ import { Page } from './page.model';
 import { Sort } from './sort.model';
 
 export function buildSearchParams(fetchRequest?: FetchRequest): HttpParams {
-  const params = new HttpParams();
+  let params = new HttpParams();
 
   fetchRequest = fetchRequest || {};
 
   const page: Page = fetchRequest.page || { pageIndex: 0, size: 10 };
   const sort: Sort = fetchRequest.sort || { sortColumn: '', sortDirection: '' };
 
-  params.append('term', fetchRequest.searchTerm ? fetchRequest.searchTerm : undefined);
+  if (fetchRequest.searchTerm) params = params.append('term', fetchRequest.searchTerm);
 
-  params.append('pageIndex', page.pageIndex !== undefined ? page.pageIndex.toString() : undefined);
-  params.append('size', page.size ? page.size.toString() : undefined);
+  if (page.pageIndex !== undefined) params = params.append('pageIndex', page.pageIndex.toString());
 
-  params.append('sortColumn', sort.sortColumn ? sort.sortColumn : undefined);
-  params.append('sortDirection', sort.sortDirection ? sort.sortDirection : undefined);
+  if (page.size) params = params.append('size', page.size.toString());
+
+  if (sort.sortColumn) params = params.append('sortColumn', sort.sortColumn);
+
+  if (sort.sortDirection) params = params.append('sortDirection', sort.sortDirection);
 
   return params;
 }
