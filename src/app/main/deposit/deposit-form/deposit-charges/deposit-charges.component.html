@@ -1,0 +1,63 @@
+<form [formGroup]="form">
+  <div formArrayName="charges">
+    <nb-card *ngFor="let charge of charges; let i=index" [formGroupName]="i">
+      <nb-card-body>
+
+        <div class="form-group row">
+          <input nbInput placeholder="Fee name" formControlName="name">
+          <div *ngIf="charge.get('name').invalid && (charge.get('name').dirty || charge.get('name').touched)">
+            <div *ngIf="charge.get('name').hasError('required')" class="caption status-danger ng-star-inserted">
+              Required</div>
+            <div *ngIf="charge.get('name').hasError('minlength')" class="caption status-danger ng-star-inserted"> Only
+              {{charge.get('name').getError('maxlength')['requiredLength']}} characters allowed.</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <textarea nbInput placeholder="Description" formControlName="description"></textarea>
+          <div
+            *ngIf="charge.get('description').invalid && (charge.get('description').dirty || charge.get('description').touched)">
+            <div *ngIf="charge.get('description').hasError('maxlength')" class="caption status-danger ng-star-inserted">
+              Only
+              {{charge.get('description').getError('maxlength')['requiredLength']}} characters allowed.</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <input nbInput type="number" formControlName="amount" placeholder="Amount">
+          <div *ngIf="charge.get('amount').invalid && (charge.get('amount').dirty || charge.get('amount').touched)">
+            <div *ngIf="charge.get('amount').hasError('minlength')" class="caption status-danger ng-star-inserted">
+              Value must be greater than or equal to
+              {{charge.get('amount').getError('minValue')['value']}}.</div>
+          </div> &nbsp;
+          <nb-select id="actions" formControlName="actionIdentifier" placeholder="Applied on">
+            <nb-option *ngFor="let basis of actions" [value]="basis.identifier">
+              {{ basis.name }}
+            </nb-option>
+          </nb-select> &nbsp;
+          <nb-checkbox formControlName="proportional">Proportional?</nb-checkbox>
+        </div>
+
+        <div class="form-group row">
+          <ngx-account-select title="Income account" formControlName="incomeAccountIdentifier" [type]="'REVENUE'">
+            <ng-container
+              *ngIf="!charge.get('incomeAccountIdentifier').pristine && charge.get('incomeAccountIdentifier').hasError('required')">
+              Required
+            </ng-container>
+            <ng-container *ngIf="charge.get('incomeAccountIdentifier').hasError('invalidAccount')">
+              Invalid account
+            </ng-container>
+          </ngx-account-select>
+        </div>
+
+        <div class="form-group row">
+          <button nbButton (click)="removeCharge(i)">REMOVE FEE</button>
+        </div>
+      </nb-card-body>
+    </nb-card>
+
+    <div layout="row">
+      <button nbButton (click)="addCharge()">ADD FEE</button>
+    </div>
+  </div>
+</form>

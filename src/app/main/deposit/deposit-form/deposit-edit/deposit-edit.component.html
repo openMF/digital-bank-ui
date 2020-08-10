@@ -1,0 +1,3 @@
+<ngx-deposit-form #form (onSave)="onSave($event)" (onCancel)="onCancel()" [definition]="definition$ | async"
+  [currencies]="currencies | async" [actions]="actions | async" [editMode]="true">
+</ngx-deposit-form>

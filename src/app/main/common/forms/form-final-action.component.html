@@ -1,0 +1,6 @@
+<button nbButton color="primary" *ngIf="!editMode" (click)="save()"
+  [disabled]="disabled">{{'CREATE ' + resourceName }}</button>
+<button nbButton color="primary" *ngIf="editMode" (click)="save()"
+  [disabled]="disabled">{{'UPDATE ' + resourceName }}</button>
+
+<button nbButton (click)="cancel()">CANCEL</button>

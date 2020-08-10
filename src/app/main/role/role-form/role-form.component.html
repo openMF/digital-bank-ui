@@ -16,7 +16,7 @@
     </div>
 
     <ng-container *ngFor="let group of permissionGroups">
-      <p>{{group.groupId}}</p>
+      <div>{{group.groupId}}</div>
       <ngx-permission-list-item *ngFor="let permission of group.formPermissions" [formPermission]="permission">
       </ngx-permission-list-item>
       <br>

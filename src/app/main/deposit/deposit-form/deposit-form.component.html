@@ -1,0 +1,248 @@
+<nb-card>
+  <nb-card-body>
+    <nb-stepper orientation="horizontal">
+      <nb-step label="Product details" [stepControl]="productForm">
+        <div class="step-container">
+
+          <form [formGroup]="productForm">
+
+            <div class="form-group row">
+              <label for="type" class="label col-sm-3 form-control-label">Type</label>
+              <div class="col-sm-9">
+                <nb-radio-group id="type" formControlName="type" class="row col-sm-9">
+                  <nb-radio *ngFor="let basis of typeOptions" [value]="basis.type">
+                    {{ basis.label }}
+                  </nb-radio>
+                </nb-radio-group>
+                <div *ngIf="type.invalid && (type.dirty || type.touched)">
+                  <div *ngIf="type.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="identifier" class="label col-sm-3 form-control-label">Short Name</label>
+              <ngx-id-input class="col-sm-9" id="identifier" placeholder="Short name" [form]="productForm"
+                controlName="identifier" [readonly]="editMode">
+              </ngx-id-input>
+            </div>
+
+            <div class="form-group row">
+              <label for="Name" class="label col-sm-3 form-control-label">Name</label>
+              <div class="col-sm-9">
+                <input id="Name" nbInput placeholder="Name" formControlName="name">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                  <div *ngIf="name.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+                  <div *ngIf="name.hasError('maxlength')" class="caption status-danger ng-star-inserted"> Only
+                    {{name.getError('maxlength')['requiredLength']}} characters allowed.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="description" class="label col-sm-3 form-control-label">Description</label>
+              <div class="col-sm-9">
+                <textarea id="description" nbInput placeholder="Description(optional)"
+                  formControlName="description"></textarea>
+                <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                  <div *ngIf="description.hasError('maxlength')" class="caption status-danger ng-star-inserted"> Only
+                    {{description.getError('maxlength')['requiredLength']}} characters allowed.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label for="currencyCode" class="label col-sm-3 form-control-label">Currency</label>
+              <div class="col-sm-9">
+                <nb-select id="currencyCode" formControlName="currencyCode" placeholder="Currency">
+                  <nb-option *ngFor="let currency of currencies" [value]="currency.code">
+                    {{ currency.code }}
+                  </nb-option>
+                </nb-select>
+                <div *ngIf="currencyCode.invalid && (currencyCode.dirty || currencyCode.touched)">
+                  <div *ngIf="currencyCode.hasError('required')" class="caption status-danger ng-star-inserted">Required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label for="minimumBalance" class="label col-sm-3 form-control-label">Minimum balance</label>
+              <div class="col-sm-9">
+                <input nbInput id="minimumBalance" type="number" formControlName="minimumBalance"
+                  placeholder="Minimum balance">
+                <div *ngIf="minimumBalance.invalid && (currencyCode.dirty || minimumBalance.touched)">
+                  <div *ngIf="minimumBalance.hasError('required')" class="caption status-danger ng-star-inserted">
+                    Required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label for="termInterestPayable" class="label col-sm-3 form-control-label">Interest payable</label>
+              <div class="col-sm-9">
+                <nb-radio-group id="termInterestPayable" formControlName="termInterestPayable" class="row col-sm-9">
+                  <nb-radio *ngFor="let basis of interestPayableOptions" [value]="basis.type">
+                    {{ basis.label }}
+                  </nb-radio>
+                </nb-radio-group>
+                <div *ngIf="termInterestPayable.invalid && (currencyCode.dirty || termInterestPayable.touched)">
+                  <div *ngIf="termInterestPayable.hasError('required')" class="caption status-danger ng-star-inserted">
+                    Required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-sm-3"></div>
+              <nb-checkbox class="col-sm-9" formControlName="flexible">Flexible interest during the term?
+              </nb-checkbox>
+              <div *ngIf="flexible.invalid && (currencyCode.dirty || flexible.touched)">
+                <div *ngIf="flexible.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label for="interest" class="label col-sm-3 form-control-label">Interest</label>
+              <div class="col-sm-9">
+                <input nbInput id="interest" type="number" formControlName="interest" placeholder="Interest">
+                <div *ngIf="interest.invalid && (interest.dirty || interest.touched)">
+                  <div *ngIf="interest.hasError('required')" class="caption status-danger ng-star-inserted">Required
+                  </div>
+                  <div *ngIf="interest.hasError('minValue')" class="caption status-danger ng-star-inserted"> Value must
+                    be
+                    greater than or equal to
+                    {{interest.getError('minValue')['value']}}.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-3"></div>
+              <nb-checkbox class="col-sm-9" formControlName="fixedTermEnabled">Fixed term?
+              </nb-checkbox>
+            </div>
+
+            <div class="row form-group" *ngIf="fixedTermEnabled.value">
+              <label for="termPeriod" class="label col-sm-3 form-control-label">Term period</label>
+              <div class="col-sm-9">
+                <input nbInput id="termPeriod" type="number" formControlName="termPeriod" placeholder="Term period">
+                <div *ngIf="termPeriod.invalid && (termPeriod.dirty || termPeriod.touched)">
+                  <div *ngIf="termPeriod.hasError('required')" class="caption status-danger ng-star-inserted">Required
+                  </div>
+                  <div *ngIf="termPeriod.hasError('minValue')" class="caption status-danger ng-star-inserted"> Value
+                    must
+                    be greater than or equal to {{termPeriod.getError('minValue')['value']}}.</div>
+                  <div *ngIf="termPeriod.hasError('maxScale')" class="caption status-danger ng-star-inserted"> Must have
+                    {{termPeriod.getError('maxScale')['value']}} decimal places.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group" *ngIf="fixedTermEnabled.value">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-9">
+                <nb-radio-group formControlName="termTimeUnit" class="row col-sm-9">
+                  <nb-radio *ngFor="let basis of timeUnitOptions" [value]="basis.type">
+                    {{ basis.label }}
+                  </nb-radio>
+                </nb-radio-group>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="label col-sm-3 form-control-label">Expense account</label>
+              <div class="col-sm-9">
+                <ngx-account-select title="Expense account(Expense accounts only)"
+                  formControlName="expenseAccountIdentifier" [type]="'EXPENSE'">
+                  <ng-container
+                    *ngIf="!expenseAccountIdentifier.pristine && expenseAccountIdentifier.hasError('required')">
+                    Required
+                  </ng-container>
+                  <ng-container *ngIf="expenseAccountIdentifier.hasError('invalidAccount')">
+                    Invalid account
+                  </ng-container>
+                </ngx-account-select>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="label col-sm-3 form-control-label">Cash account</label>
+              <div class="col-sm-9">
+                <ngx-account-select title="Cash account(Asset accounts only)" formControlName="cashAccountIdentifier"
+                  [type]="'ASSET'">
+                  <ng-container *ngIf="!cashAccountIdentifier.pristine && cashAccountIdentifier.hasError('required')">
+                    Required
+                  </ng-container>
+                  <ng-container *ngIf="cashAccountIdentifier.hasError('invalidAccount')">
+                    Invalid account
+                  </ng-container>
+                </ngx-account-select>
+              </div>
+            </div>
+
+            <div class="row form-group" *ngIf="accrueAccountIdentifier.status !== 'DISABLED'">
+              <label class="label col-sm-3 form-control-label">Accrue account</label>
+              <div class="col-sm-9">
+                <ngx-account-select title="Accrue account(Liability accounts only)"
+                  formControlName="accrueAccountIdentifier" [type]="'LIABILITY'">
+                  <ng-container
+                    *ngIf="!accrueAccountIdentifier.pristine && accrueAccountIdentifier.hasError('required')">
+                    Required
+                  </ng-container>
+                  <ng-container *ngIf="accrueAccountIdentifier.hasError('invalidAccount')">
+                    Invalid account
+                  </ng-container>
+                </ngx-account-select>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="label col-sm-3 form-control-label">Equity ledger</label>
+              <div class="col-sm-9">
+                <ngx-ledger-select title="Equity ledger(Equity ledgers only)" formControlName="equityLedgerIdentifier"
+                  [type]="'EQUITY'">
+                  <ng-container *ngIf="!equityLedgerIdentifier.pristine && equityLedgerIdentifier.hasError('required')">
+                    Required
+                  </ng-container>
+                  <ng-container *ngIf="equityLedgerIdentifier.hasError('invalidLedger')">
+                    Invalid ledger
+                  </ng-container>
+                </ngx-ledger-select>
+              </div>
+            </div>
+          </form>
+          <div class="button-align">
+            <button nbButton nbStepperNext>next</button>
+          </div>
+        </div>
+      </nb-step>
+
+      <nb-step #chargesStep label="Fees" [stepControl]="chargesForm">
+        <div class="step-container">
+          <ngx-deposit-charges #chargesForm [actions]="actions" [formData]="charges">
+          </ngx-deposit-charges>
+          <br>
+          <div class="button-align">
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </div>
+        </div>
+      </nb-step>
+
+      <nb-step [hidden]="true" label="Submit">
+        <div class="step-container">
+          <div class="button-align">
+            <button nbButton [disabled]="!isValid" *ngIf="!editMode" (click)="save()">create
+              product</button>
+            <button nbButton [disabled]="!isValid" *ngIf="editMode" (click)="save()">update
+              product</button>
+            <button nbButton (click)="cancel()">CANCEL</button>
+          </div>
+        </div>
+      </nb-step>
+
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

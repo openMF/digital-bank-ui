@@ -25,6 +25,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Customers',
     icon: 'smiling-face-outline',
-    link: '/offices',
+    link: '/customers',
+  },
+  {
+    title: 'Deposit',
+    icon: 'archive-outline',
+    link: '/deposits',
   },
 ];

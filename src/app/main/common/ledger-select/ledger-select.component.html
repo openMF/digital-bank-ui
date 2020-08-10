@@ -1,0 +1,6 @@
+<input #autoInput nbInput [placeholder]="title" [nbAutocomplete]="auto" [formControl]="formControl" />
+<nb-autocomplete #auto>
+  <nb-option *ngFor="let ledger of ledgers | async" [value]="ledger.identifier">
+    {{ ledger.identifier }}({{ledger.description}})
+  </nb-option>
+</nb-autocomplete>

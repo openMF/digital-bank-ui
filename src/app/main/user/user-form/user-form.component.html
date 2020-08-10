@@ -15,9 +15,9 @@
           <input nbInput id="password" placeholder="Password" type="password" formControlName="password"
             autocomplete="user-password">
           <div *ngIf="password.invalid && (password.dirty || password.touched)">
-            <p *ngIf="password.hasError('required')" class="caption status-danger ng-star-inserted"> Required</p>
-            <p *ngIf="password.hasError('minlength')" class="caption status-danger ng-star-inserted"> Must have at least
-              {{password.getError('minlength')['requiredLength']}} characters.</p>
+            <div *ngIf="password.hasError('required')" class="caption status-danger ng-star-inserted"> Required</div>
+            <div *ngIf="password.hasError('minlength')" class="caption status-danger ng-star-inserted"> Must have at least
+              {{password.getError('minlength')['requiredLength']}} characters.</div>
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
             </nb-option>
           </nb-select>
           <div *ngIf="role.invalid && (role.dirty || role.touched)">
-            <p *ngIf="role.hasError('required')" class="caption status-danger ng-star-inserted"> Required</p>
+            <div *ngIf="role.hasError('required')" class="caption status-danger ng-star-inserted"> Required</div>
           </div>
         </div>
       </div>

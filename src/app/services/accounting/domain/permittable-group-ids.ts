@@ -1,3 +1,4 @@
+
 export class AccountingPermittableGroupIds {
   public static readonly ACCOUNT_MANAGEMENT = 'accounting__v1__account';
   public static readonly JOURNAL_MANAGEMENT = 'accounting__v1__journal';

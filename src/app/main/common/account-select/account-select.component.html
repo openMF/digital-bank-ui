@@ -1,0 +1,6 @@
+<input #autoInput nbInput [placeholder]="title" [nbAutocomplete]="auto" [formControl]="formControl" />
+<nb-autocomplete #auto>
+  <nb-option *ngFor="let account of accounts | async" [value]="account.identifier">
+    {{ account.identifier }}({{account.name}})
+  </nb-option>
+</nb-autocomplete>

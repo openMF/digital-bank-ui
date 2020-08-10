@@ -1,5 +1,3 @@
-
-
 export interface FimsDate {
   year: number;
   month: number;
@@ -79,5 +77,3 @@ function formatDate(year: number, month: number, day: number): string {
 function addZero(value: number): string {
   return ('0' + value).slice(-2);
 }
-
-

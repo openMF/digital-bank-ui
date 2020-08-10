@@ -31,7 +31,9 @@ import { IdentityService } from './services/identity/identity.service';
 import { AuthenticationService } from './services/security/authn/authentication.service';
 import { NotificationService } from './services/notification/notification.service';
 import { ExistsGuardService } from './main/common/guards/exists-guard';
-
+import { DepositAccountService } from './services/depositAccount/deposit-account.service';
+import { CurrencyService } from './services/currency/currency.service';
+import { AccountingService } from './services/accounting/accounting.service';
 /** Custom Effects */
 import { SecurityRouteEffects } from './store/security/effects/route.effects';
 import { SecurityApiEffects } from './store/security/effects/service.effects';
@@ -89,6 +91,9 @@ import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
     IdentityService,
     NotificationService,
     ExistsGuardService,
+    DepositAccountService,
+    CurrencyService,
+    AccountingService,
     ...appRoutingProviders,
   ],
   bootstrap: [AppComponent],

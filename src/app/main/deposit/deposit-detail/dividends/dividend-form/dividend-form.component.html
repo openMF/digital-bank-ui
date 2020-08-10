@@ -1,0 +1,36 @@
+<nb-card>
+  <nb-card-header>Distribute dividend</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="dividendForm">
+
+      <div class="form-group row">
+        <label for="dueDate" class="label col-sm-3 form-control-label">Due date</label>
+        <div class="col-sm-9">
+          <input nbInput placeholder="Due Date" [nbDatepicker]="formpicker" formControlName="dueDate">
+          <nb-datepicker #formpicker></nb-datepicker>
+          <div *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched)">
+            <div *ngIf="dueDate.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="role" class="label col-sm-3 form-control-label">Dividend rate</label>
+        <div class="col-sm-9">
+          <input nbInput id="dividendRate" type="number" formControlName="dividendRate" placeholder="Dividend rate">
+          <div *ngIf="dividendRate.invalid && (dividendRate.dirty || dividendRate.touched)">
+            <div *ngIf="dividendRate.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+            <div *ngIf="dividendRate.hasError('minlength')" class="caption status-danger ng-star-inserted"> Value must
+              be greater than or equal to {{dividendRate.getError('minValue')['value']}}.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row button-align">
+        <button type="submit" nbButton [disabled]="!dividendForm.valid" (click)="save()" status="primary">DISTRIBUTE
+          DIVIDEND</button>
+        <button (click)="cancel()" nbButton>CANCEL</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
