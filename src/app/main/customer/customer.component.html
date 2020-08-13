@@ -1,0 +1,22 @@
+<div class="search-action">
+  <label class="search-label" for="search">Search: &nbsp;</label>
+  <input nbInput type="search" (search)="search($event)" id="search" class="search-input"
+    placeholder="Search customer data...">
+</div>
+<br>
+
+<ng2-smart-table *ngIf="!loading" [settings]="settings" [source]="source" (userRowSelect)="onCustomerRowSelect($event)">
+</ng2-smart-table>
+
+<div style="padding: 20%;text-align:center;" *ngIf="loading">
+  <div>Fetching results...</div>
+</div>
+
+<div class="button-container">
+  <ngx-fab-button tooltip="Create new customer" title="Create new customer" icon="plus-outline" [link]="['create']"
+    status="primary" [permission]="{ id: 'customer_customers', accessLevel: 'CHANGE'}"></ngx-fab-button>
+  <ngx-fab-button tooltip="Manage Tasks" title="Manage Tasks" icon="checkmark-square-outline" [link]="['tasks']"
+    status="info" [permission]="{ id: 'customer_tasks', accessLevel: 'READ'}"></ngx-fab-button>
+  <ngx-fab-button tooltip="Custom fields" title="Custom fields" icon="file-text-outline" [link]="['catalog/detail']"
+    status="info" [permission]="{ id: 'catalog_catalogs', accessLevel: 'READ'}"></ngx-fab-button>
+</div>

@@ -7,6 +7,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store/index';
 import { SEARCH } from '../../store/user/user.actions';
+import { FimsValidators } from '../common/validator/validators';
 
 /**
  * Users component.
@@ -36,9 +37,11 @@ export class UserComponent implements OnInit {
     columns: {
       identifier: {
         title: 'ID',
+        compareFunction: FimsValidators.compareFunction,
       },
       role: {
         title: 'Role',
+        compareFunction: FimsValidators.compareFunction,
       },
     },
     mode: 'external',

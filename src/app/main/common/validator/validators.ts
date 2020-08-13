@@ -244,4 +244,18 @@ export class FimsValidators {
     }
     return null;
   }
+
+  static compareFunction(direction: any, a: any, b: any) {
+    // Converting strings to lowercase
+    const first = typeof a === 'string' ? a.toLowerCase() : a;
+    const second = typeof b === 'string' ? b.toLowerCase() : b;
+
+    if (first < second) {
+      return -1 * direction;
+    }
+    if (first > second) {
+      return direction;
+    }
+    return 0;
+  }
 }

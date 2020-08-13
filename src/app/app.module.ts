@@ -34,12 +34,18 @@ import { ExistsGuardService } from './main/common/guards/exists-guard';
 import { DepositAccountService } from './services/depositAccount/deposit-account.service';
 import { CurrencyService } from './services/currency/currency.service';
 import { AccountingService } from './services/accounting/accounting.service';
+import { ImageService } from './services/image/image.service';
+import { PayrollService } from './services/payroll/payroll.service';
+import { CustomerService } from './services/customer/customer.service';
+import { CatalogService } from './services/catalog/catalog.service';
+
 /** Custom Effects */
 import { SecurityRouteEffects } from './store/security/effects/route.effects';
 import { SecurityApiEffects } from './store/security/effects/service.effects';
 import { SecurityNotificationEffects } from './store/security/effects/notification.effects';
 import { RoleSearchApiEffects } from './store/role/effects/service.effects';
 import { UserSearchApiEffects } from './store/user/effects/service.effects';
+import { CustomerSearchApiEffects } from './store/customer/effects/service.effects';
 
 /** App Routing Module */
 import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
@@ -78,6 +84,7 @@ import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
       SecurityNotificationEffects,
       RoleSearchApiEffects,
       UserSearchApiEffects,
+      CustomerSearchApiEffects,
     ]),
 
     StoreDevtoolsModule.instrument({
@@ -94,6 +101,10 @@ import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
     DepositAccountService,
     CurrencyService,
     AccountingService,
+    ImageService,
+    PayrollService,
+    CustomerService,
+    CatalogService,
     ...appRoutingProviders,
   ],
   bootstrap: [AppComponent],

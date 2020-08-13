@@ -20,6 +20,7 @@ import {
 } from '../main/common/store/search.reducer';
 import { roleFeatureKey } from '../main/role/store/index';
 import { userFeatureKey } from '../main/user/store/index';
+import { customerFeatureKey } from '../main/customer/store/index';
 
 export const rootFeatureKey = 'Root';
 
@@ -31,6 +32,7 @@ export interface State {
   authorization: fromAuthorization.State;
   roleSearch: SearchState;
   userSearch: SearchState;
+  customerSearch: SearchState;
 }
 
 /**
@@ -41,6 +43,7 @@ export const reducers = {
   authorization: fromAuthorization.reducer,
   roleSearch: createSearchReducer(roleFeatureKey),
   userSearch: createSearchReducer(userFeatureKey),
+  customerSearch: createSearchReducer(customerFeatureKey),
 };
 
 export function createReducer(asyncReducers = {}): ActionReducer<any> {
@@ -126,6 +129,28 @@ export const getUserSearchResults = createSelector(
   (users, totalPages, totalElements) => {
     return {
       users: users,
+      totalPages: totalPages,
+      totalElements: totalElements,
+    };
+  },
+);
+
+/**
+ * Customer Search Selectors
+ */
+export const getCustomerSearchState = (state: State) => state[rootFeatureKey].customerSearch;
+export const getSearchCustomers = createSelector(getCustomerSearchState, getSearchEntities);
+export const getCustomerSearchTotalElements = createSelector(getCustomerSearchState, getSearchTotalElements);
+export const getCustomerSearchTotalPages = createSelector(getCustomerSearchState, getSearchTotalPages);
+export const getCustomerSearchLoading = createSelector(getCustomerSearchState, getSearchLoading);
+
+export const getCustomerSearchResults = createSelector(
+  getSearchCustomers,
+  getCustomerSearchTotalPages,
+  getCustomerSearchTotalElements,
+  (customers, totalPages, totalElements) => {
+    return {
+      customers: customers,
       totalPages: totalPages,
       totalElements: totalElements,
     };

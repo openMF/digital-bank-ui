@@ -47,7 +47,6 @@ import { CreateDividendFormComponent } from './deposit-detail/dividends/dividend
 @NgModule({
   imports: [
     RouterModule,
-    // RouterModule.forChild(routes),
     CommonModule,
     DepositRoutingModule,
     NbButtonModule,
