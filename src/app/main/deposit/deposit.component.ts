@@ -10,6 +10,7 @@ import { SEARCH } from './store/product.actions';
 import { CustomSelectorFilterComponent } from './helper/custom-filter.component';
 import { CustomNumberFilterComponent } from '../common/custom-filters/custom-number-filter.component';
 import { CustomRenderComponent } from './helper/custom-render.component';
+import { FimsValidators } from '../common/validator/validators';
 
 /**
  * Deposit product component.
@@ -39,9 +40,11 @@ export class DepositComponent implements OnInit {
     columns: {
       identifier: {
         title: 'ID',
+        compareFunction: FimsValidators.compareFunction,
       },
       name: {
         title: 'Name',
+        compareFunction: FimsValidators.compareFunction,
       },
       type: {
         title: 'Type',

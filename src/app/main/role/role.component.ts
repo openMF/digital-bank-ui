@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalDataSource } from 'ng2-smart-table';
+import { FimsValidators } from '../common/validator/validators';
 
 /** ngrx Store Imports */
 import { Store } from '@ngrx/store';
@@ -36,6 +37,7 @@ export class RoleComponent implements OnInit {
     columns: {
       identifier: {
         title: 'ID',
+        compareFunction: FimsValidators.compareFunction,
       },
     },
     mode: 'external',

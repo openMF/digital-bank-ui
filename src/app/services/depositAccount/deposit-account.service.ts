@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClientService } from '../http/http.service';
 import { HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ProductDefinition } from './domain/definition/product-definition.model';
 import { ProductDefinitionCommand } from './domain/definition/product-definition-command.model';
 import { ProductInstance } from './domain/instance/product-instance.model';

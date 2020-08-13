@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClientService } from '../http/http.service';
 import { Ledger } from './domain/ledger.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Account } from './domain/account.model';
 import { HttpParams } from '@angular/common/http';
 import { AccountCommand } from './domain/account-command.model';
