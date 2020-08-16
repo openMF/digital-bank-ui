@@ -1,0 +1,10 @@
+<nb-card>
+  <nb-card-header>
+    <nb-icon icon="alert-circle-outline" status="danger" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+    <span>No Headquarter found</span>
+  </nb-card-header>
+  <nb-card-body>
+    <div>Oh no, it looks like you don't have a headquarter created yet. No worries you can do it now!</div>
+    <button nbButton status="primary" [routerLink]="['../create']">Create headquarter</button>
+  </nb-card-body>
+</nb-card>

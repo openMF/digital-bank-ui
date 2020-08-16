@@ -1,0 +1,68 @@
+<form [formGroup]="form">
+
+  <div class="form-group row">
+    <label for="street" class="label col-sm-3 form-control-label">Street</label>
+    <div class="col-sm-9">
+      <input id="street" nbInput placeholder="street" formControlName="street">
+      <div *ngIf="street.invalid && (street.dirty || street.touched)">
+        <div *ngIf="street.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+        <div *ngIf="street.hasError('maxlength')" class="caption status-danger ng-star-inserted"> Only
+          {{street.getError('maxlength')['requiredLength']}} characters allowed.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="city" class="label col-sm-3 form-control-label">city</label>
+    <div class="col-sm-9">
+      <input id="city" nbInput placeholder="city" formControlName="city">
+      <div *ngIf="city.invalid && (city.dirty || city.touched)">
+        <div *ngIf="city.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+        <div *ngIf="city.hasError('maxlength')" class="caption status-danger ng-star-inserted"> Only
+          {{city.getError('maxlength')['requiredLength']}} characters allowed.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="postalCode" class="label col-sm-3 form-control-label">Postal Code</label>
+    <div class="col-sm-9">
+      <input id="postalCode" nbInput placeholder="postalCode (optional)" formControlName="postalCode">
+      <div *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)">
+        <div *ngIf="postalCode.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+        <div *ngIf="postalCode.hasError('maxlength')" class="caption status-danger ng-star-inserted"> Only
+          {{postalCode.getError('maxlength')['requiredLength']}} characters allowed.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="region" class="label col-sm-3 form-control-label">Region</label>
+    <div class="col-sm-9">
+      <input id="region" nbInput placeholder="region (optional)" formControlName="region">
+      <div *ngIf="region.invalid && (region.dirty || region.touched)">
+        <div *ngIf="region.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+        <div *ngIf="region.hasError('maxlength')" class="caption status-danger ng-star-inserted"> Only
+          {{region.getError('maxlength')['requiredLength']}} characters allowed.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="country" class="label col-sm-3 form-control-label">Country</label>
+    <div class="col-sm-9">
+      <input id="country" #autoInput nbInput type="text" placeholder="Country" formControlName="country"
+        [nbAutocomplete]="auto" />
+      <div *ngIf="country.invalid && (country.dirty || country.touched)">
+        <div *ngIf="country.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+        <div *ngIf="country.hasError('invalidCountry')" class="caption status-danger ng-star-inserted"> Invalid country.
+        </div>
+      </div>
+      <nb-autocomplete #auto [handleDisplayFn]="countryDisplay">
+        <nb-option *ngFor="let country of filteredCountries | async" [value]="country">
+          {{ country.name }}
+        </nb-option>
+      </nb-autocomplete>
+    </div>
+  </div>
+</form>

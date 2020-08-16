@@ -1,0 +1,69 @@
+<nb-card>
+  <nb-card-header>{{title}}</nb-card-header>
+  <nb-card-body>
+    <nb-stepper orientation="horizontal">
+      <nb-step label="Office details" [stepControl]="detailForm">
+        <div class="step-container">
+          <form [formGroup]="detailForm">
+
+            <div class="form-group row">
+              <label for="identifier" class="label col-sm-3 form-control-label">Office Identifier</label>
+              <ngx-id-input class="col-sm-9" id="identifier" placeholder="Identifier" [form]="detailForm"
+                controlName="identifier" [readonly]="editMode">
+              </ngx-id-input>
+            </div>
+
+            <div class="form-group row">
+              <label for="Name" class="label col-sm-3 form-control-label">Name</label>
+              <div class="col-sm-9">
+                <input id="Name" nbInput placeholder="Name" formControlName="name">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                  <div *ngIf="name.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+                  <div *ngIf="name.hasError('maxlength')" class="caption status-danger ng-star-inserted"> Only
+                    {{name.getError('maxlength')['requiredLength']}} characters allowed.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="description" class="label col-sm-3 form-control-label">Description</label>
+              <div class="col-sm-9">
+                <textarea id="description" nbInput placeholder="Description(optional)"
+                  formControlName="description"></textarea>
+                <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                  <div *ngIf="description.hasError('maxlength')" class="caption status-danger ng-star-inserted"> Only
+                    {{description.getError('maxlength')['requiredLength']}} characters allowed.</div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="button-align">
+            <button nbButton nbStepperNext>next</button>
+          </div>
+        </div>
+      </nb-step>
+
+      <nb-step label="Office address" [stepControl]="addressForm">
+        <div class="step-container">
+          <ngx-address-form #addressForm [formData]="addressFormData"></ngx-address-form>
+          <div class="button-align">
+            <button nbButton nbStepperNext>next</button>
+          </div>
+        </div>
+      </nb-step>
+
+      <nb-step [hidden]="true" label="Submit">
+        <div class="step-container">
+          <div class="button-align">
+            <button nbButton [disabled]="!isValid" *ngIf="!editMode" (click)="save()">create
+              Office</button>
+            <button nbButton [disabled]="!isValid" *ngIf="editMode" (click)="save()">update
+              Office</button>
+            <button nbButton (click)="cancel()">CANCEL</button>
+          </div>
+        </div>
+      </nb-step>
+
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

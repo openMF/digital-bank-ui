@@ -5,13 +5,13 @@
     <nb-alert *ngIf="!definition.active" accent="danger">
       <div class="row">
         <div class="col-sm-9">
-          <nb-icon icon="close-outline" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+          <nb-icon icon="close-circle" status="danger" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
           Product not enabled <br>
           <small>To assign this product to a member it needs to be enabled first</small>
         </div>
         <div class="col-sm-3">
           <button nbButton (click)="enableProduct()" status="basic"
-            *hasPermission="{ id: 'deposit_definitions', accessLevel: 'CHANGE'}" translate>ENABLE PRODUCT</button>
+            *hasPermission="{ id: 'deposit_definitions', accessLevel: 'CHANGE'}">ENABLE PRODUCT</button>
         </div>
       </div>
     </nb-alert>
@@ -19,7 +19,7 @@
     <nb-alert *ngIf="definition.active" accent="info">
       <div class="row">
         <div class="col-sm-9">
-          <nb-icon icon="checkmark-outline" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+          <nb-icon icon="checkmark-circle-2" status="success" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
           Product enabled <br>
           <small>This product can be assigned to a member</small>
         </div>
@@ -84,7 +84,7 @@
 
       <br>
 
-      <div class="fee-header">Fees</div>
+      <div class="fee-header"><b>Fees</b></div>
       <ng2-smart-table [settings]="settings" [source]="source">
       </ng2-smart-table>
 

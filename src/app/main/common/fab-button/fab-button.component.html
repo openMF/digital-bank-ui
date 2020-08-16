@@ -1,4 +1,4 @@
-<a nbButton status="{{status}}" class="fab-button" title="{{title}}" [routerLink]="link"
-  [disabled]="disabled" [nbTooltip]="tooltip" *hasPermission="permission">
+<a nbButton status="{{status}}" class="fab-button" title="{{title}}" [routerLink]="link" [disabled]="disabled"
+  [nbTooltip]="tooltip" *hasPermission="permission" [queryParams]="queryParams">
   <nb-icon icon="{{icon}}" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
 </a>

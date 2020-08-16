@@ -1,0 +1,77 @@
+<ng-container *ngIf="office$ | async as office">
+
+  <nb-card>
+    <nb-card-header>{{office.parentIdentifier ? office.name : office.name + ' (Headquarter)'}}</nb-card-header>
+    <nb-card-body>
+
+      <div *ngIf="office.parentIdentifier">
+        <button nbButton [routerLink]="['../../', this.office.parentIdentifier]" status="basic">
+          <nb-icon icon="arrow-ios-back-outline" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+          Go to Parent Branch
+        </button>
+      </div>
+
+      <div *ngIf="office.description">
+        <b>Description</b>
+        <div class="row">
+          <div class="col-sm-8">
+            {{office.description}}
+          </div>
+        </div>
+      </div>
+
+      <b>
+        Address
+      </b>
+      <div *ngIf="office.address" class="row">
+        <div class="col-sm-1 address-icon">
+          <nb-icon icon="globe-outline" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+        </div>
+        <div class="col-sm-11">
+          <p>{{office.address.street}}, {{office.address.postalCode}}, {{office.address.city}}<span
+              *ngIf="office.address.region">({{office.address.region}})</span></p>
+          <p class="muted-text">{{office.address.country}}</p>
+        </div>
+      </div>
+      <div *ngIf="!office.address" class="row">
+        <div class="col-sm-1">
+          <nb-icon icon="globe-outline" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+        </div>
+        <div class="col-sm-11">
+          <p>No address available</p>
+        </div>
+      </div>
+      <br>
+
+      <b>
+        Branch offices
+      </b>
+      <div class="search-action">
+        <label class="search-label" for="search">Search: &nbsp;</label>
+        <input nbInput type="search" (search)="searchOffice($event)" id="search" class="search-input"
+          placeholder="Search office data...">
+      </div>
+
+      <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="rowSelect($event)">
+      </ng2-smart-table>
+
+    </nb-card-body>
+  </nb-card>
+
+  <div class="row button-container">
+    <ngx-fab-button tooltip="Create branch office" title="Create branch office" icon="plus-outline"
+      [link]="['../../../create']" status="primary" [queryParams]="{ parentId: office.identifier }"
+      [permission]="{ id: 'office_offices', accessLevel: 'CHANGE' }"></ngx-fab-button>
+
+    <span *ngIf="canDelete$ | async" (click)="deleteOffice()">
+      <ngx-fab-button tooltip="Delete office" title="Delete office" icon="trash-2-outline" status="danger"
+        [permission]="{ id: 'office_offices', accessLevel: 'DELETE'}"></ngx-fab-button>
+    </span>
+
+    <ngx-fab-button tooltip="Edit office" title="Edit office" icon="edit-outline" [link]="['edit']" status="basic"
+      [permission]="{ id: 'office_offices', accessLevel: 'CHANGE'}"></ngx-fab-button>
+
+    <ngx-fab-button tooltip="Manage tellers" title="Manage tellers" icon="edit-outline" [link]="['tellers']"
+      status="info" [permission]="{ id: 'teller_management', accessLevel: 'READ'}"></ngx-fab-button>
+  </div>
+</ng-container>

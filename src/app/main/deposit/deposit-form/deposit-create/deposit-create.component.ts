@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromDepositAccount from '../../store';
 import { CREATE, RESET_FORM } from '../../store/product.actions';
-import { Subscription } from 'rxjs/Subscription';
 import { Error } from '../../../../services/domain/error.model';
 import { ProductDefinition } from '../../../../services/depositAccount/domain/definition/product-definition.model';
 import { DepositFormComponent } from '../deposit-form.component';
@@ -11,7 +10,7 @@ import { CurrencyService } from '../../../../services/currency/currency.service'
 import { DepositAccountService } from '../../../../services/depositAccount/deposit-account.service';
 import { Currency } from '../../../../services/currency/domain/currency.model';
 import { Action } from '../../../../services/depositAccount/domain/definition/action.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 @Component({

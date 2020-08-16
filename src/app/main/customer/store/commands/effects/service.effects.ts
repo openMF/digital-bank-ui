@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-// import { toPayload } from '@ngrx/effects';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { Action } from '@ngrx/store';
@@ -13,7 +12,6 @@ export class CustomerCommandApiEffects {
   @Effect()
   loadCommands$: Observable<Action> = this.actions$.pipe(
     ofType(commandActions.LOAD_ALL),
-    // map(toPayload),
     mergeMap((customerId: string) =>
       this.customerService.listCustomerCommand(customerId).pipe(
         map(commands => new commandActions.LoadAllCompleteAction(commands)),

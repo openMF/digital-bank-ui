@@ -1,1 +1,13 @@
-<div>offices works!</div>
+<div class="search-action">
+  <label class="search-label" for="search">Search: &nbsp;</label>
+  <input nbInput type="search" (search)="search($event)" id="search" class="search-input"
+    placeholder="Search office data...">
+</div>
+<br>
+
+<ng2-smart-table *ngIf="!loading" [settings]="settings" [source]="source" (userRowSelect)="onOfficeRowSelect($event)">
+</ng2-smart-table>
+
+<div style="padding: 20%;text-align:center;" *ngIf="loading">
+  <div>Fetching results...</div>
+</div>

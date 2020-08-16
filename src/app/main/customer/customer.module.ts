@@ -44,9 +44,10 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomSelectorFilterComponent } from './helper/custom-filter.component';
+import { CustomRenderComponent } from './helper/custom-render.component';
 
 @NgModule({
-  declarations: [CustomerComponent, CustomSelectorFilterComponent],
+  declarations: [CustomerComponent, CustomSelectorFilterComponent, CustomRenderComponent],
   imports: [
     CommonModule,
     SharedModule,
