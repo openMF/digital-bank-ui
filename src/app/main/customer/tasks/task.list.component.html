@@ -1,0 +1,15 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="['../']"></ngx-back-button>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onTaskRowSelect($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
+
+<div class="button-container">
+  <ngx-fab-button tooltip="Create new task" title="Create new task" icon="plus-outline" [link]="['create']"
+    status="primary" [permission]="{ id: 'customer_tasks', accessLevel: 'CHANGE'}"></ngx-fab-button>
+</div>

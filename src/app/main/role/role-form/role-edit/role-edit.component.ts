@@ -15,7 +15,6 @@ import { SelectAction, UPDATE } from '../../store/role.actions';
 export class RoleEditComponent implements OnInit, OnDestroy {
   private actionsSubscription: Subscription;
   private roleSubscription: Subscription;
-  title: string = 'Edit role';
   role: Role;
 
   constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromRoles.State>) {}

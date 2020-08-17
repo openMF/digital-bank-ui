@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Role } from '../../../services/identity/domain/role.model';
 import { User } from '../../../services/identity/domain/user.model';
@@ -26,14 +27,17 @@ export class UserFormComponent implements OnInit {
     this.prepareForm(user);
   }
 
-  @Input() title: string;
+  title: String;
 
   @Output() onSave = new EventEmitter<UserWithPassword>();
   @Output() onCancel = new EventEmitter<void>();
 
-  constructor(private formBuilder: FormBuilder, private store: Store<fromRoot.State>) {}
+  constructor(private formBuilder: FormBuilder, private store: Store<fromRoot.State>, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.data.subscribe((data: any) => {
+      this.title = data.title;
+    });
     this.roles = this.store.select(fromRoot.getRoleSearchResults).pipe(map(rolesPage => rolesPage.roles));
     this.fetchRoles();
   }

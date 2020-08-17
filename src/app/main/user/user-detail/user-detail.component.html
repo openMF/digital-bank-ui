@@ -1,5 +1,8 @@
 <nb-card>
-  <nb-card-header>{{user.identifier}}</nb-card-header>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../../'"></ngx-back-button>
+    {{user.identifier}}
+  </nb-card-header>
   <nb-card-body>
     <div class="row">
       <div class="col-sm-3">

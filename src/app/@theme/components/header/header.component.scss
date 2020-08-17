@@ -11,6 +11,10 @@
     display: flex;
     align-items: center;
     width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+
+    .logo > img {
+      max-height: 3rem;
+    }
   }
 
   nb-action {
@@ -24,7 +28,7 @@
   }
 
   ::ng-deep nb-search button {
-    padding: 0!important;
+    padding: 0 !important;
   }
 
   .header-container {

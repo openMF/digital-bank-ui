@@ -18,7 +18,6 @@ export class RoleCreateComponent implements OnInit, OnDestroy {
   private formStateSubscription: Subscription;
 
   role: Role = { identifier: '', permissions: [] };
-  title: string = 'Create new role';
 
   @ViewChild('form') formComponent: any;
 

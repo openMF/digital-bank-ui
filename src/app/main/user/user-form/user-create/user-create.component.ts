@@ -24,7 +24,6 @@ export class UserCreateComponent implements OnInit, OnDestroy {
   @ViewChild('form') formComponent: UserFormComponent;
 
   user: User = { identifier: '', role: '' };
-  title: string = 'Create new user';
 
   constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromUsers.State>) {}
 

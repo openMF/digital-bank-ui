@@ -1,11 +1,15 @@
 <nb-card>
-  <nb-card-header>{{title}}</nb-card-header>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../'"></ngx-back-button>
+    {{title}}
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="detailForm">
 
       <div class="form-group row">
         <label for="identifier" class="label col-sm-3 form-control-label">Username</label>
-        <ngx-id-input class="col-sm-9" [form]="detailForm" placeholder="Username" controlName="identifier" [readonly]="editMode">
+        <ngx-id-input class="col-sm-9" [form]="detailForm" placeholder="Username" controlName="identifier"
+          [readonly]="editMode">
         </ngx-id-input>
       </div>
 
@@ -16,7 +20,8 @@
             autocomplete="user-password">
           <div *ngIf="password.invalid && (password.dirty || password.touched)">
             <div *ngIf="password.hasError('required')" class="caption status-danger ng-star-inserted"> Required</div>
-            <div *ngIf="password.hasError('minlength')" class="caption status-danger ng-star-inserted"> Must have at least
+            <div *ngIf="password.hasError('minlength')" class="caption status-danger ng-star-inserted"> Must have at
+              least
               {{password.getError('minlength')['requiredLength']}} characters.</div>
           </div>
         </div>

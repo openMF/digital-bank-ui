@@ -45,9 +45,30 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomSelectorFilterComponent } from './helper/custom-filter.component';
 import { CustomRenderComponent } from './helper/custom-render.component';
+import { TaskListComponent } from './tasks/task.list.component';
+import { TaskCreateFormComponent } from './tasks/form/create.form.component';
+import { TaskEditFormComponent } from './tasks/form/edit.form.component';
+import { TaskFormComponent } from './tasks/form/form.component';
+import { TaskExistsGuard } from './tasks/task-exists.guard';
+import { TaskIndexComponent } from './tasks/task.index.component';
+import { TaskDetailComponent } from './tasks/task.detail.component';
+import { CustomIconRenderComponent } from './tasks/helper/custom-icon-render.component';
+import { CustomTypeRenderComponent } from './tasks/helper/custom-type-render.component';
 
 @NgModule({
-  declarations: [CustomerComponent, CustomSelectorFilterComponent, CustomRenderComponent],
+  declarations: [
+    CustomerComponent,
+    CustomSelectorFilterComponent,
+    CustomRenderComponent,
+    TaskListComponent,
+    TaskIndexComponent,
+    TaskCreateFormComponent,
+    TaskEditFormComponent,
+    TaskFormComponent,
+    TaskDetailComponent,
+    CustomTypeRenderComponent,
+    CustomIconRenderComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -94,6 +115,6 @@ import { CustomRenderComponent } from './helper/custom-render.component';
       CatalogNotificationEffects,
     ]),
   ],
-  providers: [CustomerExistsGuard, CatalogExistsGuard],
+  providers: [CustomerExistsGuard, CatalogExistsGuard, TaskExistsGuard],
 })
 export class CustomerModule {}

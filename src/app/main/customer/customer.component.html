@@ -1,12 +1,20 @@
 <div class="search-action">
-  <!-- <label class="search-label" for="search"></label> -->
   <input nbInput type="search" (search)="search($event)" id="search" class="search-input"
     placeholder="Search customer data...">
 </div>
 <br>
 
-<ng2-smart-table *ngIf="!loading" [settings]="settings" [source]="source" (userRowSelect)="onCustomerRowSelect($event)">
+<ng2-smart-table *ngIf="!loading" allowFiltering='true' allowPaging='true' [settings]="settings" [source]="source"
+  (userRowSelect)="onCustomerRowSelect($event)">
 </ng2-smart-table>
+
+<!-- <div *ngIf="!loading">
+  <nb-select (selectedChange)="onPageChange($event)" [(selected)]="perPage" placeholder="Rows per page">
+    <nb-option *ngFor="let row of pageSizes"  [value]="row">
+      {{ row }}
+    </nb-option>
+  </nb-select>
+</div> -->
 
 <div style="padding: 20%;text-align:center;" *ngIf="loading">
   <div>Fetching results...</div>
@@ -17,6 +25,4 @@
     status="primary" [permission]="{ id: 'customer_customers', accessLevel: 'CHANGE'}"></ngx-fab-button>
   <ngx-fab-button tooltip="Manage Tasks" title="Manage Tasks" icon="checkmark-square-outline" [link]="['tasks']"
     status="info" [permission]="{ id: 'customer_tasks', accessLevel: 'READ'}"></ngx-fab-button>
-  <ngx-fab-button tooltip="Custom fields" title="Custom fields" icon="file-text-outline" [link]="['catalog/detail']"
-    status="info" [permission]="{ id: 'catalog_catalogs', accessLevel: 'READ'}"></ngx-fab-button>
 </div>

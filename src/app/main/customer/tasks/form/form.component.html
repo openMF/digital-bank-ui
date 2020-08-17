@@ -1,0 +1,98 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="['../']"></ngx-back-button>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form">
+
+      <div class="form-group row">
+        <label for="identifier" class="label col-sm-3 form-control-label">Task Identifier</label>
+        <ngx-id-input class="col-sm-9" id="identifier" [form]="form" controlName="identifier" [readonly]="editMode">
+        </ngx-id-input>
+      </div>
+
+      <div class="form-group row">
+        <label for="Name" class="label col-sm-3 form-control-label">Name</label>
+        <div class="col-sm-9">
+          <input id="Name" nbInput placeholder="Name" formControlName="name">
+          <div *ngIf="name.invalid && (name.dirty || name.touched)">
+            <div *ngIf="name.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+            <div *ngIf="name.hasError('maxlength')" class="caption status-danger ng-star-inserted"> Only
+              {{name.getError('maxlength')['requiredLength']}} characters allowed.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="description" class="label col-sm-3 form-control-label">Description</label>
+        <div class="col-sm-9">
+          <textarea id="description" nbInput placeholder="Description" formControlName="description"></textarea>
+          <div *ngIf="description.invalid && (description.dirty || description.touched)">
+            <div *ngIf="description.hasError('required')" class="caption status-danger ng-star-inserted">Required
+            </div>
+            <div *ngIf="description.hasError('maxlength')" class="caption status-danger ng-star-inserted"> Only
+              {{description.getError('maxlength')['requiredLength']}} characters allowed.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="type" class="label col-sm-3 form-control-label">Type</label>
+        <div class="col-sm-9">
+          <nb-radio-group id="type" formControlName="type" class="row col-sm-9">
+            <nb-radio *ngFor="let type of typeOptions" [value]="type.type">
+              {{ type.label }}
+            </nb-radio>
+          </nb-radio-group>
+          <div *ngIf="type.invalid && (type.dirty || type.touched)">
+            <div *ngIf="type.hasError('required')" class="caption status-danger ng-star-inserted">Required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <div class="col-sm-3"></div>
+        <nb-checkbox class="col-sm-9" formControlName="mandatory">Mandatory</nb-checkbox>
+      </div>
+
+      <div class="row form-group">
+        <div class="col-sm-3"></div>
+        <nb-checkbox class="col-sm-9" formControlName="predefined">Automatically assign this task when member is created
+        </nb-checkbox>
+      </div>
+
+
+
+      <div formArrayName="commands">
+        <b>Task needs to be executed, before member </b>
+        <div *ngFor="let test of commands; let i=index" layout="row" [formGroupName]="i">
+          <div class="row form-group">
+            <div class="col-sm-3"></div>
+            <nb-select class="col-sm-9" formControlName="command">
+              <nb-option *ngFor="let commandOption of commandOptions" [value]="commandOption.command">
+                {{commandOption.label}}
+              </nb-option>
+            </nb-select>
+            <button status="basic" nbButton (click)="removeCommand(i)" [disabled]="i === 0">Remove</button>
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-9">
+            <button status="basic" nbButton (click)="addCommand()">Add trigger</button>
+          </div>
+        </div>
+        <br>
+      </div>
+
+      <div class="row button-align">
+        <button type="submit" *ngIf="!editMode" nbButton [disabled]="!form.valid" (click)="save()"
+          status="primary">create task</button>
+        <button type="submit" *ngIf="editMode" nbButton [disabled]="!form.valid" (click)="save()"
+          status="primary">update task</button>
+        <button (click)="cancel()" nbButton>cancel</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,15 @@
+:host /deep/ ng2-smart-table table > tbody > tr > td {
+  font-size: 0.8rem;
+}
+
+:host /deep/ ng2-smart-table table > tbody > tr > td:hover {
+  cursor: pointer;
+}
+
+.button-container {
+  left: auto;
+  right: 30px;
+  top: auto;
+  bottom: 20px;
+  position: fixed;
+}

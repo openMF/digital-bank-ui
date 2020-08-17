@@ -1,5 +1,8 @@
 <nb-card>
-  <nb-card-header>{{role.identifier}}</nb-card-header>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../../'"></ngx-back-button>
+    {{role.identifier}}
+  </nb-card-header>
   <nb-card-body>
 
     <div class="search-action">

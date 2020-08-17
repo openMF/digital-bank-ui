@@ -21,6 +21,9 @@ export class RoleComponent implements OnInit {
   /** Data source for table */
   source: LocalDataSource = new LocalDataSource();
 
+  pageSizes: number[] = [5, 10, 15];
+  perPage: number = this.pageSizes[0];
+
   /** Roles data */
   rolesData: {
     roles: any;
@@ -41,9 +44,6 @@ export class RoleComponent implements OnInit {
       },
     },
     mode: 'external',
-    pager: {
-      display: false,
-    },
   };
 
   constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromRoot.State>) {}
@@ -72,5 +72,9 @@ export class RoleComponent implements OnInit {
   onRoleRowSelect(event: any): void {
     const role = event.data;
     this.router.navigate(['detail', role.identifier], { relativeTo: this.route });
+  }
+
+  onPageChange(event) {
+    this.source.getPaging().perPage = event;
   }
 }

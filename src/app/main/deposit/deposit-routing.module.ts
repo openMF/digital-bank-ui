@@ -17,31 +17,31 @@ export const routes: Routes = [
   {
     path: 'create',
     component: DepositCreateComponent,
-    data: { hasPermission: { id: 'deposit_definitions', accessLevel: 'CHANGE' } },
+    data: { title: 'Create deposit product', hasPermission: { id: 'deposit_definitions', accessLevel: 'CHANGE' } },
   },
   {
     path: 'detail/:id',
     component: DepositDetailComponent,
     canActivate: [ProductDefinitionExistsGuard],
-    data: { hasPermission: { id: 'deposit_definitions', accessLevel: 'READ' } },
+    data: { title: 'Deposit product detail', hasPermission: { id: 'deposit_definitions', accessLevel: 'READ' } },
   },
   {
     path: 'detail/:id/edit',
     component: DepositEditComponent,
     canActivate: [ProductDefinitionExistsGuard],
-    data: { hasPermission: { id: 'deposit_definitions', accessLevel: 'CHANGE' } },
+    data: { title: 'Edit deposit product', hasPermission: { id: 'deposit_definitions', accessLevel: 'CHANGE' } },
   },
   {
     path: 'detail/:id/dividends',
     component: DividendsComponent,
     canActivate: [ProductDefinitionExistsGuard],
-    data: { hasPermission: { id: 'deposit_definitions', accessLevel: 'READ' } },
+    data: { title: 'Manage dividends', hasPermission: { id: 'deposit_definitions', accessLevel: 'READ' } },
   },
   {
     path: 'detail/:id/dividends/distribute',
     component: CreateDividendFormComponent,
     canActivate: [ProductDefinitionExistsGuard],
-    data: { hasPermission: { id: 'deposit_definitions', accessLevel: 'CHANGE' } },
+    data: { title: 'Distribute dividends', hasPermission: { id: 'deposit_definitions', accessLevel: 'CHANGE' } },
   },
 ];
 

@@ -1,15 +1,13 @@
 <ng-container *ngIf="office$ | async as office">
 
   <nb-card>
-    <nb-card-header>{{office.parentIdentifier ? office.name : office.name + ' (Headquarter)'}}</nb-card-header>
+    <nb-card-header>
+      <span *ngIf="office.parentIdentifier">
+        <ngx-back-button [navigateBackTo]="['../../', this.office.parentIdentifier]"></ngx-back-button>
+      </span>
+      {{office.parentIdentifier ? office.name : office.name + ' (Headquarter)'}}
+    </nb-card-header>
     <nb-card-body>
-
-      <div *ngIf="office.parentIdentifier">
-        <button nbButton [routerLink]="['../../', this.office.parentIdentifier]" status="basic">
-          <nb-icon icon="arrow-ios-back-outline" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
-          Go to Parent Branch
-        </button>
-      </div>
 
       <div *ngIf="office.description">
         <b>Description</b>
