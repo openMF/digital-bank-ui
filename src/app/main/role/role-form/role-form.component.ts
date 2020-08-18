@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Role } from '../../../services/identity/domain/role.model';
 import { PermittableGroup } from '../../../services/anubis/permittable-group.model';
 import { IdentityService } from '../../../services/identity/identity.service';
@@ -32,7 +33,7 @@ export class RoleFormComponent implements OnInit, OnDestroy {
     this.prepareForm(role);
   }
 
-  @Input() title: string;
+  title: String;
 
   @Output() onSave = new EventEmitter<Role>();
 
@@ -42,9 +43,13 @@ export class RoleFormComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private identityService: IdentityService,
     private formPermissionService: FormPermissionService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
+    this.route.data.subscribe((data: any) => {
+      this.title = data.title;
+    });
     this.permittableGroupSubscription = this.identityService.getPermittableGroups().subscribe((groups: PermittableGroup[]) => {
       this.permissionGroups = this.formPermissionService.mapToFormPermissions(groups, this._role.permissions);
 

@@ -26,6 +26,7 @@ import { LedgerSelectComponent } from './ledger-select/ledger-select.component';
 import { CustomNumberFilterComponent } from './custom-filters/custom-number-filter.component';
 import { DisplayFimsDate } from './date/fims-date.pipe';
 import { AddressFormComponent } from './address/address.component';
+import { BackButtonComponent } from './back-button/back-button.component';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import { AddressFormComponent } from './address/address.component';
     CustomNumberFilterComponent,
     DisplayFimsDate,
     AddressFormComponent,
+    BackButtonComponent,
   ],
   exports: [
     PermissionDirective,
@@ -69,6 +71,7 @@ import { AddressFormComponent } from './address/address.component';
     CustomNumberFilterComponent,
     DisplayFimsDate,
     AddressFormComponent,
+    BackButtonComponent,
   ],
   entryComponents: [],
 })

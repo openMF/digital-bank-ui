@@ -1,4 +1,8 @@
 <nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../'"></ngx-back-button>
+    {{title}}
+  </nb-card-header>
   <nb-card-body>
     <nb-stepper orientation="horizontal">
       <nb-step label="Product details" [stepControl]="productForm">

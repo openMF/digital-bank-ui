@@ -17,3 +17,7 @@
 :host /deep/ ng2-smart-table table > tbody > tr > td:hover {
   cursor: pointer;
 }
+
+:host /deep/ ng2-smart-table .ng2-smart-action-multiple-select > input {
+  font-size: 0.1rem;
+}

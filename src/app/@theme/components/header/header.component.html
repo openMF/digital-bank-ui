@@ -4,7 +4,9 @@
       (click)="toggleSidebar()">
       <nb-icon [icon]="(materialTheme$ | async) ? 'menu-outline' : 'menu-2-outline'"></nb-icon>
     </a>
-    <a class="logo" href="#" (click)="navigateHome()"><span>Digital Bank</span></a>
+    <a class="logo" href="#" (click)="navigateHome()">
+      <img src="../../assets/images/mifos-logo.png">
+    </a>
   </div>
 </div>
 

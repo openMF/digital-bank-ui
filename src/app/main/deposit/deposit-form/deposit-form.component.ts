@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ProductDefinition } from '../../../services/depositAccount/domain/definition/product-definition.model';
+import { ActivatedRoute } from '@angular/router';
 import { AsyncValidatorFn, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { FimsValidators } from '../../common/validator/validators';
 import { interestPayableOptionList } from '../domain/interest-payable-option-list.model';
@@ -34,6 +35,8 @@ export class DepositFormComponent implements OnInit, OnDestroy, OnChanges {
 
   productForm: FormGroup;
 
+  title: String;
+
   @ViewChild('chargesForm') chargesForm: DepositChargesComponent;
   charges: Charge[];
 
@@ -49,7 +52,7 @@ export class DepositFormComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() onCancel = new EventEmitter<void>();
 
-  constructor(private formBuilder: FormBuilder, private accountingService: AccountingService) {
+  constructor(private formBuilder: FormBuilder, private accountingService: AccountingService, private route: ActivatedRoute) {
     this.productForm = this.formBuilder.group({
       identifier: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(32), FimsValidators.urlSafe]],
       type: ['', [Validators.required]],
@@ -136,7 +139,11 @@ export class DepositFormComponent implements OnInit, OnDestroy, OnChanges {
     return this.productForm.get('fixedTermEnabled');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.data.subscribe((data: any) => {
+      this.title = data.title;
+    });
+  }
 
   ngOnDestroy(): void {
     this.termChangeSubscription.unsubscribe();

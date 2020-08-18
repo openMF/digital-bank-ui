@@ -10,6 +10,7 @@ import {
   NbIconModule,
   NbCheckboxModule,
   NbListModule,
+  NbSelectModule,
 } from '@nebular/theme';
 import { EffectsModule } from '@ngrx/effects';
 import { RoleApiEffects } from './store/effects/service.effects';
@@ -43,6 +44,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NbTreeGridModule,
     NbListModule,
     Ng2SmartTableModule,
+    NbSelectModule,
     NbIconModule,
     SharedModule,
     NbEvaIconsModule,

@@ -1,5 +1,8 @@
 <nb-card>
-  <nb-card-header>{{definition.name}}</nb-card-header>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../../'"></ngx-back-button>
+    {{definition.name}}
+  </nb-card-header>
   <nb-card-body>
 
     <nb-alert *ngIf="!definition.active" accent="danger">

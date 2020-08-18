@@ -14,6 +14,7 @@ import { MainComponent } from './main.component';
 import { AccessDeniedComponent } from './access-denied/access.denied.component';
 import { NotificationComponent } from './notification/notification.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     NbCardModule,
     NbButtonModule,
     NbMenuModule,
+    Ng2SmartTableModule,
     NbDialogModule.forChild(),
   ],
   providers: [mainRoutingProviders],

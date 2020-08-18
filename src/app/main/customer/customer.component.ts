@@ -10,6 +10,7 @@ import { Page } from '../../services/domain/paging/page.model';
 import { Sort } from '../../services/domain/paging/sort.model';
 import { CustomSelectorFilterComponent } from './helper/custom-filter.component';
 import { CustomRenderComponent } from './helper/custom-render.component';
+import { CustomDateRenderComponent } from './helper/custom-date-render.component';
 
 export interface TableFetchRequest {
   page: Page;
@@ -26,6 +27,7 @@ export class CustomerComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   pageSizes: number[] = [10, 15, 20];
+  perPage: number = this.pageSizes[0];
 
   private currentPage: Page = {
     pageIndex: 0,
@@ -49,6 +51,7 @@ export class CustomerComponent implements OnInit {
 
   /** Settings for smart-table */
   settings = {
+    selectMode: 'multi',
     actions: false,
     columns: {
       identifier: {
@@ -72,11 +75,13 @@ export class CustomerComponent implements OnInit {
         type: 'custom',
         renderComponent: CustomRenderComponent,
       },
+      lastModifiedOn: {
+        title: 'Last Modified',
+        filter: false,
+        type: 'custom',
+        renderComponent: CustomDateRenderComponent,
+      },
     },
-    // pager: {
-    //   display: true,
-    //   perPage: 10,
-    // },
   };
 
   searchTerm: string;
@@ -120,15 +125,6 @@ export class CustomerComponent implements OnInit {
   search(event: any): void {
     this.searchTerm = event.target.value;
     this.fetchCustomers();
-  }
-
-  /** Paging and sort events  */
-  page(pagingEvent: any): void {
-    this.currentPage = {
-      pageIndex: pagingEvent.page - 1,
-      size: pagingEvent.pageSize,
-    };
-    this.fetch();
   }
 
   sortChanged(sortDirection: string, sortColumn: string): void {

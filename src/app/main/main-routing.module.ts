@@ -13,7 +13,7 @@ const routes: Routes = [
     canActivateChild: [ChangePasswordGuard, PermissionGuard],
     children: [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
       { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
       { path: 'users', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
       { path: 'offices', loadChildren: () => import('./office/office.module').then(m => m.OfficeModule) },

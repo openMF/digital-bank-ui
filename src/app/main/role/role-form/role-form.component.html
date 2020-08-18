@@ -1,5 +1,8 @@
 <nb-card>
-  <nb-card-header>{{title}}</nb-card-header>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../'"></ngx-back-button>
+    {{title}}
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="detailForm">
       <ngx-id-input [form]="detailForm" controlName="identifier" [readonly]="editMode"></ngx-id-input>

@@ -18,7 +18,6 @@ import { User } from '../../../../services/identity/domain/user.model';
 export class UserEditComponent implements OnInit, OnDestroy {
   private actionsSubscription: Subscription;
   private userSubscription: Subscription;
-  title: string = 'Edit user';
   user: User;
 
   constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromUsers.State>) {}

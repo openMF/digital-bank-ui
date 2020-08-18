@@ -1,0 +1,36 @@
+<nb-card *ngIf="task$ | async as task">
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="['../../../']"></ngx-back-button>
+    {{task.name}}
+  </nb-card-header>
+  <nb-card-body>
+
+    <ng-container>
+      <div class="row">
+        <div class="col-sm-3">Type</div>
+        <div class="col-sm-9">{{formatType(task.type)}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">Mandatory</div>
+        <div class="col-sm-9">{{task.mandatory}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">Automatically assign this task when member is created</div>
+        <div class="col-sm-9">{{task.predefined}}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">Trigger</div>
+        <div class="col-sm-9">{{formatCommands(task.commands)}}</div>
+      </div>
+    </ng-container>
+
+  </nb-card-body>
+</nb-card>
+
+<div class="button-container">
+  <ngx-fab-button tooltip="Edit task" title="Edit task" icon="edit-outline" [link]="['edit']" status="basic"
+    [permission]="{ id: 'customer_tasks', accessLevel: 'CHANGE'}"></ngx-fab-button>
+</div>

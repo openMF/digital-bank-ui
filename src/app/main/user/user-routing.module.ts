@@ -15,19 +15,19 @@ export const routes: Routes = [
   {
     path: 'create',
     component: UserCreateComponent,
-    data: { title: 'Create new role', hasPermission: { id: 'identity_identities', accessLevel: 'CHANGE' } },
+    data: { title: 'Create new user', hasPermission: { id: 'identity_identities', accessLevel: 'CHANGE' } },
   },
   {
     path: 'detail/:id',
     component: UserDetailComponent,
     canActivate: [UserExistsGuard],
-    data: { title: 'View role', hasPermission: { id: 'identity_identities', accessLevel: 'READ' } },
+    data: { title: 'View user', hasPermission: { id: 'identity_identities', accessLevel: 'READ' } },
   },
   {
     path: 'detail/:id/edit',
     component: UserEditComponent,
     canActivate: [UserExistsGuard],
-    data: { title: 'Edit role', hasPermission: { id: 'identity_identities', accessLevel: 'CHANGE' } },
+    data: { title: 'Edit user', hasPermission: { id: 'identity_identities', accessLevel: 'CHANGE' } },
   },
 ];
 
