@@ -19,6 +19,7 @@ import {
   NbAlertModule,
   NbDatepickerModule,
   NbUserModule,
+  NbSearchModule,
 } from '@nebular/theme';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -136,6 +137,7 @@ import { CustomerCustomFieldsComponent } from './form/customFields/custom-fields
     NbRadioModule,
     NbAutocompleteModule,
     NbSelectModule,
+    NbSearchModule,
     NbAlertModule,
     NbDatepickerModule,
     Ng2SmartTableModule,

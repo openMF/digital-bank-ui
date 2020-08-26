@@ -11,6 +11,8 @@ import * as fromCustomers from '../store';
 import { DatePipe } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { LocalDataSource } from 'ng2-smart-table';
+import { CustomSelectorFilterComponent } from './helper/custom-filter.component';
+import { CustomRenderComponent } from './helper/custom-render.component';
 
 @Component({
   selector: 'ngx-customer-deposit-table',
@@ -53,12 +55,20 @@ export class DepositsListComponent implements OnInit, OnDestroy {
       },
       state: {
         title: 'State',
+        filter: {
+          type: 'custom',
+          component: CustomSelectorFilterComponent,
+        },
+        type: 'custom',
+        renderComponent: CustomRenderComponent,
       },
       openedOn: {
         title: 'Opened on',
+        filter: false,
       },
       lastTransactionDate: {
         title: 'Last transaction',
+        filter: false,
       },
     },
     mode: 'external',

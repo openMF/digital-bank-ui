@@ -25,6 +25,7 @@ import {
   NbSelectModule,
   NbAlertModule,
   NbDatepickerModule,
+  NbSearchModule,
 } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -82,6 +83,7 @@ import { SharedModule } from '../common/common.module';
     NbSelectModule,
     NbAlertModule,
     NbDatepickerModule,
+    NbSearchModule,
     NbButtonModule,
     NbStepperModule,
     NbCardModule,

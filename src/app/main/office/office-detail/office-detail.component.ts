@@ -18,6 +18,7 @@ import { Sort } from '../../../services/domain/paging/sort.model';
 import { tap, map, filter } from 'rxjs/operators';
 import { DeleteDialogComponent } from '../../common/delete-dialog/delete-dialog.component';
 import { NbDialogService } from '@nebular/theme';
+import { NbSearchService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-office-detail',
@@ -95,6 +96,7 @@ export class OfficeDetailComponent implements OnInit {
     private router: Router,
     private officeService: OfficeService,
     private dialogService: NbDialogService,
+    private searchService: NbSearchService,
   ) {}
 
   ngOnInit(): void {
@@ -118,6 +120,12 @@ export class OfficeDetailComponent implements OnInit {
         const sortDirection = change.sort[0].direction;
         this.sortChanged(sortDirection, sortField);
       }
+    });
+
+    /** Search event  */
+    this.searchService.onSearchSubmit().subscribe((data: any) => {
+      this.searchTerm = data.term;
+      this.router.navigate(['../../../'], { queryParams: { term: data.term }, relativeTo: this.route });
     });
   }
 
