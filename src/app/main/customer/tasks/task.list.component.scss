@@ -2,6 +2,13 @@
   font-size: 0.8rem;
 }
 
+:host /deep/ ng2-smart-table table > thead > tr > th {
+  font-size: 0.8rem;
+  a {
+    font-size: 0.8rem;
+  }
+}
+
 :host /deep/ ng2-smart-table table > tbody > tr > td:hover {
   cursor: pointer;
 }

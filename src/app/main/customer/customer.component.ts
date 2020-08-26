@@ -27,16 +27,23 @@ export class CustomerComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   pageSizes: number[] = [10, 15, 20];
-  perPage: number = 10;
+  perPage: number = this.pageSizes[0];
+  pageIndex: number = 0;
 
   private currentPage: Page = {
-    pageIndex: 0,
+    pageIndex: this.pageIndex,
     size: this.perPage,
   };
 
   private currentSort: Sort = {
     sortColumn: 'identifier',
     sortDirection: 'ASC',
+  };
+
+  lastFetchRequest: FetchRequest = {
+    searchTerm: '',
+    page: this.currentPage,
+    sort: this.currentSort,
   };
 
   /** Customer data */
@@ -48,6 +55,8 @@ export class CustomerComponent implements OnInit {
 
   /** Loading property  */
   loading: any;
+
+  searchTerm: string;
 
   /** Settings for smart-table */
   settings = {
@@ -96,20 +105,6 @@ export class CustomerComponent implements OnInit {
     pager: false,
   };
 
-  searchTerm: string;
-
-  lastFetchRequest: FetchRequest = {
-    searchTerm: '',
-    page: {
-      pageIndex: 0,
-      size: this.perPage,
-    },
-    sort: {
-      sortColumn: '',
-      sortDirection: '',
-    },
-  };
-
   constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromRoot.State>) {}
 
   ngOnInit(): void {
@@ -143,13 +138,38 @@ export class CustomerComponent implements OnInit {
   onPageSizeChange(pageSize: number) {
     this.perPage = pageSize;
     this.currentPage = {
-      pageIndex: 1,
+      pageIndex: 0,
       size: pageSize,
     };
     this.fetch();
   }
 
+  get ifFirstPage() {
+    return this.pageIndex === 0;
+  }
+
+  get ifLastPage() {
+    return this.pageIndex === this.customerData.totalPages - 1;
+  }
+
+  skipBack() {
+    this.onPageChange(0);
+  }
+
+  movePrev() {
+    this.onPageChange(this.pageIndex - 1);
+  }
+
+  moveForward() {
+    this.onPageChange(this.pageIndex + 1);
+  }
+
+  skipEnd() {
+    this.onPageChange(this.customerData.totalPages - 1);
+  }
+
   onPageChange(pageIndex: number) {
+    this.pageIndex = pageIndex;
     this.currentPage = {
       pageIndex: pageIndex,
       size: this.perPage,
