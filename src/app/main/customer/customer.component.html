@@ -1,14 +1,12 @@
-<div class="search-action">
-  <input nbInput type="search" (search)="search($event)" id="search" class="search-input"
-    placeholder="Search customer data...">
-</div>
+<input *ngIf="searchTerm" nbInput type="search" class="search-input" [value]="searchTerm" (search)="search($event)">
+<nb-search type="modal-move"></nb-search>
 <br>
 
 <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onCustomerRowSelect($event)"
   (custom)="onCustomAction($event)">
 </ng2-smart-table>
 
-<div class="row pager-buttons">
+<div class="row pager-buttons" *ngIf="!loading">
   <span class="pager-text">Rows per page</span>
   <nb-select status="primary" [selected]="perPage" (selectedChange)="onPageSizeChange($event)">
     <nb-option *ngFor="let page of pageSizes" [value]="page">

@@ -1,7 +1,7 @@
 <div class="search-action">
-  <label class="search-label" for="search">Search: &nbsp;</label>
-  <input nbInput type="search" (search)="search($event)" id="search" class="search-input"
-    placeholder="Search office data...">
+  <input *ngIf="searchTerm" nbInput type="search" (search)="search($event)" class="search-input" [value]="searchTerm">
+  <nb-search type="modal-move"></nb-search>
+  <br>
 </div>
 <br>
 

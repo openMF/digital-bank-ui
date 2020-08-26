@@ -45,9 +45,11 @@
         Branch offices
       </b>
       <div class="search-action">
-        <label class="search-label" for="search">Search: &nbsp;</label>
-        <input nbInput type="search" (search)="searchOffice($event)" id="search" class="search-input"
-          placeholder="Search office data...">
+        <input *ngIf="searchTerm" nbInput type="search" (search)="searchOffice($event)" class="search-input"
+          [value]="searchTerm">
+        <nb-search type="modal-move"></nb-search>
+        <br>
+
       </div>
 
       <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="rowSelect($event)">

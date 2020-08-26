@@ -34,6 +34,8 @@ import {
   NbDatepickerModule,
 } from '@nebular/theme';
 import { StoreModule } from '@ngrx/store';
+import { CustomSelectorFilterComponent } from './helper/custom-filter.component';
+import { CustomRenderComponent } from './helper/custom-render.component';
 
 @NgModule({
   imports: [
@@ -76,6 +78,8 @@ import { StoreModule } from '@ngrx/store';
     DepositCreateComponent,
     DepositEditComponent,
     DepositDetailComponent,
+    CustomRenderComponent,
+    CustomSelectorFilterComponent,
   ],
   exports: [DepositsListComponent],
   providers: [DepositInstanceExistsGuard],

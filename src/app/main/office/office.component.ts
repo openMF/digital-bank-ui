@@ -8,6 +8,7 @@ import { FimsValidators } from '../common/validator/validators';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Page } from '../../services/domain/paging/page.model';
 import { Sort } from '../../services/domain/paging/sort.model';
+import { NbSearchService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-offices',
@@ -77,7 +78,12 @@ export class OfficeComponent implements OnInit {
     },
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromRoot.State>) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private store: Store<fromRoot.State>,
+    private searchService: NbSearchService,
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
@@ -94,6 +100,12 @@ export class OfficeComponent implements OnInit {
         this.sortChanged(sortDirection, sortField);
       }
     });
+
+    /** Search event  */
+    this.searchService.onSearchSubmit().subscribe((data: any) => {
+      this.searchTerm = data.term;
+      this.fetchOffices();
+    });
   }
 
   /**
@@ -106,7 +118,6 @@ export class OfficeComponent implements OnInit {
 
   search(event: any): void {
     this.searchTerm = event.target.value;
-
     this.fetchOffices();
   }
 

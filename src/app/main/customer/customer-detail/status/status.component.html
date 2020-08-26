@@ -5,13 +5,21 @@
   </nb-card-header>
   <nb-card-body>
     <div *ngFor="let step of processSteps$ | async">
-      <div class="row">Please verify the following tasks before you can action this member </div>
+      <div>
+        <b>Please verify the following tasks before you can action this member</b>
+      </div>
       <ngx-customer-task *ngFor="let task of step.taskDefinitions" [task]="task" (onSelectTask)="executeTask($event)">
       </ngx-customer-task>
-      <textarea nbInput placeholder="Enter your comment here..." [(ngModel)]="step.command.comment"></textarea>
-      <button nbButton status="basic" (click)="executeCommand(step.command)">
-        {{step.command.action}}
-      </button>
+      <br>
+      <div class="row">
+        <div class="col-sm-9">
+          <textarea nbInput placeholder="Enter your comment here..." [(ngModel)]="step.command.comment"></textarea>
+        </div>
+        <div class="col-sm-3">
+          <button nbButton status="basic" size="small"
+            (click)="executeCommand(step.command)">{{step.command.action}}</button>
+        </div>
+      </div>
     </div>
   </nb-card-body>
 </nb-card>

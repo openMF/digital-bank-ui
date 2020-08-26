@@ -1,15 +1,13 @@
-<nb-list>
-  <nb-list-item>
-    <nb-icon icon="done-all-outline"></nb-icon>
-    <div>{{task.name}}</div>
-    <div>{{task.description}}</div>
-    <div>
-      <span>Mandatory:</span>{{task.mandatory}}
-    </div>
-    <div>
-      <span>Type:</span>{{formatType(task.type)}}
-    </div>
-    <nb-checkbox title="Execute task" (checkedChange)="selectTask($event)">
-    </nb-checkbox>
-  </nb-list-item>
-</nb-list>
+<div>
+  <nb-icon status="primary" icon="checkmark-circle"></nb-icon>
+  <span>
+    {{task.name}}, {{task.description}}
+  </span> &nbsp; &nbsp;
+  <nb-checkbox title="Execute task" (checkedChange)="selectTask($event)">
+  </nb-checkbox>
+  <div>
+    <small>Mandatory: {{task.mandatory}} | </small> &nbsp;
+    <small>Type: {{formatType(task.type)}} </small>
+  </div>
+  <br>
+</div>

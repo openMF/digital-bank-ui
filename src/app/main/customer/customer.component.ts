@@ -11,6 +11,7 @@ import { Sort } from '../../services/domain/paging/sort.model';
 import { CustomSelectorFilterComponent } from './helper/custom-filter.component';
 import { CustomRenderComponent } from './helper/custom-render.component';
 import { CustomDateRenderComponent } from './helper/custom-date-render.component';
+import { NbSearchService } from '@nebular/theme';
 
 export interface TableFetchRequest {
   page: Page;
@@ -105,7 +106,12 @@ export class CustomerComponent implements OnInit {
     pager: false,
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromRoot.State>) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private store: Store<fromRoot.State>,
+    private searchService: NbSearchService,
+  ) {}
 
   ngOnInit(): void {
     this.store.select(fromRoot.getCustomerSearchResults).subscribe(customerData => this.setCustomerData(customerData));
@@ -121,6 +127,12 @@ export class CustomerComponent implements OnInit {
         const sortDirection = change.sort[0].direction;
         this.sortChanged(sortDirection, sortField);
       }
+    });
+
+    /** Search event  */
+    this.searchService.onSearchSubmit().subscribe((data: any) => {
+      this.searchTerm = data.term;
+      this.fetchCustomers();
     });
   }
 
