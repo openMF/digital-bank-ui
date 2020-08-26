@@ -10,13 +10,33 @@
   }
 }
 
+.pager-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  button {
+    margin-left: 5px;
+  }
+
+  .pager-text {
+    font-weight: 400;
+    font-size: 0.7rem;
+    color: grey;
+    margin: 0 1rem;
+  }
+}
+
 :host /deep/ ng2-smart-table table > tbody > tr > td {
   font-size: 0.8rem;
 }
 
-// :host /deep/ ng2-smart-table table > tbody > tr > td:hover {
-//   cursor: pointer;
-// }
+:host /deep/ ng2-smart-table table > thead > tr > th {
+  font-size: 0.8rem;
+  a {
+    font-size: 0.8rem;
+  }
+}
 
 :host /deep/ ng2-smart-table .ng2-smart-action-multiple-select > input {
   font-size: 0.1rem;

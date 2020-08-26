@@ -8,6 +8,28 @@
   (custom)="onCustomAction($event)">
 </ng2-smart-table>
 
+<div class="row pager-buttons">
+  <span class="pager-text">Rows per page</span>
+  <nb-select status="primary" [selected]="perPage" (selectedChange)="onPageSizeChange($event)">
+    <nb-option *ngFor="let page of pageSizes" [value]="page">
+      {{page}}
+    </nb-option>
+  </nb-select>
+  <span class="pager-text"> {{pageIndex+1}} of {{customerData.totalPages}}</span>
+  <button nbButton ghost status="primary" (click)="skipBack()" [disabled]="ifFirstPage">
+    <nb-icon icon="skip-back-outline"></nb-icon>
+  </button>
+  <button nbButton ghost status="primary" (click)="movePrev()" [disabled]="ifFirstPage">
+    <nb-icon icon="arrow-ios-back-outline"></nb-icon>
+  </button>
+  <button nbButton ghost status="primary" (click)="moveForward()" [disabled]="ifLastPage">
+    <nb-icon icon="arrow-ios-forward-outline"></nb-icon>
+  </button>
+  <button nbButton ghost status="primary" (click)="skipEnd()" [disabled]="ifLastPage">
+    <nb-icon icon="skip-forward-outline"></nb-icon>
+  </button>
+</div>
+
 <div class="button-container">
   <ngx-fab-button tooltip="Create new customer" title="Create new customer" icon="plus-outline" [link]="['create']"
     status="primary" [permission]="{ id: 'customer_customers', accessLevel: 'CHANGE'}"></ngx-fab-button>
