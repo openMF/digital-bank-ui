@@ -22,7 +22,7 @@ export class ImageService {
             headers: headers,
           })
           .pipe(
-            map((response: any) => response.blob()),
+            map((response: any) => response),
             catchError(() => of(new Blob())),
           ),
       ),

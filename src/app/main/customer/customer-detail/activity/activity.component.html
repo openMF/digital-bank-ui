@@ -1,0 +1,12 @@
+<nb-card class="own-scroll">
+  <nb-card-header>
+    Activity
+  </nb-card-header>
+  <nb-card-body>
+    <!-- <nb-list *ngFor="let item of commands"> -->
+      <ng-template let-item let-last="last" ngFor [ngForOf]="commands">
+      <ngx-command-display [command]="item"></ngx-command-display>
+      </ng-template>
+    <!-- </nb-list> -->
+  </nb-card-body>
+</nb-card>

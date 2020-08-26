@@ -1,0 +1,8 @@
+<div *ngFor="let field of customCatalog?.fields" [ngSwitch]="field.dataType">
+  <div>{{field.label}}</div>
+  <span *ngSwitchCase="'TEXT'">{{field.value}}</span>
+  <span *ngSwitchCase="'NUMBER'">{{field.value | number}}</span>
+  <span *ngSwitchCase="'DATE'">{{field.value | date:'medium'}}</span>
+  <span *ngSwitchCase="'SINGLE_SELECTION'">{{field.value}}</span>
+  <span *ngSwitchCase="'MULTI_SELECTION'">{{field.value}}</span>
+</div>

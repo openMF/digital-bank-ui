@@ -12,11 +12,13 @@ import {
   NbIconModule,
   NbRadioModule,
   NbCheckboxModule,
+  NbDialogModule,
   NbListModule,
   NbAutocompleteModule,
   NbSelectModule,
   NbAlertModule,
   NbDatepickerModule,
+  NbUserModule,
 } from '@nebular/theme';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -54,6 +56,31 @@ import { TaskIndexComponent } from './tasks/task.index.component';
 import { TaskDetailComponent } from './tasks/task.detail.component';
 import { CustomIconRenderComponent } from './tasks/helper/custom-icon-render.component';
 import { CustomTypeRenderComponent } from './tasks/helper/custom-type-render.component';
+import { CustomerActivityComponent } from './customer-detail/activity/activity.component';
+import { CustomerDetailComponent } from './customer-detail/customer.detail.component';
+import { CustomerTaskComponent } from './customer-detail/status/customer-task.component';
+import { CustomerIndexComponent } from './customer-detail/customer.index.component';
+import { CustomerStatusComponent } from './customer-detail/status/status.component';
+import { CustomerPortraitComponent } from './customer-detail/portrait/portrait.component';
+import { DepositsModule } from './deposits/deposits.module';
+import { CreateCustomerCatalogFormComponent } from './custom-fields/form/create.form.component';
+import { CatalogDetailComponent } from './custom-fields/catalog.detail.component';
+import { CustomerCatalogFormComponent } from './custom-fields/form/form.component';
+import { FieldFormComponent } from './custom-fields/components/field.component';
+import { FieldFormService } from './custom-fields/services/field-form.service';
+import { EditCatalogFieldFormComponent } from './custom-fields/fields/form/edit.form.component';
+import { FieldDetailComponent } from './custom-fields/fields/field.detail.component';
+import { FieldIndexComponent } from './custom-fields/fields/field.index.component';
+import { CatalogFieldFormComponent } from './custom-fields/fields/form/form.component';
+import { FieldExistsGuard } from './custom-fields/fields/field-exists.guard';
+import { CustomerCustomValuesComponent } from './custom-fields/components/value.component';
+import { CustomerFormComponent } from './form/form.component';
+import { CreateCustomerFormComponent } from './form/create/create.form.component';
+import { CustomerDetailFormComponent } from './form/detail/detail.component';
+import { CustomerOfficesComponent } from './form/offices/offices.component';
+import { CustomerContactFormComponent } from './form/contact/contact.component';
+import { EditCustomerFormComponent } from './form/edit/edit.form.component';
+import { CustomerCustomFieldsComponent } from './form/customFields/custom-fields.component';
 
 @NgModule({
   declarations: [
@@ -68,8 +95,31 @@ import { CustomTypeRenderComponent } from './tasks/helper/custom-type-render.com
     TaskDetailComponent,
     CustomTypeRenderComponent,
     CustomIconRenderComponent,
+    CustomerFormComponent,
+    CreateCustomerFormComponent,
+    CustomerDetailFormComponent,
+    CustomerOfficesComponent,
+    EditCustomerFormComponent,
+    CustomerCustomFieldsComponent,
+    CustomerContactFormComponent,
+    CustomerDetailComponent,
+    CustomerTaskComponent,
+    CustomerIndexComponent,
+    CustomerStatusComponent,
+    CustomerPortraitComponent,
+    CustomerActivityComponent,
+    CreateCustomerCatalogFormComponent,
+    CustomerCustomValuesComponent,
+    CatalogFieldFormComponent,
+    FieldIndexComponent,
+    FieldDetailComponent,
+    EditCatalogFieldFormComponent,
+    FieldFormComponent,
+    CustomerCatalogFormComponent,
+    CatalogDetailComponent,
   ],
   imports: [
+    DepositsModule,
     CommonModule,
     SharedModule,
     CustomerRoutingModule,
@@ -82,6 +132,7 @@ import { CustomTypeRenderComponent } from './tasks/helper/custom-type-render.com
     NbCheckboxModule,
     NbListModule,
     NbStepperModule,
+    NbUserModule,
     NbRadioModule,
     NbAutocompleteModule,
     NbSelectModule,
@@ -91,6 +142,7 @@ import { CustomTypeRenderComponent } from './tasks/helper/custom-type-render.com
     NbEvaIconsModule,
     FormsModule,
     ReactiveFormsModule,
+    NbDialogModule.forChild(),
 
     /**
      * Define feature state
@@ -115,6 +167,6 @@ import { CustomTypeRenderComponent } from './tasks/helper/custom-type-render.com
       CatalogNotificationEffects,
     ]),
   ],
-  providers: [CustomerExistsGuard, CatalogExistsGuard, TaskExistsGuard],
+  providers: [CustomerExistsGuard, CatalogExistsGuard, TaskExistsGuard, FieldExistsGuard, FieldFormService],
 })
 export class CustomerModule {}

@@ -1,0 +1,73 @@
+<nb-card *ngIf="(field$ | async) as field">
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="['../../../../../../']"></ngx-back-button>
+    Custom field
+  </nb-card-header>
+  <nb-card-body>
+
+    <ng-container>
+      <div class="row">
+        <b class="col-sm-3">Data type</b>
+        <div class="col-sm-9">{{field.dataType}}</div>
+      </div>
+
+      <div class="row">
+        <b class="col-sm-3">Label</b>
+        <div class="col-sm-9">{{field.label}}</div>
+      </div>
+
+      <div class="row">
+        <b class="col-sm-3">Hint</b>
+        <div class="col-sm-9">{{field.hint}}</div>
+      </div>
+
+      <div class="row">
+        <b class="col-sm-3">Description</b>
+        <div class="col-sm-9">{{field.description}}</div>
+      </div>
+
+      <div class="row">
+        <b class="col-sm-3">Mandatory</b>
+        <div class="col-sm-9">{{field.mandatory}}</div>
+      </div>
+
+      <div class="row">
+        <b class="col-sm-3">Length</b>
+        <div class="col-sm-9">{{field.length}}</div>
+      </div>
+
+      <div class="row">
+        <b class="col-sm-3">Max digits</b>
+        <div class="col-sm-9">{{field.precision}}</div>
+      </div>
+
+      <div class="row">
+        <b class="col-sm-3">Min value</b>
+        <div class="col-sm-9">{{field.minValue}}</div>
+      </div>
+
+      <div class="row">
+        <b class="col-sm-3">Max value</b>
+        <div class="col-sm-9">{{field.maxValue}}</div>
+      </div>
+
+      <div class="row">
+        <b class="col-sm-3">Created by</b>
+        <div class="col-sm-9">{{field.createdBy}} - {{field.createdOn | date:'medium'}}</div>
+      </div>
+      <br>
+    </ng-container>
+  </nb-card-body>
+</nb-card>
+
+<div class="row button-container">
+  <div *ngIf="(catalog$ | async) as catalog">
+    <span (click)="deleteField(catalog.identifier, field)">
+      <ngx-fab-button tooltip="Delete field" title="Delete field" icon="trash-2-outline" status="danger">
+      </ngx-fab-button>
+    </span>
+  </div>
+
+  <ngx-fab-button tooltip="Edit field" title="Edit field" icon="edit-outline" [link]="['edit']" status="basic"
+    [permission]="{ id: 'catalog_catalogs', accessLevel: 'CHANGE'}"></ngx-fab-button>
+</div>

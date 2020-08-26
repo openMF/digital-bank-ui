@@ -1,0 +1,37 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../'"></ngx-back-button>
+    Upload new identification card scan
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form">
+
+      <div class="form-group row">
+        <label for="identifier" class="label col-sm-3 form-control-label">Identifier</label>
+        <div class="col-sm-9">
+          <ngx-id-input [form]="form" controlName="identifier" [readonly]="editMode"></ngx-id-input>
+        </div>
+      </div>
+
+      <ngx-text-input [form]="form" controlName="description" placeholder="Description">
+      </ngx-text-input>
+
+      <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9">
+          <input nbInput type="file" placeholder="Selected file" formControlName="file" />
+        </div>
+      </div>
+    </form>
+    <br>
+
+    <div class="button-align">
+      <button nbButton [disabled]="!form.valid" *ngIf="!editMode" (click)="save()">create
+        IDENTIFICATION CARD</button>
+      <button nbButton [disabled]="!form.valid" *ngIf="editMode" (click)="save()">update
+        IDENTIFICATION CARD</button>
+      <button nbButton (click)="cancel()">CANCEL</button>
+    </div>
+
+  </nb-card-body>
+</nb-card>

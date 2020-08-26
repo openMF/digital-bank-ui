@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   private loadingSubscription: Subscription;
   error$: Observable<string>;
+  showPassword = false;
 
   constructor(private _loadingService: TdLoadingService, private formBuilder: FormBuilder, private store: Store<fromRoot.State>) {}
 
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.error$ = this.store.select(fromRoot.getAuthenticationError).pipe(
       filter(error => !!error),
       tap(() => this.loginForm.get('password').setValue('')),
-      map(error => 'Sorry, that login did not work.'),
+      map(error => 'User credentials not valid.'),
     );
 
     this.loadingSubscription = this.store.select(fromRoot.getAuthenticationLoading).subscribe(loading => {
@@ -64,6 +65,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(new LoginAction(payload));
+  }
+
+  getInputType() {
+    if (this.showPassword) {
+      return 'text';
+    }
+    return 'password';
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 
   get tenant() {

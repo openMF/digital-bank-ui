@@ -27,11 +27,11 @@ export class CustomerComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   pageSizes: number[] = [10, 15, 20];
-  perPage: number = this.pageSizes[0];
+  perPage: number = 10;
 
   private currentPage: Page = {
     pageIndex: 0,
-    size: this.pageSizes[0],
+    size: this.perPage,
   };
 
   private currentSort: Sort = {
@@ -52,7 +52,18 @@ export class CustomerComponent implements OnInit {
   /** Settings for smart-table */
   settings = {
     selectMode: 'multi',
-    actions: false,
+    mode: 'external',
+    actions: {
+      custom: [
+        {
+          name: 'View',
+          title: 'View',
+        },
+      ],
+      add: false,
+      edit: false,
+      delete: false,
+    },
     columns: {
       identifier: {
         title: 'ID',
@@ -82,6 +93,7 @@ export class CustomerComponent implements OnInit {
         renderComponent: CustomDateRenderComponent,
       },
     },
+    pager: false,
   };
 
   searchTerm: string;
@@ -90,7 +102,7 @@ export class CustomerComponent implements OnInit {
     searchTerm: '',
     page: {
       pageIndex: 0,
-      size: 10,
+      size: this.perPage,
     },
     sort: {
       sortColumn: '',
@@ -122,11 +134,30 @@ export class CustomerComponent implements OnInit {
     this.source.load(customerData.customers);
   }
 
+  /** Search event  */
   search(event: any): void {
     this.searchTerm = event.target.value;
     this.fetchCustomers();
   }
 
+  onPageSizeChange(pageSize: number) {
+    this.perPage = pageSize;
+    this.currentPage = {
+      pageIndex: 1,
+      size: pageSize,
+    };
+    this.fetch();
+  }
+
+  onPageChange(pageIndex: number) {
+    this.currentPage = {
+      pageIndex: pageIndex,
+      size: this.perPage,
+    };
+    this.fetch();
+  }
+
+  /** Sort event  */
   sortChanged(sortDirection: string, sortColumn: string): void {
     sortDirection = sortDirection.toUpperCase();
     this.currentSort = {
@@ -159,6 +190,10 @@ export class CustomerComponent implements OnInit {
 
   /** Customer row select event  */
   onCustomerRowSelect(event: any): void {
+    // const data = event.data;
+  }
+
+  onCustomAction(event: any): void {
     const customer = event.data;
     this.router.navigate(['detail', customer.identifier], { relativeTo: this.route });
   }

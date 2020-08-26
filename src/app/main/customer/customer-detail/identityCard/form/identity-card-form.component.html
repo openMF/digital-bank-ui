@@ -1,0 +1,46 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../'"></ngx-back-button>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+
+    <form [formGroup]="form">
+
+      <div class="form-group row">
+        <label for="number" class="label col-sm-3 form-control-label">Number</label>
+        <div class="col-sm-9">
+          <ngx-id-input [form]="form" controlName="number" [placeholder]="'Number'" [readonly]="editMode">
+          </ngx-id-input>
+        </div>
+      </div>
+
+      <ngx-text-input [form]="form" controlName="type" placeholder="Type"></ngx-text-input>
+
+      <div class="form-group row">
+        <label for="expirationDate" class="label col-sm-3 form-control-label">Expiration date</label>
+        <div class="col-sm-9">
+          <input nbInput placeholder="Expiration Date" [nbDatepicker]="formpicker" formControlName="expirationDate">
+          <nb-datepicker #formpicker></nb-datepicker>
+          <div *ngIf="expirationDate.invalid && (expirationDate.dirty || expirationDate.touched)">
+            <div *ngIf="expirationDate.hasError('required')" class="caption status-danger ng-star-inserted">Required
+            </div>
+            <div *ngIf="expirationDate.hasError('afterToday')" class="caption status-danger ng-star-inserted">Date must
+              be after today</div>
+          </div>
+        </div>
+      </div>
+
+      <ngx-text-input [form]="form" controlName="issuer" placeholder="Issuer"></ngx-text-input>
+    </form>
+
+    <div class="button-align">
+      <button nbButton [disabled]="!form.valid" *ngIf="!editMode" (click)="save()">create
+        IDENTIFICATION CARD</button>
+      <button nbButton [disabled]="!form.valid" *ngIf="editMode" (click)="save()">update
+        IDENTIFICATION CARD</button>
+      <button nbButton (click)="cancel()">CANCEL</button>
+    </div>
+
+  </nb-card-body>
+</nb-card>

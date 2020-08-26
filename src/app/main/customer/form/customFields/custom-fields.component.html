@@ -1,0 +1,44 @@
+<form [formGroup]="form">
+  <b>{{catalog?.name}}</b>
+  <br>
+  <div *ngFor="let field of catalog?.fields" [ngSwitch]="field.dataType">
+    <ngx-text-input *ngSwitchCase="'TEXT'" [form]="form" [controlName]="field.identifier" [placeholder]="field.label"
+      [title]="field.hint"></ngx-text-input>
+    <ngx-text-input *ngSwitchCase="'NUMBER'" type="number" [form]="form" [controlName]="field.identifier"
+      [placeholder]="field.label" [title]="field.hint"></ngx-text-input>
+
+    <div class="form-group row" *ngSwitchCase="'DATE'">
+      <label class="label col-sm-3 form-control-label">Date</label>
+      <div class="col-sm-9">
+        <input nbInput [placeholder]="field.label" [nbDatepicker]="formpicker" [formControlName]="field.identifier">
+        <nb-datepicker #formpicker></nb-datepicker>
+      </div>
+    </div>
+
+    <div class="row" *ngSwitchCase="'SINGLE_SELECTION'">
+      <label class="col-sm-3">{{field.label}}</label>
+      <div class="col-sm-9">
+        <nb-radio-group [formControlName]="field.identifier" class="row">
+          <nb-radio [value]="" *ngIf="!field.mandatory">
+            None
+          </nb-radio>
+          <nb-radio *ngFor="let option of field.options" [value]="option.value">
+            {{ option.label }}
+          </nb-radio>
+        </nb-radio-group>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'MULTI_SELECTION'" class="row">
+      <label class="col-sm-3">{{field.label}}</label>
+      <div class="col-sm-9">
+        <nb-select multiple [formControlName]="field.identifier">
+          <nb-option *ngFor="let option of field.options" [value]="option">
+            {{option.label}}
+          </nb-option>
+        </nb-select>
+      </div>
+    </div>
+
+  </div>
+</form>

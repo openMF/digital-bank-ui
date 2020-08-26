@@ -1,0 +1,18 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="['../../../../']"></ngx-back-button>
+    Manage identification cards
+  </nb-card-header>
+  <nb-card-body>
+
+    <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="rowSelect($event)">
+    </ng2-smart-table>
+
+  </nb-card-body>
+</nb-card>
+
+<div class="row button-container">
+  <ngx-fab-button tooltip="Create new identication card" title="Create new identication card" icon="plus-outline"
+    [link]="['create']" status="primary" [permission]="{ id: 'customer_identifications', accessLevel: 'CHANGE' }">
+  </ngx-fab-button>
+</div>

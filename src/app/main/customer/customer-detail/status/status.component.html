@@ -1,0 +1,17 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../'"></ngx-back-button>
+    Tasks
+  </nb-card-header>
+  <nb-card-body>
+    <div *ngFor="let step of processSteps$ | async">
+      <div class="row">Please verify the following tasks before you can action this member </div>
+      <ngx-customer-task *ngFor="let task of step.taskDefinitions" [task]="task" (onSelectTask)="executeTask($event)">
+      </ngx-customer-task>
+      <textarea nbInput placeholder="Enter your comment here..." [(ngModel)]="step.command.comment"></textarea>
+      <button nbButton status="basic" (click)="executeCommand(step.command)">
+        {{step.command.action}}
+      </button>
+    </div>
+  </nb-card-body>
+</nb-card>

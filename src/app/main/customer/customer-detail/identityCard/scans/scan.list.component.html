@@ -1,0 +1,17 @@
+<b *ngIf="scans && scans.length > 0">Scans uploaded</b>
+<div *ngFor="let scan of scans" class="row">
+  <div class="col-sm-7">
+    <nb-icon icon="camera-outline" status="basic"></nb-icon>
+    &nbsp;<span>{{scan.description}}</span>
+  </div>
+  <div class="col-sm-5">
+    <button nbButton status="danger" (click)="deleteScan(scan)"
+      *hasPermission="{ id: 'customer_identifications', accessLevel: 'DELETE' }">
+      Delete
+    </button>
+    &nbsp; &nbsp;
+    <button nbButton (click)="viewScan(scan.identifier)">
+      View
+    </button>
+  </div>
+</div>

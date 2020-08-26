@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router';
 import { CovalentLoadingModule } from '@covalent/core/loading';
 import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
-
-import { NbButtonModule, NbCardModule, NbLayoutModule, NbInputModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NbButtonModule, NbCardModule, NbLayoutModule, NbInputModule, NbIconModule, NbFormFieldModule } from '@nebular/theme';
 
 @NgModule({
   imports: [
@@ -15,10 +15,13 @@ import { NbButtonModule, NbCardModule, NbLayoutModule, NbInputModule } from '@ne
     FormsModule,
     RouterModule,
     NbLayoutModule,
+    NbIconModule,
     NbButtonModule,
     NbCardModule,
     NbInputModule,
+    NbFormFieldModule,
     ReactiveFormsModule,
+    NbEvaIconsModule,
     CovalentLoadingModule,
   ],
   declarations: [LoginComponent],

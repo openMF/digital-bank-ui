@@ -8,7 +8,7 @@ import { DefaultFilter } from 'ng2-smart-table';
 })
 export class CustomSelectorFilterComponent extends DefaultFilter implements OnInit, OnChanges {
   inputControl = new FormControl();
-  statusType = ['ACTIVE', 'PENDING'];
+  statusType = ['ACTIVE', 'PENDING', 'LOCKED'];
 
   constructor() {
     super();

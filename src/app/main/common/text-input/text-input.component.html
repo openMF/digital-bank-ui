@@ -1,0 +1,32 @@
+<span [formGroup]="form">
+  <div class="form-group row" *ngIf="show">
+    <label for="controlName" class="label col-sm-3 form-control-label">{{placeholder}}</label>
+    <div class="col-sm-9">
+      <input nbInput [id]="controlName" [placeholder]="placeholder" [formControlName]="controlName" [attr.type]="type"
+        [attr.title]="title">
+      <div *ngIf="form.get(controlName).invalid && (form.get(controlName).dirty || form.get(controlName).touched)">
+        <div *ngIf="hasRequiredError" class="caption status-danger ng-star-inserted"> Required</div>
+        <div *ngIf="hasMinLengthError" class="caption status-danger ng-star-inserted"> Must have at
+          least {{form.get(controlName).getError('minlength')['requiredLength']}} characters.</div>
+        <div *ngIf="hasMaxLengthError" class="caption status-danger ng-star-inserted">
+          Only {{form.get(controlName).getError('maxlength')['requiredLength']}} characters allowed.
+        </div>
+        <div *ngIf="hasEmailError" class="caption status-danger ng-star-inserted"> Invalid email
+        </div>
+        <div *ngIf="hasIsNumberError" class="caption status-danger ng-star-inserted"> Must be a number</div>
+        <div *ngIf="hasMinValueError" class="caption status-danger ng-star-inserted"> Value must be greater than or
+          equal
+          to {{form.get(controlName).getError('minValue').value}}</div>
+        <div *ngIf="hasMaxValueError" class="caption status-danger ng-star-inserted"> Value must be smaller than or
+          equal
+          to {{form.get(controlName).getError('maxValue').value}}</div>
+        <div *ngIf="hasGreaterThanValueError" class="caption status-danger ng-star-inserted"> Value must be greater than
+          {{form.get(controlName).getError('greaterThanValue').value}}
+        </div>
+        <div *ngIf="hasMaxScaleError" class="caption status-danger ng-star-inserted">
+          Value scale must be smaller than or equal to {{form.get(controlName).getError('maxScale').value}}
+        </div>
+      </div>
+    </div>
+  </div>
+</span>

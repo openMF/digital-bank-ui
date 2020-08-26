@@ -37,17 +37,26 @@
           <div class="form-group row">
             <label for="password" class="label col-sm-3 form-control-label">Password</label>
             <div class="col-sm-9">
-              <input type="password" nbInput fullWidth id="password" placeholder="Password" formControlName="password"
-                autocomplete="login-password">
+              <nb-form-field>
+                <input [type]="getInputType()" nbInput fullWidth id="password" placeholder="Password"
+                  formControlName="password" autocomplete="login-password">
+                <button type="button" nbSuffix nbButton ghost (click)="toggleShowPassword()">
+                  <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'" pack="eva"
+                    [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+                  </nb-icon>
+                </button>
+              </nb-form-field>
               <div *ngIf="password.invalid && (password.dirty || password.touched)">
                 <div *ngIf="password.hasError('required')" class="caption status-danger ng-star-inserted"> Required
                 </div>
               </div>
             </div>
           </div>
-          <span class="row" *ngIf="error$ | async as error">
-            <div class="caption status-danger ng-star-inserted">{{error}}</div>
-          </span>
+          <div>
+            <span class="row" *ngIf="error$ | async as error">
+              <div class="caption status-danger ng-star-inserted">{{error}}</div>
+            </span>
+          </div>
           <div class="form-group row">
             <div class="offset-sm-3 col-sm-9">
               <button type="submit" nbButton [disabled]="!loginForm.valid">Sign in</button>

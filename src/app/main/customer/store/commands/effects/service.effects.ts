@@ -12,6 +12,7 @@ export class CustomerCommandApiEffects {
   @Effect()
   loadCommands$: Observable<Action> = this.actions$.pipe(
     ofType(commandActions.LOAD_ALL),
+    map((action: commandActions.LoadAllAction) => action.payload),
     mergeMap((customerId: string) =>
       this.customerService.listCustomerCommand(customerId).pipe(
         map(commands => new commandActions.LoadAllCompleteAction(commands)),
