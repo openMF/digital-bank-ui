@@ -1,0 +1,56 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="['../../../../../../']"></ngx-back-button>
+    Identification card
+  </nb-card-header>
+  <nb-card-body>
+
+    <b>Number</b>
+    <div class="row">
+      <div class="col-sm-8">
+        {{identificationCard?.number}}
+      </div>
+    </div>
+
+    <b>Type</b>
+    <div class="row">
+      <div class="col-sm-8">
+        {{identificationCard?.type}}
+      </div>
+    </div>
+
+    <b>Issuer</b>
+    <div class="row">
+      <div class="col-sm-8">
+        {{identificationCard?.issuer}}
+      </div>
+    </div>
+
+    <b>Expiration date</b>
+    <div class="row">
+      <div class="col-sm-8">
+        {{identificationCard?.expirationDate | displayFimsDate}}
+      </div>
+    </div>
+
+    <ngx-identification-card-scan-list [scans]="scans$ | async" (onView)="viewScan($event)"
+      (onUpload)="uploadScan($event)" (onDelete)="deleteScan($event)">
+    </ngx-identification-card-scan-list>
+
+  </nb-card-body>
+</nb-card>
+
+<div class="row button-container">
+  <ngx-fab-button tooltip="Add identification card" title="Add identification card" icon="plus-outline"
+    [link]="['addScan']" status="info" [permission]="{ id: 'customer_identifications', accessLevel: 'CHANGE'}">
+  </ngx-fab-button>
+
+  <span (click)="deleteIdentificationCard()">
+    <ngx-fab-button tooltip="Delete identification card" title="Delete identification card" icon="trash-2-outline"
+      status="danger" [permission]="{ id: 'customer_identifications', accessLevel: 'DELETE'}"></ngx-fab-button>
+  </span>
+
+  <ngx-fab-button tooltip="Edit identification card" title="Edit identification card" icon="edit-outline"
+    [link]="['edit']" status="basic" [permission]="{ id: 'customer_identifications', accessLevel: 'CHANGE'}">
+  </ngx-fab-button>
+</div>

@@ -1,0 +1,122 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../../'"></ngx-back-button>
+    {{customer.givenName}} {{customer.surname}}
+  </nb-card-header>
+  <nb-card-body>
+
+    <nb-alert *ngIf="!isCustomerActive" accent="danger">
+      <div class="row">
+        <div class="col-sm-9">
+          <nb-icon icon="close-circle" status="danger" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+          Customer not active <br>
+          <small>You can activate the customer under tasks</small>
+        </div>
+        <div class="col-sm-3">
+          <button nbButton (click)="goToTasks()" status="basic"
+            *hasPermission="{ id: 'customer_customers', accessLevel: 'CHANGE'}">GO TO TASKS</button>
+        </div>
+      </div>
+    </nb-alert>
+
+    <nb-alert *ngIf="isCustomerActive" accent="info">
+      <div class="row">
+        <div class="col-sm-9">
+          <nb-icon icon="checkmark-circle-2" status="success" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+          Customer is active <br>
+          <small>You can change the status of customer by going to tasks</small>
+        </div>
+        <div class="col-sm-3">
+          <button nbButton (click)="goToTasks()" status="basic"
+            *hasPermission="{ id: 'customer_customers', accessLevel: 'CHANGE'}">GO TO TASKS</button>
+        </div>
+      </div>
+    </nb-alert>
+
+    <ng-container>
+      <div class="row">
+        <div class="col-sm-8">
+
+          <nb-card>
+            <nb-card-body>
+              <nb-user size="large" [name]="customer.givenName"
+                picture="https://i.pinimg.com/600x315/a6/0d/68/a60d685194a7fd984d08a595a0a99ae7.jpg">
+              </nb-user>
+              <b>Address</b>
+              <div>
+                <nb-icon icon="globe-outline"></nb-icon>&nbsp;
+                {{customer.address?.street}}, {{customer.address?.city}}, {{customer.address?.postalCode}},
+                {{customer.address?.country}}
+              </div>
+
+              <b>Contact information</b>
+              <div [ngSwitch]="detail.type" *ngFor="let detail of customer.contactDetails">
+                <nb-icon *ngSwitchCase="'EMAIL'" icon="email-outline"></nb-icon>
+                <nb-icon *ngSwitchCase="'PHONE'" icon="phone-outline"></nb-icon>
+                <nb-icon *ngSwitchCase="'MOBILE'" icon="smartphone-outline"></nb-icon>
+                <span>&nbsp;{{detail.value}}</span>
+              </div>
+              <div *ngIf="!customer.contactDetails?.length">
+                <div>No contact details available</div>
+              </div>
+
+              <b>Birthday</b>
+              <div>
+                <nb-icon icon="gift-outline">
+                </nb-icon> &nbsp; {{customer.dateOfBirth | displayFimsDate}}
+              </div>
+              <div>
+                <b>Application date</b>
+                <div>{{customer.applicationDate | date:'shortDate'}}</div>
+              </div>
+              <div>
+                <b>Created by</b>
+                <div>{{customer.createdBy}} - {{customer.createdOn | date:'medium'}}</div>
+              </div>
+              <div>
+                <b>Last modified by</b>
+                <div>{{customer.lastModifiedBy}} - {{customer.lastModifiedOn | date:'medium'}}</div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+
+        </div>
+
+        <div class="col-sm-4">
+          <ngx-activity-display></ngx-activity-display>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *hasPermission="{ id: 'deposit_instances', accessLevel: 'READ'}">
+      <ngx-customer-deposit-table></ngx-customer-deposit-table>
+    </ng-container>
+
+  </nb-card-body>
+</nb-card>
+
+
+
+<div class="row button-container">
+  <ngx-fab-button tooltip="Manage loan accounts" title="Manage loan accounts" icon="clipboard-outline"
+    [link]="['loans']" status="info" [permission]="{ id: 'portfolio_cases', accessLevel: 'READ'}">
+  </ngx-fab-button>
+
+  <ngx-fab-button tooltip="Manage deposit accounts" title="Manage deposit accounts" icon="archive-outline"
+    [link]="['deposits']" status="info" [permission]="{ id: 'deposit_instances', accessLevel: 'READ'}">
+  </ngx-fab-button>
+
+  <ngx-fab-button tooltip="Manage Identification cards" title="Manage Identification cards" icon="upload-outline"
+    [link]="['identifications']" status="info" [permission]="{ id: 'customer_identifications', accessLevel: 'READ'}">
+  </ngx-fab-button>
+
+  <ngx-fab-button tooltip="Manage payroll distributions" title="Manage payroll distributions" icon="pie-chart-outline"
+    [link]="['payroll']" status="info" [permission]="{ id: 'payroll_configuration', accessLevel: 'READ'}">
+  </ngx-fab-button>
+
+  <ngx-fab-button tooltip="Manage Tasks" title="Tasks" icon="done-all-outline" [link]="['tasks']" status="info">
+  </ngx-fab-button>
+
+  <ngx-fab-button tooltip="Edit customer" title="Edit customer" icon="edit-outline" [link]="['edit']" status="basic"
+    [permission]="{ id: 'customer_customers', accessLevel: 'CHANGE'}"></ngx-fab-button>
+</div>

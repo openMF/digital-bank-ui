@@ -1,0 +1,37 @@
+<form [formGroup]="form" layout="column">
+
+  <div class="row">
+    <label class="label col-sm-3 form-control-label">Identifier</label>
+    <div class="col-sm-9">
+      <ngx-id-input [form]="form" controlName="identifier" [readonly]="editMode"></ngx-id-input>
+    </div>
+  </div>
+  <br>
+
+  <ngx-text-input [form]="form" controlName="firstName" placeholder="First name"></ngx-text-input>
+  <ngx-text-input [form]="form" controlName="middleName" placeholder="Middle name(optional)">
+  </ngx-text-input>
+  <ngx-text-input [form]="form" controlName="lastName" placeholder="Last name"></ngx-text-input>
+
+  <div class="form-group row">
+    <label class="label col-sm-3 form-control-label">Date of birth</label>
+    <div class="col-sm-9">
+      <input nbInput placeholder="Date of birth" [nbDatepicker]="formpicker" formControlName="dateOfBirth">
+      <nb-datepicker #formpicker></nb-datepicker>
+      <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)">
+        <div *ngIf="dateOfBirth.hasError('required')" class="caption status-danger ng-star-inserted">Required
+        </div>
+        <div *ngIf="dateOfBirth.hasError('beforeTodate')" class="caption status-danger ng-star-inserted">Date must
+          be before today</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-9">
+      <nb-checkbox formControlName="member">Is member?</nb-checkbox>
+    </div>
+  </div>
+
+</form>

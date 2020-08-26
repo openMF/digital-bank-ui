@@ -1,0 +1,74 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../'"></ngx-back-button>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <nb-stepper orientation="horizontal">
+      <nb-step #detailsStep label="Customer details" [stepControl]="detailForm">
+        <div class="step-container">
+          <ngx-customer-detail-form #detailForm [formData]="detailFormData" [editMode]="editMode">
+          </ngx-customer-detail-form>
+          <div class="button-align">
+            <button nbButton nbStepperNext>next</button>
+          </div>
+        </div>
+      </nb-step>
+
+      <nb-step #addressStep label="Customer Address" [stepControl]="addressForm">
+        <div class="step-container">
+          <ngx-address-form #addressForm [formData]="addressFormData"></ngx-address-form>
+          <div class="button-align">
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </div>
+        </div>
+      </nb-step>
+
+      <nb-step #contactStep label="Customer contact(optional)">
+        <div class="step-container">
+          <ngx-customer-contact-form #contactForm [formData]="contactFormData"></ngx-customer-contact-form>
+          <div class="button-align">
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </div>
+        </div>
+      </nb-step>
+
+      <nb-step #officeStep label="Assign customer to office(optional)">
+        <div class="step-container">
+          <ngx-customer-offices-form [preSelection]="selectedOffices" (onSelectionChange)="selectOffice($event)">
+          </ngx-customer-offices-form>
+          <div class="button-align">
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </div>
+        </div>
+      </nb-step>
+
+      <nb-step #customFieldsStep label="Custom fields" [stepControl]="customFieldsForm">
+        <div class="step-container">
+          <ngx-custom-fields-component #customFieldsForm [catalog]="catalog" [formData]="customFieldsFormData">
+          </ngx-custom-fields-component>
+          <div class="button-align">
+            <button nbButton nbStepperPrevious>prev</button>
+            <button nbButton nbStepperNext>next</button>
+          </div>
+        </div>
+      </nb-step>
+
+      <nb-step [hidden]="true" label="Submit">
+        <div class="step-container">
+          <div class="button-align">
+            <button nbButton [disabled]="!isValid" *ngIf="!editMode" (click)="save()">create
+              customer</button>
+            <button nbButton [disabled]="!isValid" *ngIf="editMode" (click)="save()">update
+              customer</button>
+            <button nbButton (click)="cancel()">CANCEL</button>
+          </div>
+        </div>
+      </nb-step>
+
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

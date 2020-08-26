@@ -1,0 +1,15 @@
+<nb-list>
+  <nb-list-item>
+    <nb-icon icon="done-all-outline"></nb-icon>
+    <div>{{task.name}}</div>
+    <div>{{task.description}}</div>
+    <div>
+      <span>Mandatory:</span>{{task.mandatory}}
+    </div>
+    <div>
+      <span>Type:</span>{{formatType(task.type)}}
+    </div>
+    <nb-checkbox title="Execute task" (checkedChange)="selectTask($event)">
+    </nb-checkbox>
+  </nb-list-item>
+</nb-list>

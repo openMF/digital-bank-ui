@@ -1,0 +1,43 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../'"></ngx-back-button>
+    Create custom fields
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form">
+
+      <ngx-text-input [form]="form" controlName="name" placeholder="Name"></ngx-text-input>
+
+      <div class="form-group row">
+        <label for="description" class="label col-sm-3 form-control-label">Description</label>
+        <div class="col-sm-9">
+          <textarea nbInput placeholder="Description(Optional)" formControlName="description"></textarea>
+        </div>
+      </div>
+
+      <div formArrayName="fields">
+        <div class="row">
+          <b class="col-sm-3">Fields</b>
+          <div class="col-sm-9">
+            <button nbButton (click)="addField()">Add field</button>
+          </div>
+        </div>
+        <br>
+        <nb-card *ngFor="let field of fields; let i=index" [formGroupName]="i">
+          <nb-card-body>
+            <ngx-custom-field-form [form]="field" (onAddOption)="addOption(field)"
+              (onRemoveOption)="removeOption(field, $event)">
+            </ngx-custom-field-form>
+            <button nbButton (click)="removeField(i)">Remove field</button>
+          </nb-card-body>
+        </nb-card>
+      </div>
+      <br>
+      <div class="row button-align">
+        <button type="submit" nbButton [disabled]="!form.valid" (click)="save()" status="primary">create CUSTOM
+          FIELDS</button>
+        <button (click)="cancel()" nbButton>cancel</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

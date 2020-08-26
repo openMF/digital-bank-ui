@@ -1,0 +1,20 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../'"></ngx-back-button>
+    Update custom field
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form">
+
+      <ngx-custom-field-form [editMode]="true" [form]="form" (onAddOption)="addOption()"
+        (onRemoveOption)="removeOption($event)">
+      </ngx-custom-field-form>
+
+      <div class="row button-align">
+        <button type="submit" nbButton [disabled]="!form.valid" (click)="save()" status="primary">UPDATE CUSTOM
+          FIELD</button>
+        <button (click)="cancel()" nbButton>cancel</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

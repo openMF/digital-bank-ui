@@ -1,0 +1,39 @@
+<b>{{title}}</b>
+<div class="form-group">
+  <input nbInput placeholder="Search...'" [formControl]="term" />
+</div>
+<nb-card>
+  <nb-card-body>
+    <b>Results</b>
+    <div *ngFor="let row of data | async">
+      <div class="row">
+        <span class="col-sm-9">
+          <nb-icon icon="{{listIcon}}"></nb-icon>
+          &nbsp; {{ row[id] }}
+        </span>
+        <div class="col-sm-3">
+          <button nbButton status="info" title="Assign" (click)="doSelect(row[id])" size="small">Select</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="(data | async)?.length == 0">
+      {{noResultsMessage}}
+    </div>
+    <b>Current selection</b>
+    <div *ngFor="let selection of selections">
+      <div class="row">
+        <span class="col-sm-9">
+          <nb-icon icon="{{listIcon}}"></nb-icon>
+          &nbsp; {{selection}}
+        </span>
+        <div class="col-sm-3">
+          <button nbButton status="danger" title="Unassign'" (click)="doDeselect(selection)"
+            size="small">Deselect</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!selections || selections.length === 0">
+      {{noSelectionMessage}}
+    </div>
+  </nb-card-body>
+</nb-card>

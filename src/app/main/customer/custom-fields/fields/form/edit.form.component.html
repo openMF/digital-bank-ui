@@ -1,0 +1,5 @@
+<div *ngIf="(catalog$ | async) as catalog">
+  <ngx-catalog-custom-field-form [field]="field$ | async" (onSave)="onSave(catalog.identifier, $event)"
+    (onCancel)="onCancel()">
+  </ngx-catalog-custom-field-form>
+</div>

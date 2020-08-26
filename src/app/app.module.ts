@@ -42,6 +42,7 @@ import { CatalogService } from './services/catalog/catalog.service';
 import { OfficeService } from './services/office/office.service';
 import { TellerService } from './services/teller/teller-service';
 import { CountryService } from './services/country/country.service';
+import { ChequeService } from './services/cheque/cheque.service';
 
 /** Custom Effects */
 import { SecurityRouteEffects } from './store/security/effects/route.effects';
@@ -115,6 +116,7 @@ import { AppRoutingModule, appRoutingProviders } from './app-routing.module';
     OfficeService,
     CountryService,
     TellerService,
+    ChequeService,
     ...appRoutingProviders,
   ],
   bootstrap: [AppComponent],

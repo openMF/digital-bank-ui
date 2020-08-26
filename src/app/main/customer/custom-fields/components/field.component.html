@@ -1,0 +1,70 @@
+<ng-container [formGroup]="form">
+  <div class="form-group row">
+    <label for="identifier" class="label col-sm-3 form-control-label">Identifier</label>
+    <div class="col-sm-9">
+      <ngx-id-input [form]="form" controlName="identifier"></ngx-id-input>
+    </div>
+  </div>
+
+  <ngx-text-input [form]="form" controlName="label" placeholder="Label"></ngx-text-input>
+
+  <ngx-text-input [form]="form" controlName="hint" placeholder="Hint(Optional)"></ngx-text-input>
+
+  <div class="row">
+    <label for="description" class="label col-sm-3 form-control-label">Description</label>
+    <div class="col-sm-9">
+      <textarea nbInput id="description" placeholder="Description" formControlName="description"></textarea>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-9">
+      <nb-checkbox formControlName="mandatory">Mandatory?
+      </nb-checkbox>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-9">
+      <nb-radio-group formControlName="dataType" class="row">
+        <nb-radio *ngFor="let type of dataTypeOptions" [value]="type.type">
+          {{ type.label }}
+        </nb-radio>
+      </nb-radio-group>
+    </div>
+  </div>
+
+  <ngx-text-input [hideIfDisabled]="true" type="number" [form]="form" controlName="length" placeholder="Length">
+  </ngx-text-input>
+  <ngx-text-input [hideIfDisabled]="true" type="number" [form]="form" controlName="precision" placeholder="Max digits">
+  </ngx-text-input>
+  <ngx-text-input [hideIfDisabled]="true" type="number" [form]="form" controlName="minValue" placeholder="Min value">
+  </ngx-text-input>
+  <ngx-text-input [hideIfDisabled]="true" type="number" [form]="form" controlName="maxValue" placeholder="Max value">
+  </ngx-text-input>
+  <br>
+
+  <div formArrayName="options" *ngIf="options.enabled">
+    <b>Options</b>
+    <br>
+    <div *ngFor="let option of options.controls; let i=index" [formGroupName]="i" class="row">
+      <div class="col-sm-4">
+        <ngx-text-input [form]="option" controlName="label" placeholder="Label"></ngx-text-input>
+      </div>
+      <div class="col-sm-4">
+        <ngx-text-input type="number" [form]="option" controlName="value" placeholder="Value"></ngx-text-input>
+      </div>
+      <div class="col-sm-4">
+        <button nbButton (click)="removeOption(i)">Remove option</button>
+      </div>
+    </div>
+    <div *ngIf="form.get('options').hasError('optionValueUnique')" class="caption status-danger ng-star-inserted">
+      Values can't overlap with other values.
+    </div>
+    <button nbButton (click)="addOption()">Add option</button>
+  </div>
+  <br>
+
+</ng-container>

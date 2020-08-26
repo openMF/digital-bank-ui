@@ -1,0 +1,64 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="['../../../']"></ngx-back-button>
+    Custom fields
+  </nb-card-header>
+  <nb-card-body>
+
+    <ng-container *ngIf="(catalog$ | async) as catalog; else elseBlock">
+      <b>Name</b>
+      <div class="row">
+        <div class="col-sm-8">
+          {{catalog.name}}
+        </div>
+      </div>
+
+      <b>Description</b>
+      <div class="row">
+        <div class="col-sm-8">
+          {{catalog.description}}
+        </div>
+      </div>
+
+      <b>Created by</b>
+      <div class="row">
+        <div class="col-sm-8">
+          {{catalog.createdBy}} - {{catalog.createdOn | date:'medium'}}
+        </div>
+      </div>
+
+      <b>Last modified by</b>
+      <div class="row">
+        <div class="col-sm-8">
+          {{catalog.lastModifiedBy}} - {{catalog.lastModifiedOn | date:'medium'}}
+        </div>
+      </div>
+      <br>
+      <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="rowSelect($event)">
+      </ng2-smart-table>
+    </ng-container>
+
+    <ng-template #elseBlock>
+      <nb-alert accent="danger">
+        <div class="row">
+          <div class="col-sm-8">
+            <nb-icon icon="close-circle" status="danger" [options]="{ animation: { type: 'pulse' } }"></nb-icon>
+            No custom fields found
+          </div>
+          <div class="col-sm-4">
+            <button nbButton [routerLink]="['edit']" status="basic"
+              *hasPermission="{ id: 'catalog_catalogs', accessLevel: 'CHANGE'}">CREATE CUSTOM FIELDS</button>
+          </div>
+        </div>
+      </nb-alert>
+    </ng-template>
+
+  </nb-card-body>
+</nb-card>
+
+<div class="row button-container" *ngIf="(catalog$ | async) as catalog">
+  <span (click)="deleteCatalog(catalog)">
+    <ngx-fab-button tooltip="Delete catalog" title="Delete catalog" icon="trash-2-outline" status="danger">
+    </ngx-fab-button>
+  </span>
+</div>

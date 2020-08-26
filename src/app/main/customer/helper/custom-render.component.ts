@@ -22,5 +22,9 @@ export class CustomRenderComponent implements ViewCell, OnInit {
       this.icon = 'close-circle';
       this.status = 'danger';
     }
+    if (this.rowData.currentState === 'LOCKED') {
+      this.icon = 'lock-outline';
+      this.status = 'basic';
+    }
   }
 }

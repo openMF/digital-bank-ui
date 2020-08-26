@@ -58,12 +58,12 @@ export class DepositAccountService {
   }
 
   fetchProductInstances(customerIdentifier: string, productIdentifier?: string): Observable<ProductInstance[]> {
-    const search = new HttpParams();
+    let params = new HttpParams();
 
-    search.append('customer', customerIdentifier);
-    search.append('product', productIdentifier);
+    params = params.append('customer', customerIdentifier);
+    params = params.append('product', productIdentifier);
 
-    return this.http.get(`${this.baseUrl}/instances`, { search });
+    return this.http.get(`${this.baseUrl}/instances`, { params });
   }
 
   fetchActions(): Observable<Action[]> {
@@ -71,10 +71,10 @@ export class DepositAccountService {
   }
 
   fetchPossibleTransactionTypes(customerIdentifier: string): Observable<AvailableTransactionType[]> {
-    const search = new HttpParams();
+    let params = new HttpParams();
 
-    search.append('customer', customerIdentifier);
+    params = params.append('customer', customerIdentifier);
 
-    return this.http.get(`${this.baseUrl}/instances/transactiontypes`, { search });
+    return this.http.get(`${this.baseUrl}/instances/transactiontypes`, { params });
   }
 }
