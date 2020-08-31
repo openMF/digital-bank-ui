@@ -55,6 +55,28 @@
       <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="rowSelect($event)">
       </ng2-smart-table>
 
+      <div class="row pager-buttons" *ngIf="!loading">
+        <span class="pager-text">Rows per page</span>
+        <nb-select status="primary" [selected]="perPage" (selectedChange)="onPageSizeChange($event)">
+          <nb-option *ngFor="let page of pageSizes" [value]="page">
+            {{page}}
+          </nb-option>
+        </nb-select>
+        <span class="pager-text"> {{pageIndex+1}} of {{branchData.totalPages}}</span>
+        <button nbButton ghost status="primary" (click)="skipBack()" [disabled]="ifFirstPage">
+          <nb-icon icon="skip-back-outline"></nb-icon>
+        </button>
+        <button nbButton ghost status="primary" (click)="movePrev()" [disabled]="ifFirstPage">
+          <nb-icon icon="arrow-ios-back-outline"></nb-icon>
+        </button>
+        <button nbButton ghost status="primary" (click)="moveForward()" [disabled]="ifLastPage">
+          <nb-icon icon="arrow-ios-forward-outline"></nb-icon>
+        </button>
+        <button nbButton ghost status="primary" (click)="skipEnd()" [disabled]="ifLastPage">
+          <nb-icon icon="skip-forward-outline"></nb-icon>
+        </button>
+      </div>
+
     </nb-card-body>
   </nb-card>
 

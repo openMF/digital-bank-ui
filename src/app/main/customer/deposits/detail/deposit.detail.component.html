@@ -1,0 +1,14 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="['../../../../../../../']"></ngx-back-button>
+    Deposit account
+  </nb-card-header>
+  <nb-card-body>
+
+  </nb-card-body>
+</nb-card>
+
+<div class="row button-container">
+  <ngx-fab-button tooltip="Edit deposit account" title="Edit deposit account" icon="edit-outline" [link]="['edit']"
+    status="basic" [permission]="{ id: 'deposit_instances', accessLevel: 'CHANGE'}"></ngx-fab-button>
+</div>

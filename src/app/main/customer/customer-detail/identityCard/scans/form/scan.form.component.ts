@@ -43,6 +43,19 @@ export class IdentificationCardScanComponent implements OnInit {
     });
   }
 
+  onFileSelect(event: any) {
+    if (event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      if (file.size > 524288) {
+        alert('File is too big!');
+      } else {
+        this.form.patchValue({
+          file: file,
+        });
+      }
+    }
+  }
+
   save(): void {
     this.onSave.emit(this.form.getRawValue());
   }

@@ -1,0 +1,10 @@
+nb-list {
+  overflow-x: hidden;
+}
+
+nb-list-item {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 0 -0.25rem;
+}

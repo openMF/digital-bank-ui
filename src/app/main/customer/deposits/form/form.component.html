@@ -1,0 +1,43 @@
+<nb-card>
+  <nb-card-header>
+    <ngx-back-button [navigateBackTo]="'../'"></ngx-back-button>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+
+    <form [formGroup]="detailForm">
+
+      <div class="row form-group" *ngIf="!editMode">
+        <label for="productIdentifier" class="label col-sm-3 form-control-label">Select Product</label>
+        <div class="col-sm-9">
+          <nb-select id="productIdentifier" formControlName="productIdentifier" placeholder="Select product">
+            <nb-option *ngFor="let definition of productDefinitions" [value]="definition.identifier">
+              {{ definition.name }}
+            </nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="label col-sm-3 form-control-label">Add Beneficiaries</label>
+        <div class="col-sm-9">
+          <nb-select multiple formControlName="beneficiaries">
+            <nb-option *ngFor="let option of filteredCustomers | async" [value]="option">
+              {{option}}
+            </nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <br>
+    </form>
+
+    <div class="button-align">
+      <button nbButton [disabled]="!isValid" *ngIf="!editMode" (click)="save()">create
+        deposit account</button>
+      <button nbButton [disabled]="!isValid" *ngIf="editMode" (click)="save()">update
+        deposit account</button>
+      <button nbButton (click)="cancel()">CANCEL</button>
+    </div>
+
+  </nb-card-body>
+</nb-card>

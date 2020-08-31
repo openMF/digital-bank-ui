@@ -9,3 +9,22 @@
     padding-right: 3px;
   }
 }
+
+.center-align-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  font-size: 40px;
+  line-height: 40px;
+  height: 100px;
+  width: 100px;
+  margin: 16px 0 0 15px;
+  border-radius: 50%;
+}
+
+img:hover {
+  cursor: pointer;
+}

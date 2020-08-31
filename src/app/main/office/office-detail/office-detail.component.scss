@@ -36,3 +36,20 @@
 .address-icon {
   vertical-align: middle;
 }
+
+.pager-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  button {
+    margin-left: 5px;
+  }
+
+  .pager-text {
+    font-weight: 400;
+    font-size: 0.7rem;
+    color: grey;
+    margin: 0 1rem;
+  }
+}

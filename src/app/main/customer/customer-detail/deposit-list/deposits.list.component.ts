@@ -1,24 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Customer } from '../../../services/customer/domain/customer.model';
+import { Customer } from '../../../../services/customer/domain/customer.model';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as fromDeposits from './store/index';
 import { Store } from '@ngrx/store';
-import { FetchRequest } from '../../../services/domain/paging/fetch-request.model';
-import { SEARCH } from './store/deposit.actions';
-import * as fromCustomers from '../store';
-import { DatePipe } from '@angular/common';
+import { FetchRequest } from '../../../../services/domain/paging/fetch-request.model';
+import { SEARCH } from '../../store/deposit/deposit.actions';
+import * as fromCustomers from '../../store';
 import { filter } from 'rxjs/operators';
 import { LocalDataSource } from 'ng2-smart-table';
-import { CustomSelectorFilterComponent } from './helper/custom-filter.component';
-import { CustomRenderComponent } from './helper/custom-render.component';
+import { CustomSelectorFilterComponent } from '../../helper/custom-filter.component';
+import { CustomRenderComponent } from '../../helper/custom-render.component';
 
 @Component({
   selector: 'ngx-customer-deposit-table',
   templateUrl: './deposits.list.component.html',
   styleUrls: ['./deposits.list.component.scss'],
-  providers: [DatePipe],
 })
 export class DepositsListComponent implements OnInit, OnDestroy {
   private customerSubscription: Subscription;
@@ -74,12 +71,12 @@ export class DepositsListComponent implements OnInit, OnDestroy {
     mode: 'external',
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private depositsStore: Store<fromDeposits.State>) {}
+  constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromCustomers.State>) {}
 
   ngOnInit(): void {
-    this.depositsStore.select(fromDeposits.getDepositSearchResults).subscribe(depositsPage => this.setProductsData(depositsPage));
+    this.store.select(fromCustomers.getDepositSearchResults).subscribe(depositsPage => this.setProductsData(depositsPage));
 
-    this.customerSubscription = this.depositsStore
+    this.customerSubscription = this.store
       .select(fromCustomers.getSelectedCustomer)
       .pipe(filter(customer => !!customer))
       .subscribe(customer => {
@@ -98,7 +95,7 @@ export class DepositsListComponent implements OnInit, OnDestroy {
   }
 
   fetchProductInstances(fetchRequest?: FetchRequest): void {
-    this.depositsStore.dispatch({
+    this.store.dispatch({
       type: SEARCH,
       payload: {
         customerId: this.customer.identifier,
@@ -109,6 +106,6 @@ export class DepositsListComponent implements OnInit, OnDestroy {
 
   rowSelect(event: any): void {
     const product = event.data;
-    this.router.navigate(['deposit/detail', product.accountIdentifier], { relativeTo: this.route });
+    this.router.navigate(['deposits/detail', product.accountIdentifier], { relativeTo: this.route });
   }
 }

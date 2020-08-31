@@ -15,6 +15,13 @@ import {
   getResourceSelected,
   ResourceState,
 } from '../../common/store/resource.reducer';
+import {
+  createSearchReducer,
+  getSearchEntities,
+  getSearchTotalElements,
+  getSearchTotalPages,
+  SearchState,
+} from '../../common/store/search.reducer';
 import { createFormReducer, FormState, getFormError } from '../../common/store/form.reducer';
 
 export const customerFeatureKey = 'Customer';
@@ -24,6 +31,7 @@ export interface CustomerState {
   customerForm: FormState;
   tasks: ResourceState;
   taskForm: FormState;
+  depositSearch: SearchState;
   customerTasks: fromCustomerTasks.State;
   customerCatalog: fromCatalogs.State;
   customerCommands: fromCommands.State;
@@ -44,6 +52,7 @@ export function reducers(state: CustomerState | undefined, action: Action) {
     customerForm: createFormReducer(customerFeatureKey),
     tasks: createResourceReducer('Task', fromTasks.reducer),
     taskForm: createFormReducer('Task'),
+    depositSearch: createSearchReducer('Deposit'),
     customerTasks: fromCustomerTasks.reducer,
     customerCatalog: fromCatalogs.reducer,
     customerCommands: fromCommands.reducer,
@@ -66,6 +75,27 @@ export const getCustomerFormError = createSelector(getCustomerFormState, getForm
 export const getCustomersState = createSelector(selectCustomerState, state => state.customers);
 export const getCustomerLoadedAt = createSelector(getCustomersState, getResourceLoadedAt);
 export const getSelectedCustomer = createSelector(getCustomersState, getResourceSelected);
+
+/**
+ * Deposit Account Selectors
+ */
+export const getDepositSearchState = createSelector(selectCustomerState, state => state.depositSearch);
+export const getSearchDeposits = createSelector(getDepositSearchState, getSearchEntities);
+export const getDepositSearchTotalElements = createSelector(getDepositSearchState, getSearchTotalElements);
+export const getDepositSearchTotalPages = createSelector(getDepositSearchState, getSearchTotalPages);
+
+export const getDepositSearchResults = createSelector(
+  getSearchDeposits,
+  getDepositSearchTotalPages,
+  getDepositSearchTotalElements,
+  (deposits, totalPages, totalElements) => {
+    return {
+      deposits,
+      totalPages,
+      totalElements,
+    };
+  },
+);
 
 /**
  * Task Selectors

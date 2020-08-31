@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   templateUrl: './deposit.detail.component.html',
+  styleUrls: ['./deposit.detail.component.scss'],
 })
 export class DepositDetailComponent implements OnInit {
   depositInstance$: Observable<ProductInstance>;

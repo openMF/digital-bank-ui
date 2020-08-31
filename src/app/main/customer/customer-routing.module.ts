@@ -11,7 +11,6 @@ import { TaskDetailComponent } from './tasks/task.detail.component';
 import { CustomerIndexComponent } from './customer-detail/customer.index.component';
 import { CustomerExistsGuard } from './customer-exists.guard';
 import { CustomerStatusComponent } from './customer-detail/status/status.component';
-import { CustomerPortraitComponent } from './customer-detail/portrait/portrait.component';
 import { CustomerDetailComponent } from './customer-detail/customer.detail.component';
 import { CatalogDetailComponent } from './custom-fields/catalog.detail.component';
 import { CreateCustomerCatalogFormComponent } from './custom-fields/form/create.form.component';
@@ -19,8 +18,8 @@ import { FieldIndexComponent } from './custom-fields/fields/field.index.componen
 import { FieldExistsGuard } from './custom-fields/fields/field-exists.guard';
 import { FieldDetailComponent } from './custom-fields/fields/field.detail.component';
 import { EditCatalogFieldFormComponent } from './custom-fields/fields/form/edit.form.component';
-import {CreateCustomerFormComponent} from './form/create/create.form.component';
-import {EditCustomerFormComponent} from './form/edit/edit.form.component';
+import { CreateCustomerFormComponent } from './form/create/create.form.component';
+import { EditCustomerFormComponent } from './form/edit/edit.form.component';
 
 export const routes: Routes = [
   {
@@ -58,16 +57,9 @@ export const routes: Routes = [
         component: CustomerStatusComponent,
         data: { title: 'Manage Customer Tasks' },
       },
-      {
-        path: 'portrait',
-        component: CustomerPortraitComponent,
-        data: {
-          title: 'Upload portrait',
-          hasPermission: { id: 'customer_portrait', accessLevel: 'READ' },
-        },
-      },
       { path: 'identifications', loadChildren: './customer-detail/identityCard/identity-card.module#IdentityCardModule' },
       { path: 'loans', loadChildren: './cases/case.module#CaseModule' },
+      { path: 'deposits', loadChildren: './deposits/deposits.module#DepositsModule' },
     ],
   },
   {

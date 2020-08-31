@@ -14,7 +14,14 @@ interface RouteAction extends Action {
 export class DepositProductInstanceRouteEffects {
   @Effect({ dispatch: false })
   createProductInstanceSuccess$: Observable<Action> = this.actions$.pipe(
-    ofType(instanceActions.CREATE_SUCCESS, instanceActions.UPDATE_SUCCESS),
+    ofType(instanceActions.CREATE_SUCCESS),
+    map((action: RouteAction) => action.payload),
+    tap(payload => this.router.navigate(['../../'], { relativeTo: payload.activatedRoute })),
+  );
+
+  @Effect({ dispatch: false })
+  updateProductInstanceSuccess$: Observable<Action> = this.actions$.pipe(
+    ofType(instanceActions.UPDATE_SUCCESS),
     map((action: RouteAction) => action.payload),
     tap(payload => this.router.navigate(['../'], { relativeTo: payload.activatedRoute })),
   );
@@ -23,7 +30,7 @@ export class DepositProductInstanceRouteEffects {
   issueChequesSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(instanceActions.ISSUE_CHEQUES_SUCCESS),
     map((action: RouteAction) => action.payload),
-    tap(payload => this.router.navigate(['../'], { relativeTo: payload.activatedRoute })),
+    tap(payload => this.router.navigate(['../../'], { relativeTo: payload.activatedRoute })),
   );
 
   constructor(private actions$: Actions, private router: Router) {}

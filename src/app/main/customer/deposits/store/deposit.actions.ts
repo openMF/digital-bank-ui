@@ -1,5 +1,4 @@
 import { type } from '../../../../store/util';
-import { FetchRequest } from '../../../../services/domain/paging/fetch-request.model';
 import { RoutePayload } from '../../../common/store/route-payload';
 import { ProductInstance } from '../../../../services/depositAccount/domain/instance/product-instance.model';
 import {
@@ -9,11 +8,7 @@ import {
   UpdateResourceSuccessPayload,
 } from '../../../common/store/resource.reducer';
 import { Action } from '@ngrx/store';
-import { SearchResult } from '../../../common/store/search.reducer';
 import { IssuingCount } from '../../../../services/cheque/domain/issuing-count.model';
-
-export const SEARCH = type('[Deposit] Search');
-export const SEARCH_COMPLETE = type('[Deposit] Search Complete');
 
 export const LOAD = type('[Deposit] Load');
 export const SELECT = type('[Deposit] Select');
@@ -30,29 +25,12 @@ export const ISSUE_CHEQUES = type('[Deposit] Issue Cheques');
 export const ISSUE_CHEQUES_SUCCESS = type('[Deposit] Issue Cheques Success');
 export const ISSUE_CHEQUES_FAIL = type('[Deposit] Issue Cheques Fail');
 
-export interface SearchProductInstancePayload {
-  customerId: string;
-  fetchRequest: FetchRequest;
-}
-
 export interface DepositRoutePayload extends RoutePayload {
   productInstance: ProductInstance;
 }
 
 export interface IssueChequePayload extends RoutePayload {
   issuingCount: IssuingCount;
-}
-
-export class SearchAction implements Action {
-  readonly type = SEARCH;
-
-  constructor(public payload: SearchProductInstancePayload) {}
-}
-
-export class SearchCompleteAction implements Action {
-  readonly type = SEARCH_COMPLETE;
-
-  constructor(public payload: SearchResult) {}
 }
 
 export class LoadAction implements Action {
@@ -122,8 +100,6 @@ export class IssueChequesFailAction implements Action {
 }
 
 export type Actions =
-  | SearchAction
-  | SearchCompleteAction
   | LoadAction
   | SelectAction
   | CreateProductInstanceAction

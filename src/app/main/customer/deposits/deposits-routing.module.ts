@@ -8,7 +8,7 @@ import { DepositEditComponent } from './form/edit.component';
 
 export const routes: Routes = [
   {
-    path: 'deposit/detail/:id',
+    path: 'detail/:id',
     component: DepositIndexComponent,
     canActivate: [DepositInstanceExistsGuard],
     data: {
@@ -22,18 +22,14 @@ export const routes: Routes = [
       {
         path: 'edit',
         component: DepositEditComponent,
-        data: {
-          hasPermission: { id: 'deposit_instances', accessLevel: 'CHANGE' },
-        },
+        data: { title: 'Edit Deposit Account', hasPermission: { id: 'deposit_instances', accessLevel: 'CHANGE' } },
       },
     ],
   },
   {
-    path: 'deposit/create',
+    path: 'create',
     component: DepositCreateComponent,
-    data: {
-      hasPermission: { id: 'deposit_instances', accessLevel: 'CHANGE' },
-    },
+    data: { title: 'Create Deposit Account', hasPermission: { id: 'deposit_instances', accessLevel: 'CHANGE' } },
   },
 ];
 @NgModule({

@@ -18,7 +18,6 @@ import {
   NbSelectModule,
   NbAlertModule,
   NbDatepickerModule,
-  NbUserModule,
   NbSearchModule,
 } from '@nebular/theme';
 import { EffectsModule } from '@ngrx/effects';
@@ -62,8 +61,6 @@ import { CustomerDetailComponent } from './customer-detail/customer.detail.compo
 import { CustomerTaskComponent } from './customer-detail/status/customer-task.component';
 import { CustomerIndexComponent } from './customer-detail/customer.index.component';
 import { CustomerStatusComponent } from './customer-detail/status/status.component';
-import { CustomerPortraitComponent } from './customer-detail/portrait/portrait.component';
-import { DepositsModule } from './deposits/deposits.module';
 import { CreateCustomerCatalogFormComponent } from './custom-fields/form/create.form.component';
 import { CatalogDetailComponent } from './custom-fields/catalog.detail.component';
 import { CustomerCatalogFormComponent } from './custom-fields/form/form.component';
@@ -82,6 +79,10 @@ import { CustomerOfficesComponent } from './form/offices/offices.component';
 import { CustomerContactFormComponent } from './form/contact/contact.component';
 import { EditCustomerFormComponent } from './form/edit/edit.form.component';
 import { CustomerCustomFieldsComponent } from './form/customFields/custom-fields.component';
+import { PortraitDialogComponent } from './customer-detail/helper/portrait-dialog/portrait-dialog.component';
+import { DepositsListComponent } from './customer-detail/deposit-list/deposits.list.component';
+import { DepositProductInstanceApiEffects } from './store/deposit/effects/service.effects';
+import { ImageComponent } from './customer-detail/identityCard/helper/image-dialog/image.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,6 @@ import { CustomerCustomFieldsComponent } from './form/customFields/custom-fields
     CustomerTaskComponent,
     CustomerIndexComponent,
     CustomerStatusComponent,
-    CustomerPortraitComponent,
     CustomerActivityComponent,
     CreateCustomerCatalogFormComponent,
     CustomerCustomValuesComponent,
@@ -118,9 +118,11 @@ import { CustomerCustomFieldsComponent } from './form/customFields/custom-fields
     FieldFormComponent,
     CustomerCatalogFormComponent,
     CatalogDetailComponent,
+    PortraitDialogComponent,
+    DepositsListComponent,
+    ImageComponent,
   ],
   imports: [
-    DepositsModule,
     CommonModule,
     SharedModule,
     CustomerRoutingModule,
@@ -133,7 +135,6 @@ import { CustomerCustomFieldsComponent } from './form/customFields/custom-fields
     NbCheckboxModule,
     NbListModule,
     NbStepperModule,
-    NbUserModule,
     NbRadioModule,
     NbAutocompleteModule,
     NbSelectModule,
@@ -167,8 +168,10 @@ import { CustomerCustomFieldsComponent } from './form/customFields/custom-fields
       CatalogApiEffects,
       CatalogRouteEffects,
       CatalogNotificationEffects,
+      DepositProductInstanceApiEffects,
     ]),
   ],
+  entryComponents: [ImageComponent, PortraitDialogComponent],
   providers: [CustomerExistsGuard, CatalogExistsGuard, TaskExistsGuard, FieldExistsGuard, FieldFormService],
 })
 export class CustomerModule {}

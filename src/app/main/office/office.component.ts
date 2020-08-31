@@ -20,15 +20,25 @@ export class OfficeComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
 
   pageSizes: number[] = [10, 15, 20];
+  perPage: number = this.pageSizes[0];
+  pageIndex: number = 0;
 
   private currentPage: Page = {
-    pageIndex: 0,
-    size: this.pageSizes[0],
+    pageIndex: this.pageIndex,
+    size: this.perPage,
   };
 
   private currentSort: Sort = {
     sortColumn: 'identifier',
     sortDirection: 'ASC',
+  };
+
+  searchTerm: string;
+
+  lastFetchRequest: FetchRequest = {
+    searchTerm: '',
+    page: this.currentPage,
+    sort: this.currentSort,
   };
 
   /** Office data */
@@ -61,20 +71,6 @@ export class OfficeComponent implements OnInit {
     mode: 'external',
     pager: {
       display: false,
-    },
-  };
-
-  searchTerm: string;
-
-  lastFetchRequest: FetchRequest = {
-    searchTerm: '',
-    page: {
-      pageIndex: 0,
-      size: 10,
-    },
-    sort: {
-      sortColumn: '',
-      sortDirection: '',
     },
   };
 
@@ -122,10 +118,44 @@ export class OfficeComponent implements OnInit {
   }
 
   /** Paging and sort events  */
-  page(pagingEvent: any): void {
+  onPageSizeChange(pageSize: number) {
+    this.perPage = pageSize;
     this.currentPage = {
-      pageIndex: pagingEvent.page - 1,
-      size: pagingEvent.pageSize,
+      pageIndex: 0,
+      size: pageSize,
+    };
+    this.fetch();
+  }
+
+  get ifFirstPage() {
+    return this.pageIndex === 0;
+  }
+
+  get ifLastPage() {
+    return this.pageIndex === this.officesData.totalPages - 1;
+  }
+
+  skipBack() {
+    this.onPageChange(0);
+  }
+
+  movePrev() {
+    this.onPageChange(this.pageIndex - 1);
+  }
+
+  moveForward() {
+    this.onPageChange(this.pageIndex + 1);
+  }
+
+  skipEnd() {
+    this.onPageChange(this.officesData.totalPages - 1);
+  }
+
+  onPageChange(pageIndex: number) {
+    this.pageIndex = pageIndex;
+    this.currentPage = {
+      pageIndex: pageIndex,
+      size: this.perPage,
     };
     this.fetch();
   }

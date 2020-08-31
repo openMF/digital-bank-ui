@@ -1,0 +1,36 @@
+div:hover {
+  cursor: pointer;
+}
+
+div {
+  font-size: 0.8rem;
+  label:hover {
+    cursor: pointer;
+  }
+}
+
+.upload {
+  color: blue;
+  border-bottom: 1px solid #cdd0d8;
+}
+
+.delete {
+  color: #f52f5d;
+  border-bottom: 1px solid #cdd0d8;
+}
+
+.align-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.card-styles {
+  width: 400px;
+}
+
+.imageUpload {
+  width: 0;
+  height: 0;
+}

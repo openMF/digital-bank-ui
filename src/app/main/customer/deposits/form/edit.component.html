@@ -1,0 +1,4 @@
+<ngx-deposit-form-component #form (onSave)="onSave($event)" (onCancel)="onCancel()"
+  [customerId]="(customer$ | async).identifier" [productInstance]="productInstance$ | async" [productDefinitions]="[]"
+  [editMode]="true">
+</ngx-deposit-form-component>
