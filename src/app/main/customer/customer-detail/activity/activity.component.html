@@ -1,12 +1,23 @@
-<nb-card class="own-scroll">
+<nb-card size="medium">
   <nb-card-header>
     Activity
   </nb-card-header>
   <nb-card-body>
-    <!-- <nb-list *ngFor="let item of commands"> -->
-      <ng-template let-item let-last="last" ngFor [ngForOf]="commands">
-      <ngx-command-display [command]="item"></ngx-command-display>
-      </ng-template>
-    <!-- </nb-list> -->
+    <nb-list>
+      <nb-list-item *ngFor="let command of commands">
+        <div [ngSwitch]="command.action">
+          <nb-icon status="primary" *ngSwitchCase="'ACTIVATE'" icon="checkmark-circle-2"></nb-icon>
+          <nb-icon status="primary" *ngSwitchCase="'LOCK'" icon="lock"></nb-icon>
+          <nb-icon status="primary" *ngSwitchCase="'CLOSE'" icon="close-circle"></nb-icon>
+          <nb-icon status="primary" *ngSwitchCase="'UNLOCK'" icon="unlock"></nb-icon>
+          <span class="caption" *ngSwitchCase="'ACTIVATE'">ACTIVATE</span>
+          <span class="caption" *ngSwitchCase="'LOCK'">LOCK</span>
+          <span class="caption" *ngSwitchCase="'CLOSE'">CLOSE</span>
+          <span class="caption" *ngSwitchCase="'UNLOCK'">UNLOCK</span>
+          <div class="caption">{{command.createdBy}}, {{command.createdOn | date:'medium'}}</div>
+          <div class="caption">{{command.comment}}</div>
+        </div>
+      </nb-list-item>
+    </nb-list>
   </nb-card-body>
 </nb-card>

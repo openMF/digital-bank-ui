@@ -1,0 +1,15 @@
+<nb-card class="card-styles">
+  <nb-card-header class="align-text">Change Customer Picture</nb-card-header>
+  <nb-card-body>
+    <div class="align-text upload" *hasPermission="{ id: 'customer_portrait', accessLevel: 'CHANGE' }">
+      <label for="imageUpload">Upload Photo</label>
+      <input class="imageUpload" id="imageUpload" type="file" (change)="onFileSelect($event)">
+    </div>
+    <div *ngIf="picture_exists">
+      <div *hasPermission="{ id: 'customer_portrait', accessLevel: 'DELETE' }" (click)="delete()"
+        class="delete align-text">Remove Current Photo
+      </div>
+    </div>
+    <div (click)="cancel()" class="align-text">Cancel</div>
+  </nb-card-body>
+</nb-card>

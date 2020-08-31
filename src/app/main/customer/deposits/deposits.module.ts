@@ -3,7 +3,6 @@ import { SharedModule } from '../../common/common.module';
 import { CommonModule } from '@angular/common';
 import { DepositCreateComponent } from './form/create.component';
 import { DepositFormComponent } from './form/form.component';
-import { DepositsListComponent } from './deposits.list.component';
 import * as fromCustomerDeposit from './store/index';
 import { DepositRoutingModule } from './deposits-routing.module';
 import { EffectsModule } from '@ngrx/effects';
@@ -34,8 +33,6 @@ import {
   NbDatepickerModule,
 } from '@nebular/theme';
 import { StoreModule } from '@ngrx/store';
-import { CustomSelectorFilterComponent } from './helper/custom-filter.component';
-import { CustomRenderComponent } from './helper/custom-render.component';
 
 @NgModule({
   imports: [
@@ -72,16 +69,12 @@ import { CustomRenderComponent } from './helper/custom-render.component';
     ]),
   ],
   declarations: [
-    DepositsListComponent,
     DepositFormComponent,
     DepositIndexComponent,
     DepositCreateComponent,
     DepositEditComponent,
     DepositDetailComponent,
-    CustomRenderComponent,
-    CustomSelectorFilterComponent,
   ],
-  exports: [DepositsListComponent],
   providers: [DepositInstanceExistsGuard],
 })
 export class DepositsModule {}

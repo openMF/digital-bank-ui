@@ -10,8 +10,7 @@ import { IdentificationCard } from '../../../../services/customer/domain/identif
 import { Observable, combineLatest } from 'rxjs';
 import { IdentificationCardScan } from '../../../../services/customer/domain/identification-card-scan.model';
 import { UploadIdentificationCardScanEvent } from './scans/scan.list.component';
-import { ImageComponent } from '../../../common/image/image.component';
-import { CustomerService } from '../../../../services/customer/customer.service';
+import { ImageComponent } from './helper/image-dialog/image.component';
 import { NbDialogService } from '@nebular/theme';
 import { filter, tap, map } from 'rxjs/operators';
 import { DeleteDialogComponent } from '../../../common/delete-dialog/delete-dialog.component';
@@ -29,12 +28,7 @@ export class CustomerIdentityCardDetailComponent implements OnInit, OnDestroy {
 
   scans$: Observable<IdentificationCardScan[]>;
 
-  constructor(
-    private route: ActivatedRoute,
-    private customersStore: Store<fromCustomers.State>,
-    private dialogService: NbDialogService,
-    private customerService: CustomerService,
-  ) {}
+  constructor(private route: ActivatedRoute, private customersStore: Store<fromCustomers.State>, private dialogService: NbDialogService) {}
 
   ngOnInit(): void {
     this.scans$ = this.customersStore.select(fromCustomers.getAllIdentificationCardScanEntities);
@@ -87,15 +81,14 @@ export class CustomerIdentityCardDetailComponent implements OnInit, OnDestroy {
   }
 
   viewScan(identifier: string): void {
-    this.customerService
-      .getIdentificationCardScanImage(this.customer.identifier, this.identificationCard.number, identifier)
-      .subscribe(data => {
-        this.dialogService.open(ImageComponent, {
-          context: {
-            blob: data,
-          },
-        });
-      });
+    const customerIdentifier = this.customer.identifier;
+    this.dialogService.open(ImageComponent, {
+      context: {
+        customerIdentifier: customerIdentifier,
+        idCardNumber: this.identificationCard.number,
+        identifier: identifier,
+      },
+    });
   }
 
   uploadScan(event: UploadIdentificationCardScanEvent): void {

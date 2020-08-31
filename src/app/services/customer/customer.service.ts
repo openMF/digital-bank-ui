@@ -129,7 +129,7 @@ export class CustomerService {
     params = params.append('scanIdentifier', scan.identifier);
     params = params.append('description', scan.description);
 
-    return this.http.post(`${this.baseUrl}/customers/${customerId}/identifications/${number}/scans`, formData, { search: params });
+    return this.http.post(`${this.baseUrl}/customers/${customerId}/identifications/${number}/scans`, formData, { params });
   }
 
   deleteIdentificationCardScan(customerId: string, number: string, scanId: string): Observable<void> {

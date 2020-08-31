@@ -12,3 +12,20 @@
 :host /deep/ ng2-smart-table table > tbody > tr > td:hover {
   cursor: pointer;
 }
+
+.pager-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  button {
+    margin-left: 5px;
+  }
+
+  .pager-text {
+    font-weight: 400;
+    font-size: 0.7rem;
+    color: grey;
+    margin: 0 1rem;
+  }
+}

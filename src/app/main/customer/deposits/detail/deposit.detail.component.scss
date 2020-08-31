@@ -1,0 +1,11 @@
+.button-container {
+  left: auto;
+  right: 40px;
+  top: auto;
+  bottom: 20px;
+  position: fixed;
+
+  ngx-fab-button {
+    padding-right: 3px;
+  }
+}

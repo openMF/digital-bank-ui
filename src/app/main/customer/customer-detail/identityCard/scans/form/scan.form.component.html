@@ -19,7 +19,7 @@
       <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-9">
-          <input nbInput type="file" placeholder="Selected file" formControlName="file" />
+          <input id="imageUpload" type="file" (change)="onFileSelect($event)">
         </div>
       </div>
     </form>

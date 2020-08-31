@@ -5,15 +5,19 @@ import { ProductDefinition } from '../../../../services/depositAccount/domain/de
 import { Observable } from 'rxjs/Observable';
 import { CustomerService } from '../../../../services/customer/customer.service';
 import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-deposit-form-component',
   templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss'],
 })
 export class DepositFormComponent implements OnInit {
   filteredCustomers: Observable<string[]>;
 
   detailForm: FormGroup;
+
+  title: string;
 
   @Input('editMode') editMode: boolean;
 
@@ -26,13 +30,17 @@ export class DepositFormComponent implements OnInit {
   @Output() onSave = new EventEmitter<ProductInstance>();
   @Output() onCancel = new EventEmitter<void>();
 
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerService) {}
+  constructor(private formBuilder: FormBuilder, private customerService: CustomerService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.data.subscribe((data: any) => {
+      this.title = data.title;
+    });
     this.detailForm = this.formBuilder.group({
       productIdentifier: [this.productInstance.productIdentifier, [Validators.required]],
       beneficiaries: [this.productInstance.beneficiaries ? this.productInstance.beneficiaries : []],
     });
+    this.filterAsync();
   }
 
   get isValid(): boolean {
@@ -55,11 +63,9 @@ export class DepositFormComponent implements OnInit {
     this.onCancel.emit();
   }
 
-  filterAsync(searchTerm: string): void {
+  filterAsync(): void {
     this.filteredCustomers = this.customerService
-      .fetchCustomers({
-        searchTerm,
-      })
+      .fetchCustomers({})
       .pipe(map(customerPage => customerPage.customers.map(customer => customer.identifier)));
   }
 }

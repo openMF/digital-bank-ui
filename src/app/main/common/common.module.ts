@@ -27,8 +27,6 @@ import { CustomNumberFilterComponent } from './custom-filters/custom-number-filt
 import { DisplayFimsDate } from './date/fims-date.pipe';
 import { AddressFormComponent } from './address/address.component';
 import { BackButtonComponent } from './back-button/back-button.component';
-import { CommandDisplayComponent } from './command-display/command-display.component';
-import { ImageComponent } from './image/image.component';
 import { TextInputComponent } from './text-input/text-input.component';
 import { SelectListComponent } from './select-list/select-list.component';
 
@@ -63,8 +61,6 @@ import { SelectListComponent } from './select-list/select-list.component';
     DisplayFimsDate,
     AddressFormComponent,
     BackButtonComponent,
-    CommandDisplayComponent,
-    ImageComponent,
     TextInputComponent,
     SelectListComponent,
   ],
@@ -80,8 +76,6 @@ import { SelectListComponent } from './select-list/select-list.component';
     DisplayFimsDate,
     AddressFormComponent,
     BackButtonComponent,
-    CommandDisplayComponent,
-    ImageComponent,
     TextInputComponent,
     SelectListComponent,
   ],
