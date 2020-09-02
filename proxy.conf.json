@@ -1,6 +1,6 @@
 {
   "/identity": {
-    "target": "http://buffalo.mifos.io:2021",
+    "target": "http://localhost:2021",
     "secure": false,
     "pathRewrite": {
       "/identity": "/identity"
@@ -9,7 +9,7 @@
     "logLevel": "debug"
   },
   "/api/office": {
-    "target": "http://buffalo.mifos.io:2023",
+    "target": "http://localhost:2023",
     "secure": false,
     "pathRewrite": {
       "^/api/office": "/office"
