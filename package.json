@@ -1,13 +1,13 @@
 {
-  "name": "ngx-admin",
-  "version": "4.0.1",
-  "license": "MIT",
+  "name": "digital-bank-ui",
+  "version": "1.0.0",
+  "license": "Apache License 2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/akveo/ngx-admin.git"
+    "url": "https://github.com/openMF/digital-bank-ui"
   },
   "bugs": {
-    "url": "https://github.com/akveo/ngx-admin/issues"
+    "url": "https://github.com/openMF/digital-bank-ui"
   },
   "scripts": {
     "ng": "ng",
