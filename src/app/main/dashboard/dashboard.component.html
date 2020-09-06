@@ -35,7 +35,7 @@
 
   <div *ngIf="displayHomePage">
     <div class="row">
-      <div class="col-xxl-7">
+      <div class="col-sm-12">
         <ngx-dashboard-charts></ngx-dashboard-charts>
       </div>
     </div>
@@ -53,9 +53,9 @@
 
     <div class="row">
       <div class="col-sm-3">
-        <nb-card size="small">
+        <nb-card>
           <nb-card-body>
-            <div class="center-align-content">
+            <div class="center-align-content" nbTooltip="View Customer Details">
               <img *hasPermission="{ id: 'customer_portrait' , accessLevel: 'READ' }" [(src)]="safeUrl" alt>
             </div>
 
@@ -66,7 +66,9 @@
                   <b>Name</b>
                 </div>
                 <div>
-                  {{selectedCustomer.givenName}} {{selectedCustomer.surname}}
+                  <a [routerLink]="detailsUrl">
+                    {{selectedCustomer.givenName}} {{selectedCustomer.surname}}
+                  </a>
                 </div>
 
                 <b>Contact information</b>
@@ -94,29 +96,20 @@
       </div>
 
       <div class="col-sm-9">
-        <nb-card class="container"><br>
 
-          <div *ngIf="!displayAccountDetailsPage" class="row container">
-            <nb-card style="margin-right: 5px;" *ngFor="let deposit of depositAccounts" size="small" class="col-sm-5">
-              <nb-card-header>{{deposit.accountIdentifier}}</nb-card-header>
-              <nb-card-body>
-                <ngx-echarts-pie></ngx-echarts-pie>
-              </nb-card-body>
-            </nb-card>
-          </div>
+        <div *ngIf="!displayAccountDetailsPage">
+          <nb-card *ngFor="let deposit of depositAccounts">
+            <nb-card-header>{{deposit.accountIdentifier}}</nb-card-header>
+            <nb-card-body>
+              <ngx-echarts-pie></ngx-echarts-pie>
+            </nb-card-body>
+          </nb-card>
+        </div>
 
-          <div *ngIf="displayAccountDetailsPage">
+        <div *ngIf="displayAccountDetailsPage">
+          <ngx-account-activity></ngx-account-activity>
+        </div>
 
-            <div class="col-xxl-3">
-
-            </div>
-
-            <div class="col-xxl-3">
-              <ngx-account-activity></ngx-account-activity>
-            </div>
-          </div>
-
-        </nb-card>
       </div>
 
     </div>

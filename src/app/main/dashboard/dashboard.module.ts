@@ -26,9 +26,11 @@ import { ECommerceLegendChartComponent } from './legend-chart/legend-chart.compo
 import { EchartsPieComponent } from './pie-charts/echarts-pie.component';
 import { SharedModule } from '../common/common.module';
 import { AccountActivityComponent } from './account-activity/account-activity.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
+    RouterModule,
     ThemeModule,
     NbCardModule,
     NbUserModule,
