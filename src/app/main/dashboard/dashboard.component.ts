@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
   selectedCredit: any = '';
   customerPortrait: any = '';
   safeUrl: any;
+  detailsUrl: string;
   private defaultUrl = '../../../../assets/images/ic_account_circle_black_48dp_2x.png';
 
   solarValue: number;
@@ -121,7 +122,10 @@ export class DashboardComponent implements OnInit {
   onCustomerChange(event: any) {
     const customer = event;
     if (customer) {
-      this.customerService.getCustomer(customer).subscribe(data => (this.selectedCustomer = data));
+      this.customerService.getCustomer(customer).subscribe(data => {
+        this.selectedCustomer = data;
+        this.setDetailsUrl(data);
+      });
       this.customerService.getPortrait(customer).subscribe(portrait => this.setBlob(portrait));
       this.depositAccountService.fetchProductInstances(customer).subscribe(data => (this.depositAccounts = data));
       this.selectedCredit = '';
@@ -129,6 +133,10 @@ export class DashboardComponent implements OnInit {
     } else {
       this.selectedCustomer = null;
     }
+  }
+
+  setDetailsUrl(data: any) {
+    this.detailsUrl = '/customers/detail/' + data.identifier;
   }
 
   onOfficeChange(event: any) {
