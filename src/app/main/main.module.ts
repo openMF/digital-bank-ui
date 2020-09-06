@@ -13,21 +13,17 @@ import { mainRoutingProviders } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { AccessDeniedComponent } from './access-denied/access.denied.component';
 import { NotificationComponent } from './notification/notification.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
-  declarations: [
-    MainComponent,
-    AccessDeniedComponent,
-    NotificationComponent,
-    DashboardComponent,
-  ],
+  declarations: [MainComponent, AccessDeniedComponent, NotificationComponent],
   imports: [
     MainRoutingModule,
     ThemeModule,
     NbCardModule,
     NbButtonModule,
+    DashboardModule,
     NbMenuModule,
     Ng2SmartTableModule,
     NbDialogModule.forChild(),

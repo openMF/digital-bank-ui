@@ -1,0 +1,24 @@
+@import '../../@theme/styles/themes';
+
+@include nb-install-component() {
+  ngx-echarts-pie,
+  ::ng-deep .echart {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+img {
+  font-size: 40px;
+  line-height: 40px;
+  height: 100px;
+  width: 100px;
+  margin: 16px 0 0 15px;
+  border-radius: 50%;
+}
+
+.center-align-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -25,6 +25,10 @@ export class CustomerService {
     return this.http.get(`${this.baseUrl}/customers`, { params }).pipe(share());
   }
 
+  fetchAllCustomers(): Observable<CustomerPage> {
+    return this.http.get(`${this.baseUrl}/customers`).pipe(share());
+  }
+
   getCustomer(id: string, silent?: boolean): Observable<Customer> {
     return this.http.get(`${this.baseUrl}/customers/${id}`, {}, silent);
   }

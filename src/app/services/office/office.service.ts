@@ -38,6 +38,10 @@ export class OfficeService {
     return this.http.get(this.baseUrl + '/offices', { params }).pipe(catchError(Error.handleError));
   }
 
+  listAllOffices(): Observable<OfficePage> {
+    return this.http.get(this.baseUrl + '/offices').pipe(catchError(Error.handleError));
+  }
+
   listBranches(parentIdentifier: string, fetchRequest?: FetchRequest): Observable<OfficePage> {
     const params: HttpParams = buildSearchParams(fetchRequest);
 

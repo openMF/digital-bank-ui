@@ -1,102 +1,127 @@
-<nb-card>
-  <nb-card-header>
-    Dashboard
-  </nb-card-header>
-  <nb-card-body>
+<nb-card-body>
+
+  <div class="row">
+    <nb-select class="col" [(selected)]="selectedOffice" placeholder="Select Office"
+      (selectedChange)="onOfficeChange($event)">
+      <nb-option *ngFor="let office of offices" [value]="office.identifier">
+        {{ office.name }}
+      </nb-option>
+      <nb-option style="color:gainsboro" [value]="null">Clear</nb-option>
+    </nb-select>
+    <nb-select class="col" placeholder="Select Customer" (selectedChange)="onCustomerChange($event)">
+      <nb-option *ngFor="let customer of filteredCustomers" [value]="customer.identifier">
+        {{ customer.givenName }} {{ customer.surname }}
+      </nb-option>
+      <nb-option style="color:gainsboro" [value]="null">Clear</nb-option>
+    </nb-select>
+
+    <nb-select *ngIf="displayCustomerDetailsPage" class="col" placeholder="Select Deposit Account"
+      (selectedChange)="onDepositChange($event)">
+      <nb-option *ngFor="let deposit of depositAccounts" [value]="deposit.accountIdentifier">
+        {{ deposit.accountIdentifier }}
+      </nb-option>
+      <nb-option style="color:gainsboro" [value]="null">Clear</nb-option>
+    </nb-select>
+
+    <nb-select *ngIf="displayCustomerDetailsPage" class="col" placeholder="Select Credit Account"
+      (selectedChange)="onCreditChange($event)">
+      <nb-option *ngFor="let deposit of depositAccounts" [value]="deposit.accountIdentifier">
+        {{ deposit.accountIdentifier }}
+      </nb-option>
+      <nb-option style="color:gainsboro" [value]="null">Clear</nb-option>
+    </nb-select>
+  </div>
+  <br>
+
+  <div *ngIf="displayHomePage">
+    <div class="row">
+      <div class="col-xxl-7">
+        <ngx-dashboard-charts></ngx-dashboard-charts>
+      </div>
+    </div>
 
     <div class="row">
-      <nb-select class="col-sm-3" [(selected)]="selectedOffice" placeholder="Select Office"
-        (selectedChange)="onOfficeChange($event)">
-        <nb-option *ngFor="let office of offices" [value]="office.identifier">
-          {{ office.name }}
-        </nb-option>
-        <nb-option style="color:gainsboro" [value]="null">Clear</nb-option>
-      </nb-select>
-      <nb-select class="col-sm-3" placeholder="Select Customer"
-        (selectedChange)="onCustomerChange($event)">
-        <nb-option *ngFor="let customer of filteredCustomers" [value]="customer.identifier">
-          {{ customer.givenName }} {{ customer.surname }}
-        </nb-option>
-        <nb-option style="color:gainsboro" [value]="null">Clear</nb-option>
-      </nb-select>
-      <nb-checkbox title="Show customer accounting details" (checkedChange)="selectAccounting($event)">
-        Show customer accounting details</nb-checkbox>
-      <div class="col-sm-4"></div>
-    </div>
-    <br>
-
-    <div *ngIf="displayHomePage">
-      <div class="row">
-        <div class="col-xxl-7">
-          <ngx-dashboard-charts></ngx-dashboard-charts>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
-          <ngx-status-card [title]="statusCard.title" [type]="statusCard.type">
-            <i [ngClass]="statusCard.iconClass"></i>
-          </ngx-status-card>
-        </div>
+      <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
+        <ngx-status-card [title]="statusCard.title" [type]="statusCard.type" [data]="statusCard.data">
+          <i [ngClass]="statusCard.iconClass"></i>
+        </ngx-status-card>
       </div>
     </div>
+  </div>
 
-    <div *ngIf="displayCustomerDetailsPage">
+  <div *ngIf="displayCustomerDetailsPage">
 
-      <div class="row">
-        <div class="col-sm-4">
-          <nb-card size="small">
-            <nb-card-body>
-              <div class="center-align-content">
-                <img *hasPermission="{ id: 'customer_portrait' , accessLevel: 'READ' }" [(src)]="safeUrl" alt>
-              </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <nb-card size="small">
+          <nb-card-body>
+            <div class="center-align-content">
+              <img *hasPermission="{ id: 'customer_portrait' , accessLevel: 'READ' }" [(src)]="safeUrl" alt>
+            </div>
 
-              <div class="row center-align-content">
-                <div class="col">
+            <div class="row center-align-content">
+              <div class="col">
 
-                  <div>
-                    <b>Name</b>
-                  </div>
-                  <div>
-                    {{selectedCustomer.givenName}} {{selectedCustomer.surname}}
-                  </div>
-
-                  <b>Contact information</b>
-                  <div [ngSwitch]="detail.type" *ngFor="let detail of selectedCustomer.contactDetails">
-                    <nb-icon *ngSwitchCase="'EMAIL'" icon="email-outline"></nb-icon>
-                    <nb-icon *ngSwitchCase="'PHONE'" icon="phone-outline"></nb-icon>
-                    <nb-icon *ngSwitchCase="'MOBILE'" icon="smartphone-outline"></nb-icon>
-                    <span>&nbsp;{{detail.value}}</span>
-                  </div>
-                  <div *ngIf="!selectedCustomer.contactDetails?.length">
-                    <div>No contact details available</div>
-                  </div>
-
-                  <b>DOB</b>
-                  <div>
-                    <nb-icon icon="gift-outline">
-                    </nb-icon> &nbsp; {{selectedCustomer.dateOfBirth | displayFimsDate}}
-                  </div>
-
+                <div>
+                  <b>Name</b>
                 </div>
+                <div>
+                  {{selectedCustomer.givenName}} {{selectedCustomer.surname}}
+                </div>
+
+                <b>Contact information</b>
+                <div [ngSwitch]="detail.type" *ngFor="let detail of selectedCustomer.contactDetails">
+                  <nb-icon *ngSwitchCase="'EMAIL'" icon="email-outline"></nb-icon>
+                  <nb-icon *ngSwitchCase="'PHONE'" icon="phone-outline"></nb-icon>
+                  <nb-icon *ngSwitchCase="'MOBILE'" icon="smartphone-outline"></nb-icon>
+                  <span>&nbsp;{{detail.value}}</span>
+                </div>
+                <div *ngIf="!selectedCustomer.contactDetails?.length">
+                  <div>No contact details available</div>
+                </div>
+
+                <b>DOB</b>
+                <div>
+                  <nb-icon icon="gift-outline">
+                  </nb-icon> &nbsp; {{selectedCustomer.dateOfBirth | displayFimsDate}}
+                </div>
+
               </div>
+            </div>
 
-            </nb-card-body>
-          </nb-card>
-        </div>
-
-        <div class="col-sm-8">
-          <nb-card size="medium">
-
-          </nb-card>
-        </div>
-
+          </nb-card-body>
+        </nb-card>
       </div>
+
+      <div class="col-sm-9">
+        <nb-card class="container"><br>
+
+          <div *ngIf="!displayAccountDetailsPage" class="row container">
+            <nb-card style="margin-right: 5px;" *ngFor="let deposit of depositAccounts" size="small" class="col-sm-5">
+              <nb-card-header>{{deposit.accountIdentifier}}</nb-card-header>
+              <nb-card-body>
+                <ngx-echarts-pie></ngx-echarts-pie>
+              </nb-card-body>
+            </nb-card>
+          </div>
+
+          <div *ngIf="displayAccountDetailsPage">
+
+            <div class="col-xxl-3">
+
+            </div>
+
+            <div class="col-xxl-3">
+              <ngx-account-activity></ngx-account-activity>
+            </div>
+          </div>
+
+        </nb-card>
+      </div>
+
     </div>
+  </div>
 
-    <div *ngIf="displayCustomerAccountingPage">
+  <div *ngIf="displayCustomerAccountingPage">
 
-    </div>
-
-  </nb-card-body>
-</nb-card>
+  </div>
