@@ -16,6 +16,8 @@ import { DepositEditComponent } from './form/edit.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AccountActivityComponent } from './detail/account-activity/account-activity.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 import {
   NbButtonModule,
   NbStepperModule,
@@ -28,11 +30,16 @@ import {
   NbCheckboxModule,
   NbListModule,
   NbAutocompleteModule,
+  NbTabsetModule,
   NbSelectModule,
   NbAlertModule,
   NbDatepickerModule,
 } from '@nebular/theme';
 import { StoreModule } from '@ngrx/store';
+import { TransactionHistoryComponent } from './detail/transaction-history/transaction-history.component';
+import { InterestRateComponent } from './detail/interest-rate/interest-rate.component';
+import { EchartsPieComponent } from './detail/pie-charts/echarts-pie.component';
+import { AccountDetailsComponent } from './detail/account-details/account-details.component';
 
 @NgModule({
   imports: [
@@ -49,6 +56,7 @@ import { StoreModule } from '@ngrx/store';
     NbListModule,
     NbStepperModule,
     NbRadioModule,
+    NbTabsetModule,
     NbAutocompleteModule,
     NbSelectModule,
     NbAlertModule,
@@ -57,11 +65,15 @@ import { StoreModule } from '@ngrx/store';
     NbEvaIconsModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxEchartsModule,
 
     /**
      * Define feature state
      */
-    StoreModule.forFeature(fromCustomerDeposit.customerDepositFeatureKey, fromCustomerDeposit.reducers),
+    StoreModule.forFeature(
+      fromCustomerDeposit.customerDepositFeatureKey,
+      fromCustomerDeposit.reducers,
+    ),
     EffectsModule.forFeature([
       DepositProductInstanceApiEffects,
       DepositProductInstanceRouteEffects,
@@ -74,6 +86,11 @@ import { StoreModule } from '@ngrx/store';
     DepositCreateComponent,
     DepositEditComponent,
     DepositDetailComponent,
+    AccountActivityComponent,
+    TransactionHistoryComponent,
+    InterestRateComponent,
+    EchartsPieComponent,
+    AccountDetailsComponent,
   ],
   providers: [DepositInstanceExistsGuard],
 })
