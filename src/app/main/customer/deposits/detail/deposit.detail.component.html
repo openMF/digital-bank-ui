@@ -1,11 +1,36 @@
-<nb-card>
+<nb-card *ngIf="(depositInstance$ | async) as instance">
   <nb-card-header>
     <ngx-back-button [navigateBackTo]="['../../../../../../../']"></ngx-back-button>
-    Deposit account
+    {{instance.accountIdentifier}}
   </nb-card-header>
   <nb-card-body>
 
+    <b>Current Balance: 1013 $</b>
+    <ngx-echarts-pie></ngx-echarts-pie>
+
   </nb-card-body>
+</nb-card>
+
+<nb-card>
+  <nb-tabset fullWidth>
+
+    <nb-tab tabTitle="Account Details">
+      <ngx-account-details></ngx-account-details>
+    </nb-tab>
+
+    <nb-tab tabTitle="Recent Activity">
+      <ngx-account-activity></ngx-account-activity>
+    </nb-tab>
+
+    <nb-tab tabTitle="Interest Rate Chart">
+      <ngx-interest-rate></ngx-interest-rate>
+    </nb-tab>
+
+    <nb-tab tabTitle="Transactions">
+      <ngx-transaction-history></ngx-transaction-history>
+    </nb-tab>
+
+  </nb-tabset>
 </nb-card>
 
 <div class="row button-container">

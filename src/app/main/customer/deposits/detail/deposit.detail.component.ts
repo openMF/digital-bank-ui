@@ -12,10 +12,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DepositDetailComponent implements OnInit {
   depositInstance$: Observable<ProductInstance>;
 
-  constructor(private router: Router, private route: ActivatedRoute, private store: Store<fromDeposits.State>) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private store: Store<fromDeposits.State>,
+  ) {}
 
   ngOnInit(): void {
-    this.depositInstance$ = this.store.select(fromDeposits.getSelectedDepositInstance);
+    this.depositInstance$ = this.store.select(
+      fromDeposits.getSelectedDepositInstance,
+    );
   }
 
   issueCheques(): void {
