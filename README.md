@@ -2,6 +2,9 @@
 
 A new reference user interface on Fineract CN for staff of financial institutions such as digital, challenger, and neo-banks that is focused on individual accounts.
 
+
+Discord: https://gitter.im/openMF/digital-bank-ui
+
 ## Getting started
 
 ##### Note: You have to run and provision Fineract CN microservices before running this app. Follow [this](https://cwiki.apache.org/confluence/display/FINERACT/Bare+minimum+to+run+Fineract-CN+locally) link to set up a bare minimum of Fineract CN (or use [docker](https://github.com/apache/fineract-cn-docker-compose) version). Or [this](https://github.com/apache/fineract-cn-demo-server) link to set up all the microservices.
