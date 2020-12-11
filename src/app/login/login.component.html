@@ -11,12 +11,16 @@
       <img src="../../assets/images/apache-fineract-logo.png">
     </div>
 
+    
     <nb-card class="login-form">
       <nb-card-header>Sign in to your account</nb-card-header>
       <nb-card-body>
         <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="login()">
           <div class="form-group row">
-            <label for="tenant" class="label col-sm-3 form-control-label">Tenant</label>
+            <div class=" col-sm-3">
+              <label for="tenant" class="label form-control-label">Tenant</label>
+              <mat-icon class="help-icon" matTooltip="Provide a tenant name" matTooltipPosition="above">help</mat-icon>
+            </div>
             <div class="col-sm-9">
               <input nbInput fullWidth id="tenant" placeholder="Tenant" formControlName="tenant">
               <div *ngIf="tenant.invalid && (tenant.dirty || tenant.touched)">
@@ -25,7 +29,10 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="username" class="label col-sm-3 form-control-label">Username</label>
+            <div class=" col-sm-3">
+              <label for="username" class="label form-control-label">Username</label>
+              <mat-icon class="help-icon" matTooltip="The username is a unique identifier for the user" matTooltipPosition="above">help</mat-icon>
+            </div>
             <div class="col-sm-9">
               <input nbInput fullWidth id="username" placeholder="Username" formControlName="username">
               <div *ngIf="username.invalid && (username.dirty || username.touched)">
@@ -35,7 +42,10 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="password" class="label col-sm-3 form-control-label">Password</label>
+            <div class="col-sm-3">
+              <label for="password" class="label form-control-label">Password</label>
+              <mat-icon class="help-icon" matTooltip="The password which is associated with a unique username" matTooltipPosition="above">help</mat-icon>
+            </div>
             <div class="col-sm-9">
               <nb-form-field>
                 <input [type]="getInputType()" nbInput fullWidth id="password" placeholder="Password"
