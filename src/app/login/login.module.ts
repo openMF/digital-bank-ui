@@ -8,7 +8,7 @@ import { LoginRoutingModule } from './login-routing.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbButtonModule, NbCardModule, NbLayoutModule, NbInputModule, NbIconModule, NbFormFieldModule } from '@nebular/theme';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatIconModule } from "@angular/material/icon";
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
