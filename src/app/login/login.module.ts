@@ -26,7 +26,7 @@ import { MatIconModule } from "@angular/material/icon";
     NbEvaIconsModule,
     CovalentLoadingModule,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
   ],
   declarations: [LoginComponent],
 })
