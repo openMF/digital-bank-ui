@@ -24,7 +24,6 @@
 
 // install the framework and custom global styles
 @include nb-install() {
-
   @include angular-material();
 
   // framework global styles
@@ -37,4 +36,13 @@
 
   @include nb-overrides();
   @include material-overrides();
-};
+}
+
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
