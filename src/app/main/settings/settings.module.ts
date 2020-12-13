@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     NbInputModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
 })
 export class SettingsModule {}
