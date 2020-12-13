@@ -4,6 +4,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { SettingsRoutingModule } from './settings-routing.module';
 import { NbButtonModule, NbCardModule, NbLayoutModule, NbInputModule } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [ChangePasswordComponent],
@@ -17,6 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NbCardModule,
     NbInputModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatTooltipModule
   ],
 })
 export class SettingsModule {}
+
