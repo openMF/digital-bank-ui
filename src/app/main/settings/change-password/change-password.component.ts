@@ -52,6 +52,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.usernameSubscription.unsubscribe();
     this.passwordErrorSubscription.unsubscribe();
+    this.passwordSubscription.unsubscribe();
   }
 
   private createFormGroup(): FormGroup {
@@ -74,8 +75,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
 
   changePassword() {
     const newPassword: string = this.passwordForm.get('newPassword').value;
-
-    if(this.password == newPassword){
+    if (this.password === newPassword) {
       this.error = 'Password is same as previous password, Kindly enter new password.';
     } else {
       this.store.dispatch({
@@ -86,6 +86,5 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
         },
       });
     }
-    
   }
 }
