@@ -1,3 +1,4 @@
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,9 +17,13 @@ import { CHANGE_PASSWORD } from '../../../store/security/security.actions';
 export class ChangePasswordComponent implements OnInit, OnDestroy {
   private usernameSubscription: Subscription;
 
+  private passwordSubscription: Subscription;
+
   private passwordErrorSubscription: Subscription;
 
   private currentUser: string;
+
+  private password: string;
 
   passwordForm: FormGroup;
 
@@ -34,6 +39,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     });
 
     this.usernameSubscription = this.store.select(fromRoot.getUsername).subscribe(username => (this.currentUser = username));
+    this.passwordSubscription = this.store.select(fromRoot.getPassword).subscribe(password => (this.password = password));
 
     this.passwordErrorSubscription = this.store
       .select(fromRoot.getPasswordError)
@@ -69,12 +75,17 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   changePassword() {
     const newPassword: string = this.passwordForm.get('newPassword').value;
 
-    this.store.dispatch({
-      type: CHANGE_PASSWORD,
-      payload: {
-        username: this.currentUser,
-        password: newPassword,
-      },
-    });
+    if(this.password == newPassword){
+      this.error = 'Password is same as previous password, Kindly enter new password.';
+    } else {
+      this.store.dispatch({
+        type: CHANGE_PASSWORD,
+        payload: {
+          username: this.currentUser,
+          password: newPassword,
+        },
+      });
+    }
+    
   }
 }

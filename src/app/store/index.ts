@@ -83,6 +83,7 @@ export const getAuthentication = createSelector(getAuthenticationState, fromAuth
 export const getAuthenticationError = createSelector(getAuthenticationState, fromAuthentication.getError);
 export const getAuthenticationLoading = createSelector(getAuthenticationState, fromAuthentication.getLoading);
 export const getUsername = createSelector(getAuthenticationState, fromAuthentication.getUsername);
+export const getPassword = createSelector(getAuthenticationState, fromAuthentication.getPassword);
 export const getTenant = createSelector(getAuthenticationState, fromAuthentication.getTenant);
 export const getPasswordError = createSelector(getAuthenticationState, fromAuthentication.getPasswordError);
 

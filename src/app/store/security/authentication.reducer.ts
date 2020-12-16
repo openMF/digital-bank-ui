@@ -5,6 +5,7 @@ import { Authentication } from '../../services/identity/domain/authentication.mo
 export interface State {
   username: string;
   tenant: string;
+  password: string;
   authentication: Authentication;
   loading: boolean;
   error: Error;
@@ -14,6 +15,7 @@ export interface State {
 const initialState: State = {
   username: null,
   tenant: null,
+  password: null,
   authentication: null,
   loading: false,
   error: null,
@@ -35,6 +37,7 @@ export function reducer(state = initialState, action: security.Actions): State {
         authentication: payload.authentication,
         username: payload.username,
         tenant: payload.tenant,
+        password: payload.password,
       });
     }
 
@@ -75,6 +78,8 @@ export const getAuthentication = (state: State) => state.authentication;
 export const getTenant = (state: State) => state.tenant;
 
 export const getUsername = (state: State) => state.username;
+
+export const getPassword = (state: State) => state.password;
 
 export const getError = (state: State) => state.error;
 

@@ -33,6 +33,7 @@ export interface LoginPayload {
 export interface LoginSuccessPayload {
   username: string;
   tenant: string;
+  password: string;
   authentication: Authentication;
 }
 
