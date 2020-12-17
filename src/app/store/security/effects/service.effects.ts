@@ -28,6 +28,7 @@ export class SecurityApiEffects {
               username: payload.username,
               tenant: payload.tenant,
               authentication: authentication,
+              password: payload.password,
             },
           ),
         ),
