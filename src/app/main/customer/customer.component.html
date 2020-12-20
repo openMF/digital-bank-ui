@@ -2,8 +2,7 @@
 <nb-search type="modal-move"></nb-search>
 <br>
 
-<ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onCustomerRowSelect($event)"
-  (custom)="onCustomAction($event)">
+<ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onCustomerRowSelect($event)">
 </ng2-smart-table>
 
 <div class="row pager-buttons" *ngIf="!loading">
