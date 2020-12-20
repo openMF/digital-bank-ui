@@ -26,6 +26,9 @@
     margin: 0 1rem;
   }
 }
+:host /deep/ ng2-smart-table table > tbody > tr > td:hover {
+  cursor: pointer;
+}
 
 :host /deep/ ng2-smart-table table > tbody > tr > td {
   font-size: 0.8rem;
@@ -47,7 +50,10 @@
   height: 0 !important;
 }
 
-:host /deep/ ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom {
+:host
+  /deep/
+  ng2-st-tbody-custom
+  a.ng2-smart-action.ng2-smart-action-custom-custom {
   display: inline-block;
   height: auto;
   width: 90px;
@@ -55,6 +61,9 @@
   font-size: 0.8rem !important;
 }
 
-:host /deep/ ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
+:host
+  /deep/
+  ng2-st-tbody-custom
+  a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
   color: #5dcfe3;
 }

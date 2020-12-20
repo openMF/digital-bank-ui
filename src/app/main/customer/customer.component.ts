@@ -213,7 +213,6 @@ export class CustomerComponent implements OnInit {
 
   /** Customer row select event  */
   onCustomerRowSelect(event: any): void {
-    console.log(event.data);
     const customer = event.data;
     this.router.navigate(['detail', customer.identifier], { relativeTo: this.route });
   }
