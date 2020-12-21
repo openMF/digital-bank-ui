@@ -76,7 +76,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   changePassword() {
     const newPassword: string = this.passwordForm.get('newPassword').value;
     if (this.password === newPassword) {
-      this.error = 'Password violates our password policy';
+      this.error = 'Password violates our password policy (New password same as old password)';
     } else {
       this.store.dispatch({
         type: CHANGE_PASSWORD,
