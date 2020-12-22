@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Role } from '../../../services/identity/domain/role.model';
@@ -28,7 +28,6 @@ export class UserFormComponent implements OnInit {
   }
 
   title: String;
-  
   feedbackArr: Array<Object> = [];
 
   @Output() onSave = new EventEmitter<UserWithPassword>();
@@ -45,14 +44,12 @@ export class UserFormComponent implements OnInit {
   }
 
   prepareForm(user: User): void {
-    const passwordValidators: ValidatorFn[] = [Validators.minLength(8), Validators.pattern(/[A-Z]/), 
-                                                Validators.pattern(/[a-z]/), Validators.pattern(/[0-9]/),
-                                                Validators.pattern(/[!@#$%*]/)];
+    const passwordValidators: ValidatorFn[] = [Validators.minLength(8), Validators.pattern(/[A-Z]/),
+    Validators.pattern(/[a-z]/), Validators.pattern(/[0-9]/), Validators.pattern(/[!@#$%*]/)];
 
     if (!this.editMode) {
       passwordValidators.push(Validators.required);
     }
-    
     this.detailForm = this.formBuilder.group({
       identifier: [user.identifier, [Validators.required, Validators.minLength(3), Validators.maxLength(32), FimsValidators.urlSafe]],
       password: ['', passwordValidators],
@@ -85,7 +82,7 @@ export class UserFormComponent implements OnInit {
   }
 
   isLengthMet(password: string): boolean {
-    if(password.length >= 8) {
+    if (password.length >= 8) {
       this.feedbackArr.push({'label': `Minimum 8 characters`, status: true});
       return true;
     } else {
@@ -94,7 +91,7 @@ export class UserFormComponent implements OnInit {
     }
   }
   isSpecialCharMet(password: string): boolean {
-    if( (/[!@#$%*]/).test(password) ){
+    if ( (/[!@#$%*]/).test(password) ) {
       this.feedbackArr.push({'label': `One special characters`, status: true});
       return true;
     } else {
@@ -103,7 +100,7 @@ export class UserFormComponent implements OnInit {
     }
   }
   isNumberMet(password: string): boolean {
-    if((/[0-9]/).test(password)) {
+    if ( (/[0-9]/).test(password) ) {
       this.feedbackArr.push({'label': `One number`, status: true});
       return true;
     } else {
@@ -112,7 +109,7 @@ export class UserFormComponent implements OnInit {
     }
   }
   isSmallcaseMet(password: string): boolean {
-    if( (/[a-z]/).test(password) ) {
+    if ( (/[a-z]/).test(password) ) {
       this.feedbackArr.push({'label': `One smallcase character`, status: true});
       return true;
     } else {
@@ -121,7 +118,7 @@ export class UserFormComponent implements OnInit {
     }
   }
   isUppercaseMet(password: string): boolean {
-    if( (/[A-Z]/).test(password) ) {
+    if ( (/[A-Z]/).test(password) ) {
       this.feedbackArr.push({'label': `One uppercase character`, status: true});
       return true;
     } else {
