@@ -61,19 +61,7 @@ export class CustomerComponent implements OnInit {
 
   /** Settings for smart-table */
   settings = {
-    selectMode: 'multi',
-    mode: 'external',
-    actions: {
-      custom: [
-        {
-          name: 'View',
-          title: 'View',
-        },
-      ],
-      add: false,
-      edit: false,
-      delete: false,
-    },
+    actions: false,
     columns: {
       identifier: {
         title: 'ID',
@@ -103,7 +91,10 @@ export class CustomerComponent implements OnInit {
         renderComponent: CustomDateRenderComponent,
       },
     },
-    pager: false,
+    mode: 'external',
+    pager: {
+      display: false,
+    },
   };
 
   constructor(
@@ -222,7 +213,8 @@ export class CustomerComponent implements OnInit {
 
   /** Customer row select event  */
   onCustomerRowSelect(event: any): void {
-    // const data = event.data;
+    const customer = event.data;
+    this.router.navigate(['detail', customer.identifier], { relativeTo: this.route });
   }
 
   onCustomAction(event: any): void {
