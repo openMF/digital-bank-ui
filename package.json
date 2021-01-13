@@ -91,7 +91,7 @@
     "@angular/language-service": "9.0.4",
     "@compodoc/compodoc": "1.1.11",
     "@fortawesome/fontawesome-free": "^5.2.0",
-    "@types/d3-color": "1.0.5",
+    "@types/d3-color": "1.4.1",
     "@types/jasmine": "2.5.54",
     "@types/jasminewd2": "2.0.3",
     "@types/leaflet": "1.2.3",
