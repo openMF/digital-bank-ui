@@ -42,7 +42,7 @@
     "@angular/platform-browser": "^9.0.4",
     "@angular/platform-browser-dynamic": "^9.0.4",
     "@angular/router": "^9.0.4",
-    "@asymmetrik/ngx-leaflet": "3.0.1",
+    "@asymmetrik/ngx-leaflet": "3.1.0",
     "@covalent/core": "3.0.1",
     "@nebular/auth": "5.0.0",
     "@nebular/eva-icons": "5.0.0",
