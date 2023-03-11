@@ -26,34 +26,31 @@
     margin: 0 1rem;
   }
 }
-:host /deep/ ng2-smart-table table > tbody > tr > td:hover {
+:host ng2-smart-table table > tbody > tr > td:hover {
   cursor: pointer;
 }
 
-:host /deep/ ng2-smart-table table > tbody > tr > td {
+:host ng2-smart-table table > tbody > tr > td {
   font-size: 0.8rem;
 }
 
-:host /deep/ ng2-smart-table table > thead > tr > th {
+:host ng2-smart-table table > thead > tr > th {
   font-size: 0.8rem;
   a {
     font-size: 0.8rem;
   }
 }
 
-:host /deep/ ng2-smart-table .ng2-smart-action-multiple-select > input {
+:host ng2-smart-table .ng2-smart-action-multiple-select > input {
   font-size: 0.1rem;
 }
 
-:host /deep/ ng2-st-tbody-edit-delete {
+:host ng2-st-tbody-edit-delete {
   display: flex !important;
   height: 0 !important;
 }
 
-:host
-  /deep/
-  ng2-st-tbody-custom
-  a.ng2-smart-action.ng2-smart-action-custom-custom {
+:host ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom {
   display: inline-block;
   height: auto;
   width: 90px;
@@ -61,9 +58,6 @@
   font-size: 0.8rem !important;
 }
 
-:host
-  /deep/
-  ng2-st-tbody-custom
-  a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
+:host ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
   color: #5dcfe3;
 }
