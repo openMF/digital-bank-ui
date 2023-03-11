@@ -45,7 +45,7 @@
     "@asymmetrik/ngx-leaflet": "3.0.1",
     "@covalent/core": "3.0.1",
     "@nebular/auth": "5.0.0",
-    "@nebular/eva-icons": "5.0.0",
+    "@nebular/eva-icons": "5.1.0",
     "@nebular/security": "5.0.0",
     "@nebular/theme": "5.0.0",
     "@ngrx/core": "^1.2.0",
